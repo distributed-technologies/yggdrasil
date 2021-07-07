@@ -1,27 +1,24 @@
 # This values is if you want to use paths instead of subdomains.
-ingressDomain: dev.garagen
-clusterNetworking: 
-  ipRangeStart: 192.168.1.40
-  # ipRangeStop is both the ipRangeStop but also the ingress loadBalancerIP
-  ipRangeStop: 192.168.1.49
+ingressDomain: dev2.eloprindelse.dk
+
 
 applications: 
-#  - ingress
+ - ingress
 #  - cert-manager
 #  - cert-manager-issuer 
 #  - argowf
 #  - argo-events
 #  - harbor
 #  - vault
-#  - prometheus
-#  - thanos
-#  - grafana
-#  - loki
-#  - jaeger-operator
+ - prometheus
+ - thanos
+ - grafana
+ - loki
+ - jaeger-operator
 #  - rook
 #  - ceph
 #  - loadbalancer
 #  - cache
-#  - kafka
+ - kafka
 #  - nifi
 #  - influxdb
