@@ -7,21 +7,21 @@ clusterNetworking:
   ipRangeStop: 172.18.0.19
 
 applications: 
- - ingress
+# - ingress
 #  - cert-manager
 #  - cert-manager-issuer 
 #  - argowf
 #  - argo-events
 #  - harbor
 #  - vault
- - prometheus
- - thanos
- - grafana
- - loki
- - jaeger-operator
+# - prometheus
+# - thanos
+# - grafana
+# - loki
+# - jaeger-operator
  - rook
  - ceph
- - loadbalancer
+# - loadbalancer
 #  - cache
  - kafka
 #  - nifi
