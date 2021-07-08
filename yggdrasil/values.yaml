@@ -1,6 +1,10 @@
 # This values is if you want to use paths instead of subdomains.
 ingressDomain: dev2.eloprindelse.dk
 
+clusterNetworking: 
+  ipRangeStart: 172.18.0.10
+  # ipRangeStop is both the ipRangeStop but also the ingress loadBalancerIP
+  ipRangeStop: 172.18.0.19
 
 applications: 
  - ingress
@@ -17,7 +21,7 @@ applications:
  - jaeger-operator
 #  - rook
 #  - ceph
-#  - loadbalancer
+ - loadbalancer
 #  - cache
  - kafka
 #  - nifi

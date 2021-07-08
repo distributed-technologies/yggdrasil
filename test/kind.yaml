@@ -12,14 +12,5 @@ nodes:
     - containerPort: 30080
       hostPort: 30080
   - role: worker
-    extraMounts:
-    - hostPath: /dev/sdc
-      containerPath: /dev/sda
   - role: worker
-    extraMounts:
-    - hostPath: /dev/sdd
-      containerPath: /dev/sda
   - role: worker
-    extraMounts:
-    - hostPath: /dev/sde
-      containerPath: /dev/sda
