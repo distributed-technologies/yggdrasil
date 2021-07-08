@@ -19,8 +19,8 @@ applications:
  - grafana
  - loki
  - jaeger-operator
-#  - rook
-#  - ceph
+ - rook
+ - ceph
  - loadbalancer
 #  - cache
  - kafka
