@@ -1,7 +1,7 @@
 # A reference to this repo itself.
 yggdrasil:
   repoURL: "https://github.com/distributed-technologies/yggdrasil.git"
-  targetRevision: "HEAD"
+  targetRevision: "feature/enable-oci-repositories"
 
 installCNI: true
 
