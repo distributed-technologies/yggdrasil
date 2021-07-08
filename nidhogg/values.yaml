@@ -41,10 +41,6 @@ argo-cd:
         - type: helm
           url: https://confluentinc.github.io/cp-helm-charts/
           name: cp-helm-charts
-        - type: helm
-          url: oci://kahyt.azurecr.io/test-repo/services-kafka
-          name: services-kafka
-          enableOCI: true
       resource.customizations: |
         admissionregistration.k8s.io/MutatingWebhookConfiguration:
           ignoreDifferences: |
