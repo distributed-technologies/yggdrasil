@@ -15,6 +15,6 @@ apps:
     source:
       repoURL: "kahyt.azurecr.io/test-repo/services-kafka"
       targetRevision: v0.1.0
-      path: test-repo/chart
+      path: chart
       valuesFile: "kafka.yaml"
       enableOCI: true
