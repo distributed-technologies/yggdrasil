@@ -16,4 +16,3 @@ apps:
       repoURL: "https://artifacthub.io/packages/helm/test-kafka/services-kafka"
       targetRevision: v0.1.0
       path: chart
-      enableOCI: true
