@@ -1,9 +1,9 @@
 # A reference to this repo itself.
 yggdrasil:
   repoURL: "https://github.com/Energy-Track-and-Trace/ett-base-environment.git"
-  targetRevision: "HEAD"
+  targetRevision: "kind-configuration"
 
-installCNI: false
+installCNI: true
 
 argo-cd: 
   controller: 
