@@ -22,6 +22,6 @@ applications:
 #  - ceph
 #  - loadbalancer
 #  - cache
-#  - kafka
+  - kafka
 #  - nifi
 #  - influxdb

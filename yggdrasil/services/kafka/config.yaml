@@ -13,7 +13,7 @@ apps:
   - name: kafka
     replace: true
     source:
-      repoURL: "https://github.com/distributed-technologies/services-kafka.git"
-      targetRevision: main
+      repoURL: "oci://kahyt.azurecr.io/test-repo/services-kafka"
+      targetRevision: v0.1.0
       path: chart
       valuesFile: "kafka.yaml"
