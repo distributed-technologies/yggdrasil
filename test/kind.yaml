@@ -1,9 +1,5 @@
 apiVersion: kind.x-k8s.io/v1alpha4
 kind: Cluster
-containerdConfigPatches:
-  - |-
-    [plugins."io.containerd.grpc.v1.cri".registry.mirrors."docker.io"]
-      endpoint = ["http://proxy:5000"]
 networking:
   disableDefaultCNI: true
 nodes:
@@ -12,14 +8,5 @@ nodes:
     - containerPort: 30080
       hostPort: 30080
   - role: worker
-    extraMounts:
-    - hostPath: /dev/sdc
-      containerPath: /dev/sda
   - role: worker
-    extraMounts:
-    - hostPath: /dev/sdd
-      containerPath: /dev/sda
   - role: worker
-    extraMounts:
-    - hostPath: /dev/sde
-      containerPath: /dev/sda
