@@ -23,16 +23,16 @@ apps:
         repoURL: "https://github.com/Energy-Track-and-Trace/ett-emissions.git"
         targetRevision: HEAD
         path: chart
-        valuesFile: "ett-auth-service.yaml"
+        valuesFile: "ett-emissions.yaml"
   - name: ett-measurements
       source:
         repoURL: "https://github.com/Energy-Track-and-Trace/ett-measurements.git"
         targetRevision: HEAD
         path: chart
-        valuesFile: "ett-auth-service.yaml"
+        valuesFile: "ett-measurements.yaml"
   - name: ett-meteringpoints
       source:
         repoURL: "https://github.com/Energy-Track-and-Trace/ett-meteringpoints.git"
         targetRevision: HEAD
         path: chart
-        valuesFile: "ett-auth-service.yaml"
+        valuesFile: "ett-meteringpoints.yaml"
