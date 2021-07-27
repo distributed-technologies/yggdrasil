@@ -27,3 +27,6 @@ applications:
 #  - nifi
 #  - influxdb
  - ett-auth-service
+ - ett-emissions
+ - ett-measurements
+ - ett-meteringpoints
