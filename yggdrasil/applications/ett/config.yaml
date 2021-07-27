@@ -1,0 +1,20 @@
+name: ett
+namespace: ett
+description: Energy Track and Trace
+
+
+project:
+  name: ett
+  server: https://kubernetes.default.svc
+  sourceRepos:
+    - '*'
+  destinations: 
+    - namespace: kube-system
+      server: https://kubernetes.default.svc
+apps:
+  - name: ett-auth-service
+    source:
+      repoURL: "https://github.com/Energy-Track-and-Trace/ett-auth-service.git"
+      targetRevision: HEAD
+      path: chart
+      valuesFile: "ett-auth-service.yaml"
