@@ -15,24 +15,24 @@ apps:
   - name: ett-auth
     source:
       repoURL: "https://github.com/Energy-Track-and-Trace/ett-auth.git"
-      targetRevision: helm-chart
+      targetRevision: main
       path: chart
       valuesFile: "ett-auth-service.yaml"
   - name: ett-emissions
     source:
       repoURL: "https://github.com/Energy-Track-and-Trace/ett-emissions.git"
-      targetRevision: helm-chart
+      targetRevision: main
       path: chart
       valuesFile: "ett-emissions.yaml"
   - name: ett-measurements
     source:
       repoURL: "https://github.com/Energy-Track-and-Trace/ett-measurements.git"
-      targetRevision: helm-chart
+      targetRevision: main
       path: chart
       valuesFile: "ett-measurements.yaml"
   - name: ett-meteringpoints
     source:
       repoURL: "https://github.com/Energy-Track-and-Trace/ett-meteringpoints.git"
-      targetRevision: helm-chart
+      targetRevision: main
       path: chart
       valuesFile: "ett-meteringpoints.yaml"
