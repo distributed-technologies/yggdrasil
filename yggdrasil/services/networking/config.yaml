@@ -1,5 +1,4 @@
 name: networking
-clusterService: true
 namespace: networking
 description: networking services like ingress, cert-manager.
 
@@ -16,18 +15,12 @@ apps:
   - name: ingress
     source:
       repoURL: "https://github.com/distributed-technologies/services-ingress.git"
-      targetRevision: HEAD
+      targetRevision: v0.2.0
       path: chart
       valuesFile: "ingress.yaml"
   - name: cert-manager
     source:
       repoURL: "https://github.com/distributed-technologies/service-cert-manager.git"
-      targetRevision: main
+      targetRevision: 0.1.0
       path: chart
       valuesFile: "cert-manager.yaml"
-  - name: cert-manager-issuer
-    source:
-      repoURL: "https://github.com/Open-Olympus-Project/k8s-certmanager.git"
-      targetRevision: dependency
-      path: cert-manager-issuer
-      valuesFile: "cert-manager-issuer.yaml"

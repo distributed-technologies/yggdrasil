@@ -22,22 +22,33 @@ Services that run on the cluster are the applications that are needed for cluste
 This section describes the two charts found in Yggdrasil, Nidhogg and Yggdrasil. 
 
 ### Nidhogg
-Nidhogg is the first Helm chart to be installed and it bootstraps all the applications in our cluster. Contained in Nidhogg is two dependencies: ArgoCD and a CNI(container network interface). The CNI can be disabled by default in case your cluster already has a CNI. The chart also contains a reference to Yggdrasil. This will deploy everything within the Yggdrasil chart.
-This can seen in the following image.
-<img src="docs/images/cluster.png">
+Nidhogg is the first Helm chart to be installed and it bootstraps all the applications in our cluster. The Nidhogg chart has a single dependency which is on the Nidhogg release from [this repository](https://github.com/distributed-technologies/nidhogg). Contained in this Nidhogg release is two dependencies: ArgoCD and a CNI(container network interface). The CNI can be disabled by default in case your cluster already has a CNI. The chart also contains a reference to Yggdrasil. This will deploy everything within the Yggdrasil chart.
+This is illustrated in the following image.
+<img src="docs/images/newCluster.png">
 
-As stated, Nidhogg also contains a reference to Yggdrasil, which will be deployed onto the cluster as well. Since Yggdrasil is the chart that holds all the applications and services that will be deployed onto the cluster, this is done automatically when Yggrasil is deployed.
+As stated, Nidhogg also contains a reference to Yggdrasil, which will be deployed onto the cluster. Yggdrasil is the chart that holds references to all the applications and services that will be deployed onto the cluster. This deployment happens automatically when Nidhogg and ArgoCD are deployed.
+
+### Lightvessel
+Lightvessel is a repository that holds all the templates necessary to deploy services and applications on the cluster. This is templated into Yggdrasil with the `define`-block from Helm. It was decided to separate this code from Yggdrasil to lower the need for updating your own cloned or forked code. Instead, we will release versions of Lightvessel and getting the newest update is as easy as changing the version on the dependency in Yggdrasil. The current templates are: 
+- _application.yaml: Where the application is defined, a source provided and a target provided.
+- _namespace.yaml: Where the namespace is defined.
+- _project.yaml: Where the ArgoCD project is defined if the application should be in a project. 
+- _ingress.yaml: Where Ingress is specified. 
 
 ### Yggdrasil
-Yggdrasil is the chart in which both developers and 3rd party developers will need to add their deployments into, to deploy them onto the cluster. Kubernetes manifests are generated using four Helm templates in the templates folder of the chart:
-- application.yaml: Where the application is defined, a source provided and a target provided.
-- namespace.yaml: Where the namespace is defined.
-- project.yaml: Where the ArgoCD project is defined if the application should be in a project. 
-- ingress.yaml: Where Ingress is specified. 
+Yggdrasil is the chart in which both developers and 3rd party developers will need to add their deployments into, to deploy them onto the cluster. Kubernetes manifests are generated using Helm templates from Lightvessel.
 
-These files will automatically generate new manifests when another application is created in Yggdrasil. This will be further elaborated in [How to add an application](#how-to-add-an-application).
+These templates will automatically generate new manifests when another application is created in Yggdrasil. This will be further elaborated in [How to add an application](#how-to-add-an-application).
 
-In the next section, it will be described how to create the config and values file needed to deploy your application to the cluster. 
+In the next section, it will be described how to create your own cluster from this project. 
+
+# How to create your own cluster
+Many of the design choices for Yggdrasil have been made to make it easier for internal and external organizations or developers to create their own cluster. Lightvessel and the Nidhogg release were made specifically so that there will rarely ever be a need to merge changes in from our version of Yggdrasil. The changes we make will be released in a Lightvessel or Nidhogg release and therefore it is only necessary to change the dependency version. This means that when you would like to create a new cluster, you can simply **clone** or **fork** this repository. 
+
+### Cluster specific values
+The developers from Distributed Technologies at Energinet will not know your specific cluster details. Therefore, you have to define these yourself. Most of the cluster-specific values can be found and set in the file `nidhogg/values.yaml`. Included in these values is whether not to enable the CNI, the loadbalancer IPs and the IngressDomain. When these values have been set, you are now ready to [install the chart](#installing-chart). 
+
+In the next section, it will be described how to create the config and values file needed to deploy applications to the cluster. 
 
 # How to add an application
 The workflow for deploying applications on the cluster is shown in the image below. 
@@ -54,7 +65,6 @@ An example of the config.yaml is seen here:
 ```
 name: <appname>
 # whether it is a cluster service
-clusterService: <bool>
 namespace: <namespace>
 description: <description>
 

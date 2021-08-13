@@ -1,5 +1,4 @@
 name: cache
-clusterService: true
 namespace: cache
 description: Pull-through cache.
 
@@ -13,6 +12,6 @@ apps:
   - name: cache
     source:
       repoURL: "https://github.com/distributed-technologies/services-cache.git"
-      targetRevision: initial-cache
+      targetRevision: 0.1.0
       path: chart
       valuesFile: "cache.yaml"

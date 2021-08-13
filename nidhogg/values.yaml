@@ -1,66 +1,72 @@
-# A reference to this repo itself.
-yggdrasil:
-  repoURL: "https://github.com/Energy-Track-and-Trace/ett-base-environment.git"
-  targetRevision: "HEAD"
+nidhogg:
+  yggdrasil:
+    repoURL: "https://github.com/Energy-Track-and-Trace/ett-base-environment.git"
+    targetRevision: "main"
 
-installCNI: false
+    # ingressDomain: your-ingress-domain-here
+    # clusterNetworking:
+      # ipRangeStart: 0.0.0.0
+      # ipRangeStop is both the ipRangeStop but also the ingress loadBalancerIP
+      # ipRangeStop: 0.0.0.0
 
-argo-cd: 
-  controller: 
-    replicas: 3
-    env:
-      - name: "ARGOCD_CONTROLLER_REPLICAS"
-        value: "3"
-    enableStatefulSet: true
-  redis-ha: 
-    enabled: true
-  redis:
-    enabled: false
-  server:   
-    replicas: 3
-    config:
-      repositories: |
-        - type: helm
-          url: https://argoproj.github.io/argo-helm
-          name: argoproj
-        - type: helm
-          url: https://distributed-technologies.github.io/helm-repository/
-          name: dt-helmrepo
-        - type: helm
-          url: https://kubernetes.github.io/kube-state-metrics
-          name: metrics
-        - type: helm
-          url: https://prometheus-community.github.io/helm-charts
-          name: node-exporter
-        - type: helm
-          url: https://grafana.github.io/helm-charts
-          name: grafana
-        - type: helm
-          url: https://strimzi.io/charts/
-          name: strimzi-kafka-operator
-        - type: helm
-          url: https://confluentinc.github.io/cp-helm-charts/
-          name: cp-helm-charts
-      resource.customizations: |
-        admissionregistration.k8s.io/MutatingWebhookConfiguration:
-          ignoreDifferences: |
-            jsonPointers:
-            - /webhooks/0/clientConfig/caBundle
-        admissionregistration.k8s.io/ValidatingWebhookConfiguration:
-          ignoreDifferences: |
-            jsonPointers:
-            - /webhooks/0/clientConfig/caBundle
-            - /webhooks/0/namespaceSelector/matchExpressions/2
-        networking.k8s.io/Ingress:
-          health.lua: |
-            hs = {}
-            hs.status = "Healthy"
-            return hs
-    service: 
-      type: NodePort
+  installCNI: true
 
-  configs:
-    secret:
-      # This is not a secret password. It is okay to be on github
-      argocdServerAdminPassword: $2y$12$m4KC7G9d8NFxInl7GRpQ1OpPPrF43Msa33ZQjj0YmT6f8uwjHW8AO
-      argocdServerAdminPasswordMtime: "2021-01-02T15:04:05Z"
+  argo-cd:
+    controller:
+      replicas: 3
+      env:
+        - name: "ARGOCD_CONTROLLER_REPLICAS"
+          value: "3"
+      enableStatefulSet: true
+    redis-ha:
+      enabled: true
+    redis:
+      enabled: false
+    server:
+      replicas: 3
+      config:
+        repositories: |
+          - type: helm
+            url: https://argoproj.github.io/argo-helm
+            name: argoproj
+          - type: helm
+            url: https://distributed-technologies.github.io/helm-repository/
+            name: dt-helmrepo
+          - type: helm
+            url: https://kubernetes.github.io/kube-state-metrics
+            name: metrics
+          - type: helm
+            url: https://prometheus-community.github.io/helm-charts
+            name: node-exporter
+          - type: helm
+            url: https://grafana.github.io/helm-charts
+            name: grafana
+          - type: helm
+            url: https://strimzi.io/charts/
+            name: strimzi-kafka-operator
+          - type: helm
+            url: https://confluentinc.github.io/cp-helm-charts/
+            name: cp-helm-charts
+        resource.customizations: |
+          admissionregistration.k8s.io/MutatingWebhookConfiguration:
+            ignoreDifferences: |
+              jsonPointers:
+              - /webhooks/0/clientConfig/caBundle
+          admissionregistration.k8s.io/ValidatingWebhookConfiguration:
+            ignoreDifferences: |
+              jsonPointers:
+              - /webhooks/0/clientConfig/caBundle
+              - /webhooks/0/namespaceSelector/matchExpressions/2
+          networking.k8s.io/Ingress:
+            health.lua: |
+              hs = {}
+              hs.status = "Healthy"
+              return hs
+      service:
+        type: NodePort
+
+    configs:
+      secret:
+        # This is not a secret password. It is okay to be on github
+        argocdServerAdminPassword: $2y$12$m4KC7G9d8NFxInl7GRpQ1OpPPrF43Msa33ZQjj0YmT6f8uwjHW8AO
+        argocdServerAdminPasswordMtime: "2021-01-02T15:04:05Z"
