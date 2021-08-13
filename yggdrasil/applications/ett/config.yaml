@@ -15,7 +15,7 @@ apps:
   - name: ett-auth
     source:
       repoURL: "https://github.com/Energy-Track-and-Trace/ett-auth.git"
-      targetRevision: ingress-auth
+      targetRevision: main
       path: chart
       valuesFile: "ett-auth-service.yaml"
   - name: ett-emissions
@@ -27,7 +27,7 @@ apps:
   - name: ett-measurements
     source:
       repoURL: "https://github.com/Energy-Track-and-Trace/ett-measurements.git"
-      targetRevision: ingress-auth
+      targetRevision: main
       path: chart
       valuesFile: "ett-measurements.yaml"
   - name: ett-meteringpoints
