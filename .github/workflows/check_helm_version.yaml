@@ -30,7 +30,7 @@ jobs:
 
       - name: Get helm chart version
         run: | 
-          echo HELM_VERSION=$(grep "version: " nidhogg/Chart.yaml | cut -f2 -d' ') >> $GITHUB_ENV
+          echo HELM_VERSION=$(grep "version: " yggdrasil/Chart.yaml | cut -f2 -d' ') >> $GITHUB_ENV
           
       - name: Print version
         run: echo ${{ env.HELM_VERSION }}

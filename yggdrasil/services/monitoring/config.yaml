@@ -1,5 +1,4 @@
 name: monitoring
-clusterService: true
 namespace: monitoring
 description: All the monitoring apps, including but not limited to prometheus, grafana, thanos, loki. 
 
@@ -18,7 +17,7 @@ apps:
   - name: prometheus
     source:
       repoURL: 'https://github.com/distributed-technologies/prometheus.git'
-      targetRevision: development
+      targetRevision: v0.1.0
       path: chart
       valuesFile: "prometheus.yaml"
     ingress:
@@ -31,14 +30,14 @@ apps:
   - name: thanos
     source:
       repoURL: 'https://github.com/distributed-technologies/services-thanos.git'
-      targetRevision: main 
+      targetRevision: v0.1.0 
       path: chart
       valuesFile: "thanos.yaml"
   - name: grafana
     source:
-      repoURL: 'https://github.com/Open-Olympus-Project/tooling-grafana.git'
-      targetRevision: dependency
-      path: grafana
+      repoURL: 'https://github.com/distributed-technologies/services-grafana.git'
+      targetRevision: 0.1.2
+      path: chart
       valuesFile: "grafana.yaml"
     ingress:  
       - subDomain: grafana
@@ -49,13 +48,13 @@ apps:
           traefik.ingress.kubernetes.io/router.entrypoints: web
   - name: loki
     source:
-      repoURL: 'https://github.com/Open-Olympus-Project/tooling-loki.git'
-      targetRevision: dependency 
-      path: loki
+      repoURL: 'https://github.com/distributed-technologies/services-loki.git'
+      targetRevision: 0.1.0 
+      path: chart
       valuesFile: "loki.yaml"
   - name: jaeger-operator
     source:
       repoURL: 'https://github.com/distributed-technologies/services-jaeger.git'
-      targetRevision: main
+      targetRevision: v0.1.0
       path: chart
       valuesFile: "jaeger-operator.yaml"
