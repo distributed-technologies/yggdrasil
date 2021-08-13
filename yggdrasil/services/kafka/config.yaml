@@ -1,5 +1,4 @@
 name: kafka
-clusterService: true
 namespace: kafka
 description: Kafka.
 
@@ -14,6 +13,6 @@ apps:
     replace: true
     source:
       repoURL: "https://github.com/distributed-technologies/services-kafka.git"
-      targetRevision: main
+      targetRevision: v0.1.0
       path: chart
       valuesFile: "kafka.yaml"

@@ -1,0 +1,17 @@
+name: example-guestbook
+namespace: example-guestbook
+description: example-guestbook.
+
+project:
+  name: example-guestbook
+  server: https://kubernetes.default.svc
+  sourceRepos:
+    - '*'
+
+apps:
+  - name: example-guestbook
+    source:
+      repoURL: "https://github.com/distributed-technologies/example-guestbook.git"
+      targetRevision: main
+      path: chart
+      valuesFile: "example-guestbook.yaml"

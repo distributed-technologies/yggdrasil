@@ -1,0 +1,33 @@
+# NOTICE: This workflow builds the helm chart in the folder named 'chart' and releases it with the version in the Chart.yaml file. If your helm chart is located elsewere you will need to update this.
+name: Build and release helm chart
+ 
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Find tag from helm chart
+        run: |
+          echo HELM_VERSION=$(grep "version: " yggdrasil/Chart.yaml | cut -f2 -d' ') >> $GITHUB_ENV
+    
+      - name: helm dependency update 
+        run: helm dependency update yggdrasil          
+
+      - name: Helm lint
+        run: helm lint yggdrasil
+
+      # Create the release
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with: 
+          tag_name: ${{ env.HELM_VERSION }}
+          release_name: Release ${{ env.HELM_VERSION }}
+          draft: false
+          prerelease: false

@@ -1,17 +1,1 @@
-{{- $root := . -}}
-{{- range $path, $_ := .Files.Glob "**/**/config.yaml" }}
-  {{ $project := $root.Files.Get $path | fromYaml }}
-  {{ $createAppProject := 0 }}
-  {{- range $project.apps }}
-    {{- if has .name $root.Values.applications -}}
-      {{- $createAppProject = 1 -}}
-    {{- end -}}
-  {{ end }}
-  {{ if $createAppProject }}
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: {{ $project.namespace }}
-  {{- end }}
-{{- end }}
+{{ template "namespace" . }}
