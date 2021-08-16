@@ -17,7 +17,7 @@ applications:
   influxdb:               false
   ingress:                true
   jaeger-operator:        true
-  kafka:                  true
+  kafka:                  false
   loadbalancer:           false
   loki:                   true
   nifi:                   false
@@ -25,6 +25,7 @@ applications:
   rook:                   false
   thanos:                 true
   vault:                  false
+  ett-kafka:              true
   ett-auth:               true
   ett-emissions:          true
   ett-measurements:       true
