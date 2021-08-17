@@ -3,11 +3,12 @@ nidhogg:
     repoURL: "https://github.com/Energy-Track-and-Trace/ett-base-environment.git"
     targetRevision: "kind-configuration"
 
-    # ingressDomain: your-ingress-domain-here
-    # clusterNetworking:
-      # ipRangeStart: 0.0.0.0
+    ingressDomain: dev2.eloprindelse.dk
+
+    clusterNetworking:
+      ipRangeStart: 172.18.0.10
       # ipRangeStop is both the ipRangeStop but also the ingress loadBalancerIP
-      # ipRangeStop: 0.0.0.0
+      ipRangeStop: 172.18.0.19
 
   installCNI: true
 
