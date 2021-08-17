@@ -1,11 +1,4 @@
-ingressDomain: dev2.eloprindelse.dk
-
-clusterNetworking:
-  ipRangeStart: 172.18.0.10
-  # ipRangeStop is both the ipRangeStop but also the ingress loadBalancerIP
-  ipRangeStop: 172.18.0.19
-
-applications: 
+applications:
   argowf:                 false
   argo-events:            false
   cache:                  false
