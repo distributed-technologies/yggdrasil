@@ -23,7 +23,7 @@ applications:
   nifi:                   false
   prometheus:             true
   rook:                   false
-  thanos:                 true
+  thanos:                 false
   vault:                  false
   ett-kafka:              true
   ett-auth:               true
