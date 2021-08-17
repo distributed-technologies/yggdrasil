@@ -12,12 +12,6 @@ project:
     - namespace: kube-system
       server: https://kubernetes.default.svc
 apps:
-  - name: ett-kafka
-    source:
-      repoURL: "https://github.com/Energy-Track-and-Trace/ett-kafka.git"
-      targetRevision: main
-      path: chart
-      valuesFile: "ett-kafka.yaml"
   - name: ett-auth
     source:
       repoURL: "https://github.com/Energy-Track-and-Trace/ett-auth.git"
