@@ -27,6 +27,6 @@ applications:
   vault:                  false
   ett-kafka:              true
   ett-auth:               true
-  ett-emissions:          true
+  ett-emissions:          false
   ett-measurements:       true
   ett-meteringpoints:     true
