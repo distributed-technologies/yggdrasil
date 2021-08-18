@@ -1,0 +1,20 @@
+name: ett-postgresql
+namespace: ett-postgresql
+description: Energy Track and Trace
+
+
+project:
+  name: ett-postgresql
+  server: https://kubernetes.default.svc
+  sourceRepos:
+    - '*'
+  destinations: 
+    - namespace: kube-system
+      server: https://kubernetes.default.svc
+apps:
+  - name: ett-postgresql
+    source:
+      repoURL: "https://github.com/bitnami/charts.git"
+      targetRevision: main
+      path: bitnami/postgresql
+      valuesFile: "ett-postgresql.yaml"
