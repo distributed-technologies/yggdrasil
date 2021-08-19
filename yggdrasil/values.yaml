@@ -23,4 +23,6 @@ applications:
   ett-auth:               true
   ett-emissions:          false
   ett-measurements:       true
-  ett-meteringpoints:     false
+  ett-meteringpoints:     true
+  ett-techlonogies:       true
+  ett-datahub2:           true

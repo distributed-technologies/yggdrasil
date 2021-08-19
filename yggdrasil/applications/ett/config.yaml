@@ -36,3 +36,15 @@ apps:
       targetRevision: main
       path: chart
       valuesFile: "ett-meteringpoints.yaml"
+  - name: ett-techlonogies
+    source:
+      repoURL: "https://github.com/Energy-Track-and-Trace/ett-techlonogies.git"
+      targetRevision: main
+      path: chart
+      valuesFile: "ett-techlonogies.yaml"
+  - name: ett-datahub2
+    source:
+      repoURL: "https://github.com/Energy-Track-and-Trace/ett-datahub2.git"
+      targetRevision: main
+      path: chart
+      valuesFile: "ett-datahub2.yaml"
