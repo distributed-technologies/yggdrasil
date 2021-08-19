@@ -19,7 +19,7 @@ applications:
   thanos:                 false
   vault:                  false
   ett-kafka:              true
-  ett-postgresql:         true
+  ett-postgresql:         false
   ett-auth:               true
   ett-emissions:          false
   ett-measurements:       true
