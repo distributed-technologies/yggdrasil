@@ -80,7 +80,7 @@ project:
   destinations: 
     - namespace: <namespace>
       server: <server>
-    
+
 # This defines the applications that will be deployed. 
 # It is a list in cause you would like to deploy multiple applications 
 # to the same argocd project and namespace
