@@ -11,16 +11,16 @@ traefik:
 
   service:
     enabled: true
-    type: LoadBalancer
-    # type: NodePort
+#    type: LoadBalancer
+    type: NodePort
     spec: 
       loadBalancerIP: {{ .Values.clusterNetworking.ipRangeStop }}
 
   ports:
-#    web:
-#      nodePort: 32080
+    web:
+      nodePort: 32080
     websecure:
-#      nodePort: 32443
+      nodePort: 32443
       tls: 
         enabled: true  
 
