@@ -1,15 +1,11 @@
 nidhogg:
   yggdrasil:
-    repoURL: "https://github.com/Energy-Track-and-Trace/ett-base-environment.git"
+    repoURL: "https://github.com/Energinet-DataHub/ett-base-environment.git"
     targetRevision: "main"
 
     # ingressDomain: your-ingress-domain-here
-    # clusterNetworking:
-      # ipRangeStart: 0.0.0.0
-      # ipRangeStop is both the ipRangeStop but also the ingress loadBalancerIP
-      # ipRangeStop: 0.0.0.0
 
-  installCNI: true
+  installCNI: false
 
   argo-cd:
     controller:
