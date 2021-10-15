@@ -13,16 +13,16 @@ applications:
   ceph:                   false
   cert-manager:           false
   example-guestbook:      false
-  grafana:                true
+  grafana:                false
   harbor:                 false
   influxdb:               false
-  ingress:                true
-  jaeger-operator:        true
-  kafka:                  true
+  ingress:                false
+  jaeger-operator:        false
+  kafka:                  false
   loadbalancer:           false
-  loki:                   true
+  loki:                   false
   nifi:                   false
-  prometheus:             true
+  prometheus:             false
   rook:                   false
-  thanos:                 true
+  thanos:                 false
   vault:                  false
