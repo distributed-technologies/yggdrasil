@@ -12,6 +12,12 @@ project:
     - namespace: kube-system
       server: https://kubernetes.default.svc
 apps:
+  - name: ett-frontend
+    source:
+      repoURL: "https://github.com/Energy-Track-and-Trace/ett-frontend.git"
+      targetRevision: helm-chart
+      path: chart
+      valuesFile: "ett-frontend.yaml"
   - name: ett-auth
     source:
       repoURL: "https://github.com/Energy-Track-and-Trace/ett-auth.git"

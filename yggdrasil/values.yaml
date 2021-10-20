@@ -20,6 +20,7 @@ applications:
   vault:                  false
   ett-kafka:              true
   ett-postgresql:         true
+  ett-frontend:           true
   ett-auth:               true
   ett-emissions:          false
   ett-measurements:       true
