@@ -2,10 +2,10 @@ dashboardRoute:
   host: ingress.{{ .Values.ingressDomain }}
 
 traefik:
-  {{- if .Values.registry }}
-  image: 
+  image:
+    {{- if .Values.registry }}
     name: {{ .Values.registry }}/traefik
-  {{- end }}
+    {{- end }}
     tag: "v2.5.3"
     pullPolicy: "Always"
   ingressClass:
