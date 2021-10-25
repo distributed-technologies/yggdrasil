@@ -28,7 +28,9 @@ module "kubernetes" {
   sku_tier                = "Free"
   vnet_subnet_id          = module.network.subnets.cluster_network.id
   kubernetes_version      = "1.20.9"
-  outbound_ip_address_ids = [module.public_ip.id]
+  outbound_ip_address_ids = [
+        module.public_ip.id
+  ]
 
   default_nodes = {
     vm_size    = "standard_ds2_v2"
