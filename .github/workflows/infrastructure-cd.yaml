@@ -1,0 +1,67 @@
+# Copyright 2020 Energinet DataHub A/S
+#
+# Licensed under the Apache License, Version 2.0 (the "License2");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+name: Infrastructure CD
+
+on:
+  push:
+    branches:
+      # Add more branches as necessary.
+      - feature/dev-env
+    paths:
+      - infrastructure/**
+      - .github/workflows/infrastructure-cd.yaml
+  workflow_dispatch: {}
+env:
+  TERRAFORM_BACKEND_FILE_PATH: './infrastructure/backend.tf'
+  TERRAFORM_WORKING_DIR_PATH: './infrastructure'
+  
+jobs:
+  infra_deploy_development:
+    name: Deploy infrastructure to environment
+    runs-on: ubuntu-latest
+    environment: dev
+    env:
+      ENVIRONMENT: development
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1.2.1
+        with:
+          terraform_wrapper: false
+
+          
+      - name: Set TF Vars
+        shell: bash
+        run: |
+          echo "TF_VAR_env=U" >> $GITHUB_ENV
+          echo "TF_VAR_env_number=003" >> $GITHUB_ENV
+          echo "TF_VAR_tenant_id=${{ secrets.AZURE_TENANT_ID }}" >> $GITHUB_ENV
+      
+      - name: Terraform CD
+        uses: Energinet-DataHub/.github/.github/actions/terraform@main
+        with:
+          PROJECT_NAME: energioprindels
+          ORGANISATION_NAME: ${{ secrets.ORGANIZATION_NAME }}
+          ENVIRONMENT_SHORT: u
+          ENVIRONMENT_NAME: ${{ env.ENVIRONMENT }}
+          TERRAFORM_BACKEND_FILE_PATH: ${{ env.TERRAFORM_BACKEND_FILE_PATH }}
+          TERRAFORM_WORKING_DIR_PATH: ${{ env.TERRAFORM_WORKING_DIR_PATH }}
+          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          AZURE_SPN_ID: ${{ secrets.AZURE_SPN_ID }}
+          AZURE_SPN_OBJECT_ID: ${{ secrets.AZURE_SPN_OBJECT_ID }}
+          AZURE_SPN_SECRET: ${{ secrets.AZURE_SPN_SECRET }}
+          AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          AZURE_RG_NAME: ${{ secrets.AZURE_RG_NAME }}

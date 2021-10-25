@@ -16,7 +16,7 @@ applications:
   grafana:                false
   harbor:                 false
   influxdb:               false
-  ingress:                false
+  ingress:                true
   jaeger-operator:        false
   kafka:                  false
   loadbalancer:           false

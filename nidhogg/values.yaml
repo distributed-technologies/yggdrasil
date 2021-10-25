@@ -1,9 +1,8 @@
 nidhogg:
   yggdrasil:
     repoURL: "https://github.com/Energinet-DataHub/ett-base-environment.git"
-    targetRevision: "main"
-
-    # ingressDomain: your-ingress-domain-here
+    targetRevision: "feature/terraform"
+    ingressDomain: dev2.eloprindelse.dk
 
   installCNI: false
 
