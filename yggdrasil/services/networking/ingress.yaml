@@ -6,6 +6,8 @@ traefik:
   image: 
     name: {{ .Values.registry }}/traefik
   {{- end }}
+  tag: "v2.5.3"
+  pullPolicy: "Always"
   ingressClass:
     fallbackApiVersion: "v1"
 
