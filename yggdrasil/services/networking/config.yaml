@@ -15,7 +15,7 @@ apps:
   - name: ingress
     source:
       repoURL: "https://github.com/distributed-technologies/services-ingress.git"
-      targetRevision: version-bump
+      targetRevision: v0.2.0
       path: chart
       valuesFile: "ingress.yaml"
   - name: cert-manager
