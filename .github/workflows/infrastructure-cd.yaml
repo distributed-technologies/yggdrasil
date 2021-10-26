@@ -42,7 +42,7 @@ jobs:
         with:
           terraform_wrapper: false
 
-          
+        # Should not be needed. This should be done in Terraform CD Action
       - name: Set TF Vars
         shell: bash
         run: |
