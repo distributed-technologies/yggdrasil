@@ -19,37 +19,10 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "= 2.78.0" # locked to 2.78.0 because of following issue. https://github.com/hashicorp/terraform-provider-azurerm/issues/11396
     }
-//    kubernetes = {
-//      source  = "hashicorp/kubernetes"
-//      version = ">= 2.5.0"
-//    }
-//    helm = {
-//      source  = "hashicorp/helm"
-//      version = ">= 2.3.0"
-//    }
   }
 }
 
 provider "azurerm" {
   subscription_id = var.subscription_id
-  # client_id       = var.azure_client_id
-  # client_secret   = var.azure_client_secret
   features {}
 }
-
-
-//provider "kubernetes" {
-//  host                   = module.kubernetes.kube_admin_config.0.host
-//  client_certificate     = base64decode(module.kubernetes.kube_admin_config.0.client_certificate)
-//  client_key             = base64decode(module.kubernetes.kube_admin_config.0.client_key)
-//  cluster_ca_certificate = base64decode(module.kubernetes.kube_admin_config.0.cluster_ca_certificate)
-//}
-
-//provider "helm" {
-//  kubernetes {
-//    host                   = module.kubernetes.kube_admin_config.0.host
-//    client_certificate     = base64decode(module.kubernetes.kube_admin_config.0.client_certificate)
-//    client_key             = base64decode(module.kubernetes.kube_admin_config.0.client_key)
-//    cluster_ca_certificate = base64decode(module.kubernetes.kube_admin_config.0.cluster_ca_certificate)
-//  }
-//}
