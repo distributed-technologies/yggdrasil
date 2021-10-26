@@ -28,14 +28,14 @@ module "network" {
   address_spaces = ["172.18.0.0/16"]
   subnets = [
     {
-      name             = "default"
-      address_prefixes = ["172.18.0.0/24"]
-      security_group   = module.nsg.id
+      name              = "default"
+      address_prefixes  = ["172.18.0.0/24"]
+      security_group_id = module.nsg.id
     },
     {
-      name             = "cluster_network"
-      address_prefixes = ["172.18.128.0/17"]
-      security_group   = module.nsg.id
+      name              = "cluster_network"
+      address_prefixes  = ["172.18.128.0/17"]
+      security_group_id = module.nsg.id
     },
   ]
 }
