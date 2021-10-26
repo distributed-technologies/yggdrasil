@@ -11,7 +11,7 @@ applications:
   ingress:                true
   jaeger-operator:        true
   kafka:                  false
-  loadbalancer:           true
+  loadbalancer:           false
   loki:                   true
   nifi:                   false
   prometheus:             true
