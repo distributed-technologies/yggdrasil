@@ -1,7 +1,7 @@
 nidhogg:
   yggdrasil:
     repoURL: "https://github.com/Energinet-DataHub/ett-base-environment.git"
-    targetRevision: "dev-configuration"
+    targetRevision: "main"
 
     ingressDomain: eloprindelse.dk
 
@@ -62,7 +62,7 @@ nidhogg:
               hs.status = "Healthy"
               return hs
       service:
-        type: NodePort
+        type: LoadBalancer
 
     configs:
       secret:
