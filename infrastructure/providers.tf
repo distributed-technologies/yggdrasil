@@ -53,8 +53,3 @@ provider "helm" {
     cluster_ca_certificate = base64decode(module.kubernetes.kube_admin_config.0.cluster_ca_certificate)
   }
 }
-
-# resource "helm_release" "nidhogg" {
-#   name  = "nidhogg"
-#   chart = "../nidhogg"
-# }
