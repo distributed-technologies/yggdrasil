@@ -14,8 +14,8 @@ project:
 apps:
   - name: ett-frontend
     source:
-      repoURL: "https://github.com/Energy-Track-and-Trace/ett-frontend.git"
-      targetRevision: helm-chart
+      repoURL: "https://github.com/Energinet-DataHub/greenforce-frontend.git"
+      targetRevision: main
       path: chart
       valuesFile: "ett-frontend.yaml"
   - name: ett-auth
