@@ -1,0 +1,20 @@
+name: ett-kafka
+namespace: ett-kafka
+description: Energy Track and Trace
+
+
+project:
+  name: ett-kafka
+  server: https://kubernetes.default.svc
+  sourceRepos:
+    - '*'
+  destinations: 
+    - namespace: kube-system
+      server: https://kubernetes.default.svc
+apps:
+  - name: ett-kafka
+    source:
+      repoURL: "https://github.com/Energy-Track-and-Trace/ett-kafka.git"
+      targetRevision: main
+      path: chart
+      valuesFile: "ett-kafka.yaml"

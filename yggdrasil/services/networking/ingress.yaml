@@ -2,26 +2,22 @@ dashboardRoute:
   host: ingress.{{ .Values.ingressDomain }}
 
 traefik:
-  {{- if .Values.registry }}
-  image: 
+  image:
+    {{- if .Values.registry }}
     name: {{ .Values.registry }}/traefik
-  {{- end }}
+    {{- end }}
+    tag: "v2.5.3"
+    pullPolicy: "Always"
   ingressClass:
     fallbackApiVersion: "v1"
 
   service:
     enabled: true
     type: LoadBalancer
-    # type: NodePort
-    spec: 
-      loadBalancerIP: {{ .Values.clusterNetworking.ipRangeStop }}
 
   ports:
-#    web:
-#      nodePort: 32080
     websecure:
-#      nodePort: 32443
-      tls: 
+      tls:
         enabled: true  
 
   logs:
