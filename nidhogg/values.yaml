@@ -3,7 +3,7 @@ nidhogg:
     repoURL: "https://github.com/Energinet-DataHub/ett-base-environment.git"
     targetRevision: "main"
 
-    # ingressDomain: your-ingress-domain-here
+    ingressDomain: eloprindelse.dk
 
   installCNI: false
 
@@ -43,6 +43,9 @@ nidhogg:
           - type: helm
             url: https://confluentinc.github.io/cp-helm-charts/
             name: cp-helm-charts
+          - type: helm
+            url: https://charts.bitnami.com/bitnami
+            name: bitnami
         resource.customizations: |
           admissionregistration.k8s.io/MutatingWebhookConfiguration:
             ignoreDifferences: |

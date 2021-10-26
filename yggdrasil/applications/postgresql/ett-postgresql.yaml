@@ -1,0 +1,7 @@
+global:
+  postgresql:
+    postgresqlUsername: postgres
+    postgresqlPassword: 1234
+
+service:
+  type: "LoadBalancer"
