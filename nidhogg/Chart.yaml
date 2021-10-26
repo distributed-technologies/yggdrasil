@@ -2,7 +2,7 @@ apiVersion: v2
 name: nidhogg
 description: A Helm chart for nidhogg values and dependencies
 type: application
-version: v1.0.1
+version: v1.0.2
 
 dependencies:
   - name: nidhogg
