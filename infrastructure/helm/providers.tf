@@ -19,7 +19,6 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "= 2.78.0" # locked to 2.78.0 because of following issue. https://github.com/hashicorp/terraform-provider-azurerm/issues/11396
     }
-    }
     helm = {
       source  = "hashicorp/helm"
       version = ">= 2.3.0"
