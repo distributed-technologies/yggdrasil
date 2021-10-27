@@ -60,8 +60,6 @@ nidhogg:
               hs = {}
               hs.status = "Healthy"
               return hs
-      service:
-        type: LoadBalancer
 
     configs:
       secret:
