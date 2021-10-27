@@ -82,6 +82,9 @@ nidhogg:
         pathType: Prefix
         paths:
           - /argocd
+        
+        # -- Uses `server.service.servicePortHttps` instead `server.service.servicePortHttp`
+        https: true
 
     configs:
       secret:
