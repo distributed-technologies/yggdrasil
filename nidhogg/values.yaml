@@ -60,6 +60,9 @@ nidhogg:
               hs = {}
               hs.status = "Healthy"
               return hs
+      service:
+        # -- Server service type
+        type: ClusterIP
 
     configs:
       secret:
