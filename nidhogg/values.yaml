@@ -63,6 +63,18 @@ nidhogg:
       service:
         # -- Server service type
         type: ClusterIP
+      
+      ingress:
+        # -- Enable an ingress resource for the Argo CD server
+        enabled: true
+
+        hosts:
+          - localhost
+
+        # -- Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific`
+        pathType: Prefix
+        paths:
+          - /argocd
 
     configs:
       secret:
