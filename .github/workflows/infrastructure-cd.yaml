@@ -11,13 +11,21 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+
+# Notes:
+#   - What is step 'Set TF Vars' used for? Where are the variables used?
+#     - What is 'TF_VAR_env_number' used for?
+#   - Where does the 'Terraform CD' get the backend variables from?
+#   - Move 'ENVIRONMENT_SHORT' to 'env'
+
 name: Infrastructure CD
 
 on:
   push:
     branches:
       # Add more branches as necessary.
-      - feature/dev-env
+      - development
     paths:
       - infrastructure/**
       - .github/workflows/infrastructure-cd.yaml
@@ -25,14 +33,19 @@ on:
 env:
   TERRAFORM_BACKEND_FILE_PATH: './infrastructure/backend.tf'
   TERRAFORM_WORKING_DIR_PATH: './infrastructure'
+  PROJECT_NAME: ett
+  TERRAFORM_VERSION: '1.0.8'
   
 jobs:
   infra_deploy_development:
     name: Deploy infrastructure to environment
     runs-on: ubuntu-latest
-    environment: dev
+    environment: development
     env:
       ENVIRONMENT: development
+      ENVIRONMENT_SHORT: u
+      ENVIRONMENT_INSTANCE: '001'
+      
     steps:
       - name: Checkout code
         uses: actions/checkout@master
@@ -41,27 +54,21 @@ jobs:
         uses: hashicorp/setup-terraform@v1.2.1
         with:
           terraform_wrapper: false
-
-          
-      - name: Set TF Vars
-        shell: bash
-        run: |
-          echo "TF_VAR_env=U" >> $GITHUB_ENV
-          echo "TF_VAR_env_number=003" >> $GITHUB_ENV
-          echo "TF_VAR_tenant_id=${{ secrets.AZURE_TENANT_ID }}" >> $GITHUB_ENV
       
       - name: Terraform CD
-        uses: Energinet-DataHub/.github/.github/actions/terraform@main
+        uses: Energinet-DataHub/.github/.github/actions/terraform-apply@renetnielsen/terraform-apply-1.4.0
         with:
-          PROJECT_NAME: energioprindels
-          ORGANISATION_NAME: ${{ secrets.ORGANIZATION_NAME }}
-          ENVIRONMENT_SHORT: u
-          ENVIRONMENT_NAME: ${{ env.ENVIRONMENT }}
+          PROJECT_NAME: ${{ env.PROJECT_NAME }}
+          SERVICE_NAME: kubernetes
+          ENVIRONMENT_INSTANCE: ${{ env.ENVIRONMENT_INSTANCE }}
+          ENVIRONMENT_SHORT: ${{ env.ENVIRONMENT_SHORT }}
           TERRAFORM_BACKEND_FILE_PATH: ${{ env.TERRAFORM_BACKEND_FILE_PATH }}
           TERRAFORM_WORKING_DIR_PATH: ${{ env.TERRAFORM_WORKING_DIR_PATH }}
+          TERRAFORM_STATE_RG_NAME: ${{ secrets.TERRAFORM_STATE_RG_NAME }}
           AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
           AZURE_SPN_ID: ${{ secrets.AZURE_SPN_ID }}
           AZURE_SPN_OBJECT_ID: ${{ secrets.AZURE_SPN_OBJECT_ID }}
           AZURE_SPN_SECRET: ${{ secrets.AZURE_SPN_SECRET }}
           AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           AZURE_RG_NAME: ${{ secrets.AZURE_RG_NAME }}
+          TERRAFORM_VERSION: ${{ env.TERRAFORM_VERSION }}
