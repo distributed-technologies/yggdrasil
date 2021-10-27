@@ -63,10 +63,17 @@ nidhogg:
       service:
         # -- Server service type
         type: ClusterIP
-      
+
       ingress:
         # -- Enable an ingress resource for the Argo CD server
         enabled: true
+
+        # -- Additional ingress annotations
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
+
+        # -- Defines which ingress controller will implement the resource
+        ingressClassName: "ingress-traefik"
 
         hosts:
           - localhost
