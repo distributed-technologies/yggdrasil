@@ -1,7 +1,7 @@
 nidhogg:
   yggdrasil:
     repoURL: "https://github.com/Energinet-DataHub/ett-base-environment.git"
-    targetRevision: "feature/terraform"
+    targetRevision: "feature/helm-terraform"
     ingressDomain: dev.eloprindelse.dk
 
   installCNI: false
