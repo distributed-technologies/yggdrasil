@@ -84,7 +84,7 @@ nidhogg:
           - /argocd
         
         # -- Uses `server.service.servicePortHttps` instead `server.service.servicePortHttp`
-        https: true
+        https: false
 
     configs:
       secret:
