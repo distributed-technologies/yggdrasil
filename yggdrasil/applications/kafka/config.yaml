@@ -15,6 +15,6 @@ apps:
   - name: ett-kafka
     source:
       repoURL: "https://github.com/Energy-Track-and-Trace/ett-kafka.git"
-      targetRevision: remove-loadbalancer-services
+      targetRevision: main
       path: chart
       valuesFile: "ett-kafka.yaml"
