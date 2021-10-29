@@ -51,9 +51,11 @@ jobs:
       
     steps:
       - name: Checkout code
+        # suggestion(xlgni): consider using `actions/checkout@v2` to opt out of breaking changes
         uses: actions/checkout@master
 
       - name: Setup Terraform
+        # suggestion(xlgni): consider using `hashicorp/setup-terraform@v1` to opt in to non-breaking changes
         uses: hashicorp/setup-terraform@v1.2.1
         with:
           terraform_wrapper: false
@@ -62,9 +64,11 @@ jobs:
         uses: Energinet-DataHub/.github/.github/actions/terraform-apply@renetnielsen/terraform-apply-1.4.0
         with:
           PROJECT_NAME: ${{ env.PROJECT_NAME }}
+          # suggestion(xlgni): consider sharing the value for the `SERVICE_NAME` parameters through a workflow variable
           SERVICE_NAME: kubernetes
           ENVIRONMENT_INSTANCE: ${{ env.ENVIRONMENT_INSTANCE }}
           ENVIRONMENT_SHORT: ${{ env.ENVIRONMENT_SHORT }}
+          # suggestion(xlngi): consider grouping parameters that are distinct from the next job, using a comment
           TERRAFORM_BACKEND_FILE_PATH: ${{ env.TERRAFORM_BACKEND_AZURE_FILE_PATH }}
           TERRAFORM_WORKING_DIR_PATH: ${{ env.TERRAFORM_WORKING_DIR_AZURE_PATH }}
           TERRAFORM_STATE_RG_NAME: ${{ secrets.TERRAFORM_STATE_RG_NAME }}
@@ -80,9 +84,11 @@ jobs:
         uses: Energinet-DataHub/.github/.github/actions/terraform-apply@renetnielsen/terraform-apply-1.4.0
         with:
           PROJECT_NAME: ${{ env.PROJECT_NAME }}
+          # suggestion(xlgni): consider sharing the value for the `SERVICE_NAME` parameters through a workflow variable
           SERVICE_NAME: kubernetes
           ENVIRONMENT_INSTANCE: ${{ env.ENVIRONMENT_INSTANCE }}
           ENVIRONMENT_SHORT: ${{ env.ENVIRONMENT_SHORT }}
+          # suggestion(xlngi): consider grouping parameters that are distinct from the previous job, using a comment
           TERRAFORM_BACKEND_FILE_PATH: ${{ env.TERRAFORM_BACKEND_HELM_FILE_PATH }}
           TERRAFORM_WORKING_DIR_PATH: ${{ env.TERRAFORM_WORKING_DIR_HELM_PATH }}
           TERRAFORM_STATE_RG_NAME: ${{ secrets.TERRAFORM_STATE_RG_NAME }}
