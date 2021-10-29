@@ -1,7 +1,7 @@
 nidhogg:
   yggdrasil:
     repoURL: "https://github.com/Energinet-DataHub/ett-base-environment.git"
-    targetRevision: "feature/helm-terraform"
+    targetRevision: "development"
     ingressDomain: dev.eloprindelse.dk
 
   installCNI: false
@@ -60,6 +60,31 @@ nidhogg:
               hs = {}
               hs.status = "Healthy"
               return hs
+      service:
+        # -- Server service type
+        type: ClusterIP
+
+      ingress:
+        # -- Enable an ingress resource for the Argo CD server
+        enabled: true
+
+        # -- Additional ingress annotations
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: web
+
+        # -- Defines which ingress controller will implement the resource
+        ingressClassName: "ingress-traefik"
+
+        hosts:
+          - localhost
+
+        # -- Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific`
+        pathType: Prefix
+        paths:
+          - /argocd
+
+        # -- Uses `server.service.servicePortHttps` instead `server.service.servicePortHttp`
+        https: false
 
     configs:
       secret:

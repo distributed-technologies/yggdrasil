@@ -1,0 +1,6 @@
+ett-base-helm-chart:
+  ingress:
+    pathExceptions:
+      - /api
+      - /auth
+      - /argocd
