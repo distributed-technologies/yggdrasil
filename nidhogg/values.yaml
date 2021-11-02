@@ -75,7 +75,7 @@ nidhogg:
           traefik.ingress.kubernetes.io/router.entrypoints: web
 
         # -- Defines which ingress controller will implement the resource
-        ingressClassName: "ingress-traefik"
+        ingressClassName: "traefik"
 
         hosts:
           - localhost
