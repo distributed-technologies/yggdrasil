@@ -38,4 +38,7 @@ module "kubernetes" {
     min_count  = 1
     max_count  = 3
   }
+
+  identity_type = "UserAssigned"
+  identity_id   = var.azure_spn_object_id
 }

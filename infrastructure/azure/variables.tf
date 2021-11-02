@@ -30,7 +30,10 @@ variable project_name {
   description   = "Name of the project this infrastructure is a part of."
 }
 
-
+variable "azure_spn_object_id" {
+  description = "Object ID of the service principal"
+  type        = string
+}
 
 # variable "azure_spn_id" {
 #   description = "ID of the service principal, if not set then local AZ user is used."
