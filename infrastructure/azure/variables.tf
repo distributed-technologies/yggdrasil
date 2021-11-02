@@ -30,7 +30,7 @@ variable project_name {
   description   = "Name of the project this infrastructure is a part of."
 }
 
-variable "azure_spn_object_id" {
+variable "arm_client_object_id" {
   description = "Object ID of the service principal"
   type        = string
 }
