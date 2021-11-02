@@ -40,5 +40,10 @@ module "kubernetes" {
   }
 
   identity_type = "UserAssigned"
-  identity_id   = var.azure_spn_object_id
+  identity_id   = data.azurerm_user_assigned_identity.main.id
+}
+
+data "azurerm_user_assigned_identity" "main" {
+  name                = var.azure_spn_name
+  resource_group_name = azurerm_resource_group.main.name
 }
