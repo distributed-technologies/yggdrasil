@@ -51,7 +51,11 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_wrapper: false
-      
+      - name: Set Environment Secrets
+          shell: bash
+          run: |
+            echo "TF_VAR_azure_spn_object_id=${{ inputs.AZURE_SPN_OBJECT_ID }}" >> $GITHUB_ENV
+
       - name: Terraform CD Azure
         uses: Energinet-DataHub/.github/.github/actions/terraform-apply@8f5b1b08392de65bdff19ec719f8413b5772eb79
         with:

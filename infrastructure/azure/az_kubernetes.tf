@@ -40,5 +40,5 @@ module "kubernetes" {
   }
 
   identity_type = "UserAssigned"
-  identity_id   = var.arm_client_object_id
+  identity_id   = var.azure_spn_object_id
 }
