@@ -19,6 +19,8 @@ nidhogg:
       enabled: false
     server:
       replicas: 3
+      extraArgs:
+        - --insecure
       config:
         repositories: |
           - type: helm
