@@ -16,7 +16,7 @@ apps:
     source:
       repoURL: "https://github.com/Energinet-DataHub/greenforce-frontend.git"
       targetRevision: main
-      path: chart
+      path: infrastructure/ett/chart
       valuesFile: "ett-frontend.yaml"
   - name: ett-auth
     source:

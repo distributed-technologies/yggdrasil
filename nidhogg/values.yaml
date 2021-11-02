@@ -70,7 +70,7 @@ nidhogg:
 
         # -- Additional ingress annotations
         annotations:
-          traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
+          traefik.ingress.kubernetes.io/router.entrypoints: web
 
         # -- Defines which ingress controller will implement the resource
         ingressClassName: "ingress-traefik"
@@ -82,9 +82,9 @@ nidhogg:
         pathType: Prefix
         paths:
           - /argocd
-        
+
         # -- Uses `server.service.servicePortHttps` instead `server.service.servicePortHttp`
-        https: true
+        https: false
 
     configs:
       secret:

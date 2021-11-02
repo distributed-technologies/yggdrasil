@@ -12,13 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
-# Notes:
-#   - What is step 'Set TF Vars' used for? Where are the variables used?
-#     - What is 'TF_VAR_env_number' used for?
-#   - Where does the 'Terraform CD' get the backend variables from?
-#   - Move 'ENVIRONMENT_SHORT' to 'env'
-
 name: Infrastructure CD
 
 on:
@@ -48,13 +41,14 @@ jobs:
       ENVIRONMENT: development
       ENVIRONMENT_SHORT: u
       ENVIRONMENT_INSTANCE: '001'
+      SERVICE_NAME: kubernetes
       
     steps:
       - name: Checkout code
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1.2.1
+        uses: hashicorp/setup-terraform@v1
         with:
           terraform_wrapper: false
       
@@ -62,12 +56,9 @@ jobs:
         uses: Energinet-DataHub/.github/.github/actions/terraform-apply@renetnielsen/terraform-apply-1.4.0
         with:
           PROJECT_NAME: ${{ env.PROJECT_NAME }}
-          SERVICE_NAME: kubernetes
+          SERVICE_NAME: ${{ env.SERVICE_NAME }}
           ENVIRONMENT_INSTANCE: ${{ env.ENVIRONMENT_INSTANCE }}
           ENVIRONMENT_SHORT: ${{ env.ENVIRONMENT_SHORT }}
-          TERRAFORM_BACKEND_FILE_PATH: ${{ env.TERRAFORM_BACKEND_AZURE_FILE_PATH }}
-          TERRAFORM_WORKING_DIR_PATH: ${{ env.TERRAFORM_WORKING_DIR_AZURE_PATH }}
-          TERRAFORM_STATE_RG_NAME: ${{ secrets.TERRAFORM_STATE_RG_NAME }}
           AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
           AZURE_SPN_ID: ${{ secrets.AZURE_SPN_ID }}
           AZURE_SPN_OBJECT_ID: ${{ secrets.AZURE_SPN_OBJECT_ID }}
@@ -75,17 +66,18 @@ jobs:
           AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           AZURE_RG_NAME: ${{ secrets.AZURE_RG_NAME }}
           TERRAFORM_VERSION: ${{ env.TERRAFORM_VERSION }}
-      
+          TERRAFORM_STATE_RG_NAME: ${{ secrets.TERRAFORM_STATE_RG_NAME }}
+          # Step specific parameters:
+          TERRAFORM_BACKEND_FILE_PATH: ${{ env.TERRAFORM_BACKEND_AZURE_FILE_PATH }}
+          TERRAFORM_WORKING_DIR_PATH: ${{ env.TERRAFORM_WORKING_DIR_AZURE_PATH }}
+
       - name: Terraform CD Helm
         uses: Energinet-DataHub/.github/.github/actions/terraform-apply@renetnielsen/terraform-apply-1.4.0
         with:
           PROJECT_NAME: ${{ env.PROJECT_NAME }}
-          SERVICE_NAME: kubernetes
+          SERVICE_NAME: ${{ env.SERVICE_NAME }}
           ENVIRONMENT_INSTANCE: ${{ env.ENVIRONMENT_INSTANCE }}
           ENVIRONMENT_SHORT: ${{ env.ENVIRONMENT_SHORT }}
-          TERRAFORM_BACKEND_FILE_PATH: ${{ env.TERRAFORM_BACKEND_HELM_FILE_PATH }}
-          TERRAFORM_WORKING_DIR_PATH: ${{ env.TERRAFORM_WORKING_DIR_HELM_PATH }}
-          TERRAFORM_STATE_RG_NAME: ${{ secrets.TERRAFORM_STATE_RG_NAME }}
           AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
           AZURE_SPN_ID: ${{ secrets.AZURE_SPN_ID }}
           AZURE_SPN_OBJECT_ID: ${{ secrets.AZURE_SPN_OBJECT_ID }}
@@ -93,3 +85,7 @@ jobs:
           AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           AZURE_RG_NAME: ${{ secrets.AZURE_RG_NAME }}
           TERRAFORM_VERSION: ${{ env.TERRAFORM_VERSION }}
+          TERRAFORM_STATE_RG_NAME: ${{ secrets.TERRAFORM_STATE_RG_NAME }}
+          # Step specific parameters:
+          TERRAFORM_BACKEND_FILE_PATH: ${{ env.TERRAFORM_BACKEND_HELM_FILE_PATH }}
+          TERRAFORM_WORKING_DIR_PATH: ${{ env.TERRAFORM_WORKING_DIR_HELM_PATH }}
