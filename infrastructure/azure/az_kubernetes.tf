@@ -38,12 +38,4 @@ module "kubernetes" {
     min_count  = 1
     max_count  = 3
   }
-
-  identity_type = "UserAssigned"
-  identity_id   = data.azurerm_user_assigned_identity.main.id
-}
-
-data "azurerm_user_assigned_identity" "main" {
-  name                = var.azure_spn_name
-  resource_group_name = azurerm_resource_group.main.name
 }
