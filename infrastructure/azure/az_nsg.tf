@@ -54,7 +54,7 @@ resource "azurerm_network_security_rule" "https" {
   ]
 
   name                        = "https"
-  priority                    = 100
+  priority                    = 101
   direction                   = "Inbound"
   access                      = "Allow"
   protocol                    = "Tcp"
