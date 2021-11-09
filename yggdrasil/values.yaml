@@ -18,7 +18,7 @@ applications:
   rook:                   false
   thanos:                 false
   vault:                  false
-  ett-kafka:              false
+  ett-kafka:              true
   ett-postgresql:         true
   ett-frontend:           true
   ett-auth:               true
