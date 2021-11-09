@@ -41,7 +41,7 @@ resource "azurerm_network_security_rule" "http" {
   source_port_range           = "*"
   destination_port_range      = "80"
   source_address_prefix       = "*"
-  destination_address_prefix  = "ingress-traefik"
+  destination_address_prefix  = "51.138.83.40" # Should be possible to use tag on ip resource "ingress-traefik"
   resource_group_name         = azurerm_resource_group.main.name
   network_security_group_name = module.nsg.name
 }
@@ -61,7 +61,7 @@ resource "azurerm_network_security_rule" "https" {
   source_port_range           = "*"
   destination_port_range      = "443"
   source_address_prefix       = "*"
-  destination_address_prefix  = "ingress-traefik"
+  destination_address_prefix  = "51.138.83.40" # Should be possible to use tag on ip resource "ingress-traefik"
   resource_group_name         = azurerm_resource_group.main.name
   network_security_group_name = module.nsg.name
 }
