@@ -25,8 +25,7 @@ module "nsg" {
   location             = azurerm_resource_group.main.location
 }
 
-/*
-Port mappings for when module.public_ip is the one used by ingress
+
 resource "azurerm_network_security_rule" "http" {
   depends_on = [
     azurerm_resource_group.main,
@@ -42,7 +41,7 @@ resource "azurerm_network_security_rule" "http" {
   source_port_range           = "*"
   destination_port_range      = "80"
   source_address_prefix       = "*"
-  destination_address_prefix  = module.public_ip.ip_address
+  destination_address_prefix  = "ingress-traefik"
   resource_group_name         = azurerm_resource_group.main.name
   network_security_group_name = module.nsg.name
 }
@@ -62,7 +61,7 @@ resource "azurerm_network_security_rule" "https" {
   source_port_range           = "*"
   destination_port_range      = "443"
   source_address_prefix       = "*"
-  destination_address_prefix  = module.public_ip.ip_address
+  destination_address_prefix  = "ingress-traefik"
   resource_group_name         = azurerm_resource_group.main.name
   network_security_group_name = module.nsg.name
-}*/
+}
