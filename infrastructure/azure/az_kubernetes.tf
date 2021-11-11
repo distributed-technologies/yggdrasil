@@ -20,16 +20,16 @@ module "kubernetes" {
   ]
   source = "git::https://github.com/Energinet-DataHub/geh-terraform-modules.git//azure/kubernetes-service?ref=feature/aks"
 
-  name                    = var.project_name
-  environment_short       = var.environment_short
-  environment_instance    = var.environment_instance
-  resource_group_name     = azurerm_resource_group.main.name
-  location                = azurerm_resource_group.main.location
-  sku_tier                = "Free"
-  vnet_subnet_id          = module.network.subnets.cluster_network.id
-  kubernetes_version      = "1.20.9"
+  name                 = var.project_name
+  environment_short    = var.environment_short
+  environment_instance = var.environment_instance
+  resource_group_name  = azurerm_resource_group.main.name
+  location             = azurerm_resource_group.main.location
+  sku_tier             = "Free"
+  vnet_subnet_id       = module.network.subnets.cluster_network.id
+  kubernetes_version   = "1.20.9"
   outbound_ip_address_ids = [
-        module.public_ip.id
+    module.public_ip.id
   ]
 
   default_nodes = {
@@ -38,4 +38,7 @@ module "kubernetes" {
     min_count  = 1
     max_count  = 3
   }
+
+  identity_type = "UserAssigned"
+  identity_id   = data.azurerm_user_assigned_identity.aks_mid.id
 }

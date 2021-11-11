@@ -6,7 +6,7 @@ variable "resource_group_name" {
 
 variable "subscription_id" {
   description = "Azure Subscription ID"
-  type = string
+  type        = string
 }
 
 variable "location" {
@@ -15,19 +15,19 @@ variable "location" {
   default     = "West Europe"
 }
 
-variable environment_short {
-  type          = string
-  description   = "Enviroment that the infrastructure code is deployed into."
+variable "environment_short" {
+  type        = string
+  description = "Enviroment that the infrastructure code is deployed into."
 }
 
-variable environment_instance {
-  type          = string
-  description   = "Enviroment instance that the infrastructure code is deployed into."
+variable "environment_instance" {
+  type        = string
+  description = "Enviroment instance that the infrastructure code is deployed into."
 }
 
-variable project_name {
-  type          = string
-  description   = "Name of the project this infrastructure is a part of."
+variable "project_name" {
+  type        = string
+  description = "Name of the project this infrastructure is a part of."
 }
 
 variable "azure_spn_object_id" {
@@ -35,8 +35,8 @@ variable "azure_spn_object_id" {
   type        = string
 }
 
-variable "azure_spn_name" {
-  description = "Name of the service principal"
+variable "azure_aks_spn_name" {
+  description = "Name of the managed identity for kubernetes cluster"
   type        = string
 }
 
