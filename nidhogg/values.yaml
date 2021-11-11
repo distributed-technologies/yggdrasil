@@ -2,7 +2,7 @@ nidhogg:
   yggdrasil:
     repoURL: "https://github.com/Energinet-DataHub/ett-base-environment.git"
     targetRevision: "development"
-    ingressDomain: dev.eloprindelse.dk
+    ingressDomain: dev.energioprindelse.dk
 
   installCNI: false
 
