@@ -12,9 +12,13 @@ spec:
       services:
         - name: nidhogg-argocd-server
           port: 80
+      middlewares:
+        - name: argocd-server-stripprefix
     - kind: Rule
       match: Host(`{{ .Values.ingressDomain }}`) && PathPrefix(`/admin/argocd`) && Headers(`Content-Type`, `application/grpc`)
       services:
         - name: nidhogg-argocd-server
           port: 80
           scheme: h2c
+      middlewares:
+        - name: argocd-server-stripprefix
