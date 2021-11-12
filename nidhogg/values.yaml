@@ -21,7 +21,7 @@ nidhogg:
       replicas: 3
       extraArgs:
         - "--insecure"
-        - "--rootpath /admin/argocd"
+        - "--rootpath '/admin/argocd'"
       config:
         repositories: |
           - type: helm
