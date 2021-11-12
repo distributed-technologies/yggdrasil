@@ -1,4 +1,11 @@
 ett-base-helm-chart:
+  env:
+    DEBUG: 1
+    SQL_URI: postgresql://postgres:1234@ett-postgresql.ett-postgresql.svc.cluster.local:5432/auth
+    SQL_POOL_SIZE: 1
+    EVENT_BUS_HOST: dev-cluster-kafka-bootstrap.ett-kafka.svc.cluster.local
+    EVENT_BUS_PORT: 9093
+
   ingress:
     hosts:
       - {{ .Values.ingressDomain }}

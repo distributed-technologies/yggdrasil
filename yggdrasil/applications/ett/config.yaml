@@ -21,7 +21,7 @@ apps:
   - name: ett-auth
     source:
       repoURL: "https://github.com/Energy-Track-and-Trace/ett-auth.git"
-      targetRevision: main
+      targetRevision: Updated-env-vars
       path: chart
       valuesFile: "ett-auth-service.yaml"
   - name: ett-emissions
