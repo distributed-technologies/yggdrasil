@@ -14,7 +14,10 @@ traefik:
   service:
     enabled: true
     type: LoadBalancer
-    loadBalancerIP: 51.105.210.184
+    spec:
+      loadBalancerIP: 51.105.210.184
+      selector:
+        app: azure-load-balancer
 
   ports:
     websecure:
