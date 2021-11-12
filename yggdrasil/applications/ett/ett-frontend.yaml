@@ -1,8 +1,7 @@
 ett-base-helm-chart:
   ingress:
     hosts:
-      - dev.eloprindelse.dk
-      - 20.54.135.128
+      - {{ .Values.ingressDomain }}
     pathExceptions:
       - /api
       - /auth
