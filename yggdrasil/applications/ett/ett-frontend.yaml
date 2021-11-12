@@ -5,4 +5,4 @@ ett-base-helm-chart:
     pathExceptions:
       - /api
       - /auth
-      - /argocd
+      - /admin
