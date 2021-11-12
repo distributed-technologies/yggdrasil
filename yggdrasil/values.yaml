@@ -23,7 +23,7 @@ applications:
   ett-frontend:           true
   ett-auth:               true
   ett-emissions:          false
-  ett-measurements:       true
-  ett-meteringpoints:     true
-  ett-technologies:       true
-  ett-datahub2:           true
+  ett-measurements:       false
+  ett-meteringpoints:     false
+  ett-technologies:       false
+  ett-datahub2:           false
