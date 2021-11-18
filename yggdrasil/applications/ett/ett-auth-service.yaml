@@ -1,4 +1,4 @@
-ett-base-helm-chart:
+oe-base-helm-chart:
   deployments:
     - name: api
       image:
