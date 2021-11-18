@@ -18,12 +18,12 @@ applications:
   rook:                   false
   thanos:                 false
   vault:                  false
-  ett-kafka:              true
-  ett-postgresql:         true
-  ett-frontend:           true
-  ett-auth:               true
-  ett-emissions:          false
-  ett-measurements:       false
-  ett-meteringpoints:     false
-  ett-technologies:       false
-  ett-datahub2:           false
+  eo-kafka:              true
+  eo-postgresql:         true
+  eo-frontend:           true
+  eo-auth:               true
+  eo-emissions:          false
+  eo-measurements:       false
+  eo-meteringpoints:     false
+  eo-technologies:       false
+  eo-datahub2:           false

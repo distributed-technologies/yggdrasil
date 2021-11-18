@@ -1,0 +1,56 @@
+name: eo
+namespace: eo
+description: Energy Origin
+
+
+project:
+  name: eo
+  server: https://kubernetes.default.svc
+  sourceRepos:
+    - '*'
+  destinations: 
+    - namespace: kube-system
+      server: https://kubernetes.default.svc
+apps:
+  - name: eo-frontend
+    source:
+      repoURL: "https://github.com/Energinet-DataHub/greenforce-frontend.git"
+      targetRevision: main
+      path: infrastructure/eo/chart
+      valuesFile: "eo-frontend.yaml"
+  - name: eo-auth
+    source:
+      repoURL: "https://github.com/energinet-datahub/eo-auth.git"
+      targetRevision: Updated-env-vars
+      path: chart
+      valuesFile: "eo-auth-service.yaml"
+  - name: eo-emissions
+    source:
+      repoURL: "https://github.com/energinet-datahub/eo-emissions.git"
+      targetRevision: main
+      path: chart
+      valuesFile: "eo-emissions.yaml"
+  - name: eo-measurements
+    source:
+      repoURL: "https://github.com/energinet-datahub/eo-measurements.git"
+      targetRevision: main
+      path: chart
+      valuesFile: "eo-measurements.yaml"
+  - name: eo-meteringpoints
+    source:
+      repoURL: "https://github.com/energinet-datahub/eo-meteringpoints.git"
+      targetRevision: main
+      path: chart
+      valuesFile: "eo-meteringpoints.yaml"
+  - name: eo-technologies
+    source:
+      repoURL: "https://github.com/energinet-datahub/eo-technologies.git"
+      targetRevision: main
+      path: chart
+      valuesFile: "eo-technologies.yaml"
+  - name: eo-datahub2
+    source:
+      repoURL: "https://github.com/energinet-datahub/eo-datahub2.git"
+      targetRevision: main
+      path: chart
+      valuesFile: "eo-datahub2.yaml"
