@@ -1,4 +1,11 @@
 ett-base-helm-chart:
+  deployments:
+    - name: auth-api
+      image:
+        tag: "latest"
+    - name: auth-consumer
+      image:
+        tag: "latest"
   ingress:
     hosts:
       - {{ .Values.ingressDomain }}

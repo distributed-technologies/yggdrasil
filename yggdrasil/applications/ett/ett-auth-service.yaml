@@ -1,4 +1,11 @@
 ett-base-helm-chart:
+  deployments:
+    - name: api
+      image:
+        tag: "latest"
+    - name: consumer
+      image:
+        tag: "latest"
   env:
     DEBUG: 1
     SQL_URI: postgresql://postgres:1234@ett-postgresql.ett-postgresql.svc.cluster.local:5432/auth
