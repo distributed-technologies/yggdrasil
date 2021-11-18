@@ -21,7 +21,7 @@ apps:
   - name: eo-auth
     source:
       repoURL: "https://github.com/energinet-datahub/eo-auth.git"
-      targetRevision: Updated-env-vars
+      targetRevision: main
       path: chart
       valuesFile: "eo-auth-service.yaml"
   - name: eo-emissions
