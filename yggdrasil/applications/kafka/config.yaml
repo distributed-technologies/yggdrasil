@@ -1,10 +1,10 @@
-name: ett-kafka
-namespace: ett-kafka
+name: eo-kafka
+namespace: eo-kafka
 description: Energy Track and Trace
 
 
 project:
-  name: ett-kafka
+  name: eo-kafka
   server: https://kubernetes.default.svc
   sourceRepos:
     - '*'
@@ -12,9 +12,9 @@ project:
     - namespace: kube-system
       server: https://kubernetes.default.svc
 apps:
-  - name: ett-kafka
+  - name: eo-kafka
     source:
-      repoURL: "https://github.com/Energy-Track-and-Trace/ett-kafka.git"
+      repoURL: "https://github.com/energinet-datahub/eo-kafka.git"
       targetRevision: main
       path: chart
-      valuesFile: "ett-kafka.yaml"
+      valuesFile: "eo-kafka.yaml"

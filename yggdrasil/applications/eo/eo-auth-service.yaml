@@ -1,0 +1,18 @@
+eo-base-helm-chart:
+  deployments:
+    - name: api
+      image:
+        tag: "latest"
+    - name: consumer
+      image:
+        tag: "latest"
+  env:
+    DEBUG: 1
+    SQL_URI: postgresql://postgres:1234@eo-postgresql.eo-postgresql.svc.cluster.local:5432/auth
+    SQL_POOL_SIZE: 1
+    EVENT_BUS_HOST: dev-cluster-kafka-bootstrap.eo-kafka.svc.cluster.local
+    EVENT_BUS_PORT: 9093
+
+  ingress:
+    hosts:
+      - {{ .Values.ingressDomain }}

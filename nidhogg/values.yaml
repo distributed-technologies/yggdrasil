@@ -1,6 +1,6 @@
 nidhogg:
   yggdrasil:
-    repoURL: "https://github.com/Energinet-DataHub/ett-base-environment.git"
+    repoURL: "https://github.com/Energinet-DataHub/eo-base-environment.git"
     targetRevision: "development"
     ingressDomain: dev.energioprindelse.dk
 
@@ -49,6 +49,10 @@ nidhogg:
           - type: helm
             url: https://charts.bitnami.com/bitnami
             name: bitnami
+          - type: helm
+            url: https://energinet-datahub.github.io/helm-charts/
+            name: energy-origin
+
         resource.customizations: |
           admissionregistration.k8s.io/MutatingWebhookConfiguration:
             ignoreDifferences: |

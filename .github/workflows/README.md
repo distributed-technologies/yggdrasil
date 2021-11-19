@@ -10,11 +10,11 @@ Created resources within Azure uses the following naming convention: <br>
 Example:
 ```yaml
 ModuleNamePrefix: nsg (Short for Network Security group)
-PROJECT_NAME: ett (Short for Energy-Track-And-Trace)
+PROJECT_NAME: eo (Short for Energy Origin)
 ENVIRONMENT_SHORT: d (Short for development)
 ENVIRONMENT_INSTANCE: '001'
 ```
-would result in: `nsg-ett-d-001`
+would result in: `nsg-eo-d-001`
 
 ## Terraform Backend
 In order to make it easier to define the Terraform storage name, a search and replace is done during deployment step. 
