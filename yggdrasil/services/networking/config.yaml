@@ -14,7 +14,7 @@ project:
 apps:
   - name: ingress
     source:
-      repoURL: "https://github.com/distributed-technologies/services-ingress.git"
+      repoURL: "https://github.com/distributed-technologies/services-traefik.git"
       targetRevision: version-bump
       path: chart
       valuesFile: "ingress.yaml"
