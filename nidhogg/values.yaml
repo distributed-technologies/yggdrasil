@@ -15,6 +15,9 @@ nidhogg:
       enableStatefulSet: true
     redis-ha:
       enabled: true
+      image:
+        tag: 6.2.4-alpine
+
     redis:
       enabled: false
     server:
