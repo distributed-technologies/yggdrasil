@@ -1,9 +1,9 @@
 eo-base-helm-chart:
   deployments:
-    - name: api
+    api:
       image:
         tag: "latest"
-    - name: consumer
+    consumer:
       image:
         tag: "latest"
   env:
@@ -15,4 +15,4 @@ eo-base-helm-chart:
 
   ingress:
     hosts:
-      - "{{ .Values.ingressDomain }}"
+      - '{{ .Values.ingressDomain }}'

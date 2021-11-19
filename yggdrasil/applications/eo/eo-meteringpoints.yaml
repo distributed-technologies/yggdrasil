@@ -1,11 +1,11 @@
 eo-base-helm-chart:
   deployments:
-    - name: auth-api
+    auth-api:
       image:
         tag: "latest"
-    - name: auth-consumer
+    auth-consumer: 
       image:
         tag: "latest"
   ingress:
     hosts:
-      - {{ .Values.ingressDomain }}
+      - '{{ .Values.ingressDomain }}'
