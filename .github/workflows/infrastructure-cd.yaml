@@ -19,6 +19,7 @@ on:
     branches:
       # Add more branches as necessary.
       - development
+      - production
     paths:
       - infrastructure/**
       - nidhogg/**
