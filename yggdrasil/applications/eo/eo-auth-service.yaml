@@ -3,9 +3,6 @@ eo-base-helm-chart:
     api:
       image:
         tag: v0.0.5
-    consumer:
-      image:
-        tag: v0.0.5
   env:
     DEBUG: 1
     EVENT_BUS_HOST: dev-cluster-kafka-bootstrap.eo-kafka.svc.cluster.local
