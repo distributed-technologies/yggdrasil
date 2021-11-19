@@ -15,4 +15,4 @@ eo-base-helm-chart:
 
   ingress:
     hosts:
-      - {{ .Values.ingressDomain }}
+      - "{{ .Values.ingressDomain }}"
