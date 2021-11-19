@@ -15,9 +15,9 @@ traefik:
     enabled: true
     type: LoadBalancer
     annotations:
-      service.beta.kubernetes.io/azure-load-balancer-resource-group: rg-ett-U-001
+      service.beta.kubernetes.io/azure-load-balancer-resource-group: rg-eo-P-001
     spec:
-      loadBalancerIP: 51.105.210.184
+      loadBalancerIP: 20.101.225.251
       selector:
         app: azure-load-balancer
 
