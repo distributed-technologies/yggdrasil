@@ -47,6 +47,9 @@ nidhogg:
             url: https://confluentinc.github.io/cp-helm-charts/
             name: cp-helm-charts
           - type: helm
+            url: https://charts.bitnami.com/bitnami
+            name: bitnami
+          - type: helm
             url: https://energinet-datahub.github.io/helm-charts/
             name: energy-origin
 
