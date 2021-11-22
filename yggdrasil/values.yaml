@@ -3,7 +3,7 @@ applications:
   argo-events:            false
   cache:                  false
   ceph:                   false
-  cert-manager:           false
+  cert-manager:           true
   example-guestbook:      false
   grafana:                true
   harbor:                 false
