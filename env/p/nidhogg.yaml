@@ -1,11 +1,11 @@
 nidhogg:
+  installCNI: false
+  monitorNidhogg: false
+
   yggdrasil:
     repoURL: "https://github.com/Energinet-DataHub/eo-base-environment.git"
     targetRevision: "production"
     ingressDomain: energioprindelse.dk
-    
-    installCNI: false
-    monitorNidhogg: false
 
   argo-cd-proxy-chart:
     argo-cd: 
