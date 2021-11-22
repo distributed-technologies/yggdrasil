@@ -2,9 +2,9 @@ apiVersion: v2
 name: nidhogg
 description: A Helm chart for nidhogg values and dependencies
 type: application
-version: v1.0.2
+version: 2.0.5
 
 dependencies:
   - name: nidhogg
-    version: "v1.0.14"
+    version: 1.0.14
     repository: "https://distributed-technologies.github.io/helm-charts/"
