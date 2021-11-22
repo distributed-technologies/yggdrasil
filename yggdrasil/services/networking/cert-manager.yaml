@@ -14,3 +14,9 @@ issuers:
   solvers:
   - http01:
       ingress:
+        # Sets to use ClusterIP and web as entrypoint for resolving certs
+        serviceType: ClusterIP
+        ingressTemplate: 
+          metadata:
+            annotations: 
+              traefik.ingress.kubernetes.io/router.entrypoints: web
