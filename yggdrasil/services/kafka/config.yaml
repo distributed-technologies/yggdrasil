@@ -1,18 +1,15 @@
 name: kafka
 namespace: kafka
+namespaceLabels:
+  space: service
+space: service
 description: Kafka.
-
-project:
-  name: kafka
-  server: https://kubernetes.default.svc
-  sourceRepos:
-    - '*'
 
 apps:
   - name: kafka
     replace: true
     source:
-      repoURL: "https://github.com/distributed-technologies/services-kafka.git"
-      targetRevision: v0.1.0
-      path: chart
+      repoURL: "https://distributed-technologies.github.io/helm-charts/"
+      targetRevision: 0.2.2
+      chart: kafka
       valuesFile: "kafka.yaml"

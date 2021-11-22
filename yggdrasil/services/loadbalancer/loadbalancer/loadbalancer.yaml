@@ -1,6 +1,6 @@
 env: prod
-ipRangeStart: {{ .Values.clusterNetworking.ipRangeStart }}
-ipRangeStop: {{ .Values.clusterNetworking.ipRangeStop }}
+ipRangeStart: {{ .Values.loadbalancer.ipRangeStart }}
+ipRangeStop: {{ .Values.loadbalancer.ipRangeStop }}
 {{- if .Values.registry }}
 speaker: 
   image: 

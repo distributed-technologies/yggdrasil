@@ -1,17 +1,14 @@
 name: loadbalancer
 namespace: loadbalancer
+namespaceLabels:
+  space: service
+space: service
 description: MetalLB loadbalancer.
-
-project:
-  name: loadbalancer
-  server: https://kubernetes.default.svc
-  sourceRepos:
-    - '*'
 
 apps:
   - name: loadbalancer
     source:
-      repoURL: "https://github.com/distributed-technologies/services-loadbalancer.git"
-      targetRevision: v0.1.5
-      path: chart
+      repoURL: "https://distributed-technologies.github.io/helm-charts/"
+      targetRevision: 0.1.7
+      chart: loadbalancer
       valuesFile: "loadbalancer.yaml"

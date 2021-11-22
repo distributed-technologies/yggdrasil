@@ -1,9 +1,8 @@
 nidhogg: 
   # A reference to this repo itself.
   yggdrasil:
-    repoURL: "https://github.com/Energinet-DataHub/eo-base-environment.git"
-    # targetRevision: set from env files
-    # ingressDomain: set from env files
+    repoURL: "https://github.com/distributed-technologies/yggdrasil.git"
+    targetRevision: "main"
 
     # ingress:  
       # Set either a subdomain or a path here
@@ -17,59 +16,26 @@ nidhogg:
       # ipRangeStart: 0.0.0.0
       # ipRangeStop: 0.0.0.0
 
-  installCNI: false
-  monitorNidhogg: false
+  installCNI: true
 
   argo-cd-proxy-chart:
-    argo-cd:
-      controller:
+    argo-cd: 
+      controller: 
         replicas: 3
         env:
           - name: "ARGOCD_CONTROLLER_REPLICAS"
             value: "3"
         enableStatefulSet: true
-      redis-ha:
+      redis-ha: 
         enabled: true
         replicas: 3
         haproxy:
           replicas: 3
       redis:
         enabled: false
-      server:
+      server: 
         replicas: 3
-        extraArgs:
-          - --insecure
-          - --rootpath
-          - /admin/argocd
         config:
-          repositories: |
-            - type: helm
-              url: https://argoproj.github.io/argo-helm
-              name: argoproj
-            - type: helm
-              url: https://distributed-technologies.github.io/helm-repository/
-              name: dt-helmrepo
-            - type: helm
-              url: https://kubernetes.github.io/kube-state-metrics
-              name: metrics
-            - type: helm
-              url: https://prometheus-community.github.io/helm-charts
-              name: node-exporter
-            - type: helm
-              url: https://grafana.github.io/helm-charts
-              name: grafana
-            - type: helm
-              url: https://strimzi.io/charts/
-              name: strimzi-kafka-operator
-            - type: helm
-              url: https://confluentinc.github.io/cp-helm-charts/
-              name: cp-helm-charts
-            - type: helm
-              url: https://charts.bitnami.com/bitnami
-              name: bitnami
-            - type: helm
-              url: https://energinet-datahub.github.io/helm-charts/
-              name: energy-origin
           resource.customizations: |
             admissionregistration.k8s.io/MutatingWebhookConfiguration:
               ignoreDifferences: |
@@ -90,3 +56,11 @@ nidhogg:
                 hs = {}
                 hs.status = "Healthy"
                 return hs
+        service: 
+          type: NodePort
+
+      configs:
+        secret:
+          # This is not a secret password. It is okay to be on github
+          argocdServerAdminPassword: $2y$12$m4KC7G9d8NFxInl7GRpQ1OpPPrF43Msa33ZQjj0YmT6f8uwjHW8AO
+          argocdServerAdminPasswordMtime: "2021-01-02T15:04:05Z"
