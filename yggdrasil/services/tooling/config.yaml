@@ -1,19 +1,16 @@
 name: tooling
 namespace: tooling
+namespaceLabels:
+  space: service
+space: service
 description: Tooling services Argo WF, Harbor.
-
-project:
-  name: tooling
-  server: https://kubernetes.default.svc
-  sourceRepos:
-    - '*'
 
 apps:
   - name: argowf
     source:
-      repoURL: "https://github.com/distributed-technologies/services-argowf.git"
-      targetRevision: 0.1.0
-      path: chart
+      repoURL: "https://distributed-technologies.github.io/helm-charts/"
+      targetRevision: 0.1.3
+      chart: argo-wf
       valuesFile: "argowf.yaml"
     ingress:
       - subDomain: argowf
@@ -24,15 +21,15 @@ apps:
           traefik.ingress.kubernetes.io/router.entrypoints: web
   - name: argo-events
     source:
-      repoURL: "https://github.com/distributed-technologies/services-argoevents.git"
-      targetRevision: v0.1.0
-      path: chart
+      repoURL: "https://distributed-technologies.github.io/helm-charts/"
+      targetRevision: 0.1.4
+      chart: argo-events
       valuesFile: "argo-events.yaml"
   - name: harbor
     source:
-      repoURL: "https://github.com/distributed-technologies/services-harbor.git"
-      targetRevision: v0.1.0
-      path: chart
+      repoURL: "https://distributed-technologies.github.io/helm-charts/"
+      targetRevision: 0.1.3
+      charts: harbor
       valuesFile: "harbor.yaml"
     ingress:
       - subDomain: harbor
@@ -67,7 +64,7 @@ apps:
           traefik.ingress.kubernetes.io/router.entrypoints: "web, websecure"
   - name: vault
     source:
-      repoURL: "https://github.com/distributed-technologies/services-vault.git"
-      targetRevision: 0.1.0
-      path: chart
+      repoURL: "https://distributed-technologies.github.io/helm-charts/"
+      targetRevision: 0.1.1
+      chart: vault
       valuesFile: "vault.yaml"

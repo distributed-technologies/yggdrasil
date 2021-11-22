@@ -1,0 +1,31 @@
+jaeger:
+  agent:
+  {{- if .Values.registry }}
+    image: {{ .Values.registry }}/jaeger-agent
+  {{- end }}
+  collector:
+  {{- if .Values.registry }}
+    image: {{ .Values.registry }}/jaeger-collector
+  {{- end }}
+  query:
+  {{- if .Values.registry }}
+    image: {{ .Values.registry }}/jaeger-query
+  {{- end }}
+  provisionDataStore:
+    cassandra: false
+    elasticsearch: true
+    kafka: false
+  storage:
+    # allowed values (cassandra, elasticsearch)
+    type: elasticsearch
+  elasticsearch:
+    user: admin
+    usePassword: true
+    password: password 
+    {{- if .Values.registry }}
+    image: {{ .Values.registry }}/elasticsearch/elasticsearch
+    {{- end }}
+    {{- if .Values.storageClass }}
+    volumeClaimTemplate: 
+      storageClassName: {{ .Values.storageClass | quote }}
+    {{- end }}

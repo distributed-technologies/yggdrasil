@@ -1,4 +1,11 @@
-applications:
+# By setting the storage class, you enable the hard-coded ceph storageclass in the values files. If not set,
+# the charts will default to the standard storage class
+# storageClass: ceph-filesystem
+
+# If registry is not set, it will pull from the default registries
+# registry: <your-registry-here>
+
+applications: 
   argowf:                 false
   argo-events:            false
   cache:                  false
@@ -9,11 +16,12 @@ applications:
   harbor:                 false
   influxdb:               false
   ingress:                true
-  jaeger-operator:        false
+  jaeger:                 false
   kafka:                  false
   loadbalancer:           false
   loki:                   true
   nifi:                   false
+  ntp:                    false
   prometheus:             true
   rook:                   false
   thanos:                 false

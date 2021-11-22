@@ -1,4 +1,8 @@
 nidhogg:
   yggdrasil:
+    repoURL: "https://github.com/Energinet-DataHub/eo-base-environment.git"
     targetRevision: "production"
     ingressDomain: energioprindelse.dk
+    
+    installCNI: false
+    monitorNidhogg: false

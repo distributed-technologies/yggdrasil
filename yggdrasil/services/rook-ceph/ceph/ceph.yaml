@@ -1,0 +1,6 @@
+rook-ceph-cluster:
+  cephClusterSpec: 
+    cephVersion: 
+      {{- if .Values.registry }}
+      image: {{ .Values.registry }}/ceph/ceph:v16.2.5
+      {{- end }}

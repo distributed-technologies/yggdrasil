@@ -10,7 +10,8 @@ kube-prometheus-stack:
     admissionWebhooks: 
       patch:
         image: 
-          repository: {{ .Values.registry }}/jettech/kube-webhook-certgen
+          repository: {{ .Values.registry }}/ingress-nginx/kube-webhook-certgen
+          sha: ""
     image: 
       repository: {{ .Values.registry }}/prometheus-operator/prometheus-operator 
     prometheusConfigReloaderImage: 

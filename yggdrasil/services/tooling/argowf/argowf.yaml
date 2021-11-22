@@ -1,14 +1,28 @@
 argo: 
   images: 
-    pullPolicy: ifNotPresent
+    pullPolicy: IfNotPresent
   {{- if .Values.registry }}
   controller: 
+    resources:
+      requests:
+        cpu: "100m"
+        memory: "50Mi"
+      limits:
+        cpu: "300m"
+        memory: "150Mi"
     image: 
       registry: {{ .Values.registry }}
   executor: 
     image: 
      registry: {{ .Values.registry }}
   server: 
+    resources:
+      requests:
+        cpu: "100m"
+        memory: "50Mi"
+      limits:
+        cpu: "300m"
+        memory: "150Mi"
     image: 
       registry: {{ .Values.registry }}
   {{- end }}
