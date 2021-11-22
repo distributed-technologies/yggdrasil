@@ -2,8 +2,8 @@ nidhogg:
   # A reference to this repo itself.
   yggdrasil:
     repoURL: "https://github.com/Energinet-DataHub/eo-base-environment.git"
-    targetRevision: "development"
-    ingressDomain: dev.energioprindelse.dk
+    # targetRevision: set from env files
+    # ingressDomain: set from env files
 
     # ingress:  
       # Set either a subdomain or a path here
