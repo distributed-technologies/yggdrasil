@@ -14,4 +14,3 @@ issuers:
   solvers:
   - http01:
       ingress:
-        class: traefik-cert-manager

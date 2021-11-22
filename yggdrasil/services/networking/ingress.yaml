@@ -10,10 +10,6 @@ traefik:
     pullPolicy: "Always"
   ingressClass:
     fallbackApiVersion: "v1"
-  providers:
-    kubernetesCRD:
-      ingressClass: traefik-cert-manager
-
   service:
     enabled: true
     type: LoadBalancer
