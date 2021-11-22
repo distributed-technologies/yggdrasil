@@ -1,0 +1,4 @@
+nidhogg:
+  yggdrasil:
+    targetRevision: "development"
+    ingressDomain: dev.energioprindelse.dk
