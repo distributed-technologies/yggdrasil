@@ -1,0 +1,97 @@
+# Copyright 2020 Energinet DataHub A/S
+#
+# Licensed under the Apache License, Version 2.0 (the "License2");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: Infrastructure CD
+
+on:
+  push:
+    branches:
+      # Add more branches as necessary.
+      - production
+    paths:
+      - infrastructure/**
+      - nidhogg/**
+      - .github/workflows/infrastructure-cd-prod.yaml
+  workflow_dispatch: {}
+env:
+  TERRAFORM_BACKEND_AZURE_FILE_PATH: './infrastructure/azure/backend.tf'
+  TERRAFORM_BACKEND_HELM_FILE_PATH: './infrastructure/helm/backend.tf'
+  TERRAFORM_WORKING_DIR_AZURE_PATH: './infrastructure/azure'
+  TERRAFORM_WORKING_DIR_HELM_PATH: './infrastructure/helm'
+  PROJECT_NAME: eo
+  TERRAFORM_VERSION: '1.0.8'
+  
+jobs:
+  infra_deploy:
+    name: Deploy infrastructure to environment
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      ENVIRONMENT: production
+      ENVIRONMENT_SHORT: p
+      ENVIRONMENT_INSTANCE: '001'
+      SERVICE_NAME: kubernetes
+      
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_wrapper: false
+
+      - name: Set Environment Secrets
+        shell: bash
+        run: |
+          echo "TF_VAR_azure_spn_object_id=${{ secrets.AZURE_SPN_OBJECT_ID }}" >> $GITHUB_ENV
+          echo "TF_VAR_azure_aks_spn_name=${{ secrets.AZURE_AKS_SPN_NAME }}" >> $GITHUB_ENV
+
+      - name: Terraform CD Azure
+        uses: Energinet-DataHub/.github/.github/actions/terraform-apply@8f5b1b08392de65bdff19ec719f8413b5772eb79
+        with:
+          PROJECT_NAME: ${{ env.PROJECT_NAME }}
+          SERVICE_NAME: ${{ env.SERVICE_NAME }}
+          ENVIRONMENT_INSTANCE: ${{ env.ENVIRONMENT_INSTANCE }}
+          ENVIRONMENT_SHORT: ${{ env.ENVIRONMENT_SHORT }}
+          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          AZURE_SPN_ID: ${{ secrets.AZURE_SPN_ID }}
+          AZURE_SPN_OBJECT_ID: ${{ secrets.AZURE_SPN_OBJECT_ID }}
+          AZURE_SPN_SECRET: ${{ secrets.AZURE_SPN_SECRET }}
+          AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          AZURE_RG_NAME: ${{ secrets.AZURE_RG_NAME }}
+          TERRAFORM_VERSION: ${{ env.TERRAFORM_VERSION }}
+          TERRAFORM_STATE_RG_NAME: ${{ secrets.TERRAFORM_STATE_RG_NAME }}
+          # Step specific parameters:
+          TERRAFORM_BACKEND_FILE_PATH: ${{ env.TERRAFORM_BACKEND_AZURE_FILE_PATH }}
+          TERRAFORM_WORKING_DIR_PATH: ${{ env.TERRAFORM_WORKING_DIR_AZURE_PATH }}
+
+      - name: Terraform CD Helm
+        uses: Energinet-DataHub/.github/.github/actions/terraform-apply@8f5b1b08392de65bdff19ec719f8413b5772eb79
+        with:
+          PROJECT_NAME: ${{ env.PROJECT_NAME }}
+          SERVICE_NAME: ${{ env.SERVICE_NAME }}
+          ENVIRONMENT_INSTANCE: ${{ env.ENVIRONMENT_INSTANCE }}
+          ENVIRONMENT_SHORT: ${{ env.ENVIRONMENT_SHORT }}
+          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          AZURE_SPN_ID: ${{ secrets.AZURE_SPN_ID }}
+          AZURE_SPN_OBJECT_ID: ${{ secrets.AZURE_SPN_OBJECT_ID }}
+          AZURE_SPN_SECRET: ${{ secrets.AZURE_SPN_SECRET }}
+          AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          AZURE_RG_NAME: ${{ secrets.AZURE_RG_NAME }}
+          TERRAFORM_VERSION: ${{ env.TERRAFORM_VERSION }}
+          TERRAFORM_STATE_RG_NAME: ${{ secrets.TERRAFORM_STATE_RG_NAME }}
+          # Step specific parameters:
+          TERRAFORM_BACKEND_FILE_PATH: ${{ env.TERRAFORM_BACKEND_HELM_FILE_PATH }}
+          TERRAFORM_WORKING_DIR_PATH: ${{ env.TERRAFORM_WORKING_DIR_HELM_PATH }}

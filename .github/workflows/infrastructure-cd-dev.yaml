@@ -22,7 +22,7 @@ on:
     paths:
       - infrastructure/**
       - nidhogg/**
-      - .github/workflows/infrastructure-cd.yaml
+      - .github/workflows/infrastructure-cd-dev.yaml
   workflow_dispatch: {}
 env:
   TERRAFORM_BACKEND_AZURE_FILE_PATH: './infrastructure/azure/backend.tf'
@@ -33,7 +33,7 @@ env:
   TERRAFORM_VERSION: '1.0.8'
   
 jobs:
-  infra_deploy_development:
+  infra_deploy:
     name: Deploy infrastructure to environment
     runs-on: ubuntu-latest
     environment: development
