@@ -1,9 +1,22 @@
-issuer:
-
-  email: test@test.com
- 
-  vault: 
-    enabled: false
-
 cert-manager:
   installCRDs: true
+
+issuers:
+- name: letsencrypt-prod
+  enabled: true
+  kind: ClusterIssuer
+
+  email: mcs@energinet.dk
+
+  server: https://acme-v02.api.letsencrypt.org/directory
+  privateKeySecretRef: letsencrypt
+
+  solvers:
+  - http01:
+      ingress:
+        # Sets to use ClusterIP and web as entrypoint for resolving certs
+        serviceType: ClusterIP
+        ingressTemplate: 
+          metadata:
+            annotations: 
+              traefik.ingress.kubernetes.io/router.entrypoints: web

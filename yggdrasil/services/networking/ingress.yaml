@@ -10,7 +10,6 @@ traefik:
     pullPolicy: "Always"
   ingressClass:
     fallbackApiVersion: "v1"
-
   service:
     enabled: true
     type: LoadBalancer

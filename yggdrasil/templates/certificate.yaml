@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ .Values.ingressDomain }}
+spec:
+  secretName: elop-cert
+  privateKey:
+    rotationPolicy: Always
+  dnsNames:
+  - {{ .Values.ingressDomain }}
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
