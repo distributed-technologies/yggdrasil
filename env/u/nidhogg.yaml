@@ -6,3 +6,11 @@ nidhogg:
 
     installCNI: false
     monitorNidhogg: false
+
+  argo-cd-proxy-chart:
+    argo-cd: 
+      server: 
+        extraArgs:
+          - --insecure
+          - --rootpath
+          - /admin/argocd
