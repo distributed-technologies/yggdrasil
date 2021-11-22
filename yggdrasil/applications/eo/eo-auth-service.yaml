@@ -11,4 +11,7 @@ eo-base-helm-chart:
     SQL_URI: postgresql://postgres:1234@eo-postgresql.eo-postgresql.svc.cluster.local:5432/auth
   ingress:
     hosts:
-    - '{{ .Values.ingressDomain }}'
+      - '{{ .Values.ingressDomain }}'
+    httpMiddelwares: 
+      - https-only
+    tlsSecretName: elop-cert
