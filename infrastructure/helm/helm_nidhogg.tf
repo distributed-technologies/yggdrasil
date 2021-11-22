@@ -5,7 +5,7 @@ resource "helm_release" "nidhogg" {
   timeout = 600
 
   values = [
-    file("${path.cwd}/env/${var.environment_short}/nidhogg.yaml")
+    file("${path.cwd}/../../env/${var.environment_short}/nidhogg.yaml")
   ]
 
   set {
