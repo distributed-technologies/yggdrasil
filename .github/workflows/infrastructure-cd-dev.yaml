@@ -22,6 +22,7 @@ on:
     paths:
       - infrastructure/**
       - nidhogg/**
+      - env/u/nidhogg.yaml
       - .github/workflows/infrastructure-cd-dev.yaml
   workflow_dispatch: {}
 env:
