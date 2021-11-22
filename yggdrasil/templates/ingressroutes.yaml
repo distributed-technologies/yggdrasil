@@ -5,6 +5,27 @@ metadata:
 spec:
   entryPoints:
     - websecure
+  routes:
+    - kind: Rule
+      match: Host(`{{ .Values.ingressDomain }}`) && PathPrefix(`/admin/argocd`)
+      services:
+        - name: nidhogg-argocd-server
+          port: 80
+    - kind: Rule
+      match: Host(`{{ .Values.ingressDomain }}`) && PathPrefix(`/admin/argocd`) && Headers(`Content-Type`, `application/grpc`)
+      services:
+        - name: nidhogg-argocd-server
+          port: 80
+          scheme: h2c
+  tls:
+    secretName: elop-cert
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: argocd-server-http-redirect
+spec:
+  entryPoints:
     - web
   routes:
     - kind: Rule
@@ -15,14 +36,6 @@ spec:
       middlewares:
         - name: redirect-https
           namespace: kube-system
-    - kind: Rule
-      match: Host(`{{ .Values.ingressDomain }}`) && PathPrefix(`/admin/argocd`) && Headers(`Content-Type`, `application/grpc`)
-      services:
-        - name: nidhogg-argocd-server
-          port: 80
-          scheme: h2c
-  tls:
-    secretName: elop-cert
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
