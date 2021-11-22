@@ -9,12 +9,12 @@ resource "helm_release" "nidhogg" {
   ]
 
   set {
-    name  = "nidhogg.yggdrasil.loadBalancerIP"
+    name  = "nidhogg.yggdrasil.ingress.loadBalancerIP"
     value = data.azurerm_public_ip.ingress_ip.ip_address
   }
 
   set {
-    name  = "nidhogg.yggdrasil.loadbalancerResourceGroup"
+    name  = "nidhogg.yggdrasil.ingress.loadbalancerResourceGroup"
     value =  var.resource_group_name
   }
 }
