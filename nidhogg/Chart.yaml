@@ -6,5 +6,5 @@ version: v1.0.2
 
 dependencies:
   - name: nidhogg
-    version: "v1.0.4"
-    repository: "https://distributed-technologies.github.io/helm-repository/"
+    version: "v1.0.14"
+    repository: "https://distributed-technologies.github.io/helm-charts/"

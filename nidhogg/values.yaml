@@ -5,6 +5,7 @@ nidhogg:
     ingressDomain: energioprindelse.dk
 
   installCNI: false
+  monitorNidhogg: false
 
   argo-cd:
     controller:
