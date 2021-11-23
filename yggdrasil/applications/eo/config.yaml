@@ -16,7 +16,7 @@ apps:
     source:
       repoURL: "https://github.com/Energinet-DataHub/eo-base-environment.git"
       targetRevision: "development"
-      path: eo/chart
+      path: eo-base
       valuesFile: "eo-base.yaml"
   - name: eo-frontend
     source:
