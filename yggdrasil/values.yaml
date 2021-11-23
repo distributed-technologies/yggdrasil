@@ -30,7 +30,6 @@ applications:
   eo-postgresql:         true
   eo-frontend:           true
   eo-auth:               true
-  eo-base:               true
   eo-emissions:          false
   eo-measurements:       false
   eo-meteringpoints:     false

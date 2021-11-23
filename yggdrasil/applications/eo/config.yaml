@@ -12,12 +12,6 @@ project:
     - namespace: kube-system
       server: https://kubernetes.default.svc
 apps:
-  - name: eo-base
-    source:
-      repoURL: "https://github.com/Energinet-DataHub/eo-base-environment.git"
-      targetRevision: "development"
-      path: eo-base
-      valuesFile: "eo-base.yaml"
   - name: eo-frontend
     source:
       repoURL: "https://github.com/Energinet-DataHub/greenforce-frontend.git"
