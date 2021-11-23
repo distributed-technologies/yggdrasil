@@ -14,8 +14,8 @@ project:
 apps:
   - name: eo-base
     source:
-      repoURL: "{{ .Values.repoURL }}"
-      targetRevision: {{ .Values.targetRevision }}
+      repoURL: "https://github.com/Energinet-DataHub/eo-base-environment.git"
+      targetRevision: "development"
       path: eo/chart
       valuesFile: "eo-base.yaml"
   - name: eo-frontend
