@@ -16,9 +16,9 @@ spec:
     path: eo-base
 
     helm:
+      version: v3
       values: |
         ingressDomain: {{ .Values.ingressDomain }}
-      version: v2
 
   # Destination cluster and namespace to deploy the application
   destination:
