@@ -13,8 +13,7 @@ apps:
       chart: prometheus
       valuesFile: "prometheus.yaml"
     ingress:
-      - subDomain: prometheus
-        path: /
+      - path: /admin/prometheus
         servicePort: 9090
         serviceName: prometheus-kube-prometheus-prometheus
         annotation:
@@ -32,8 +31,7 @@ apps:
       chart: grafana
       valuesFile: "grafana.yaml"
     ingress:  
-      - subDomain: grafana
-        path: /
+      - path: /admin/grafana
         servicePort: 80
         serviceName: grafana
         annotation: 
@@ -51,8 +49,7 @@ apps:
       chart: jaeger
       valuesFile: "jaeger.yaml"
     ingress:
-      - subDomain: jaeger
-        path: /
+      - path: /admin/jaeger
         servicePort: 80
         serviceName: jaeger-query
         annotation:
