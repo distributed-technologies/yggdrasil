@@ -13,29 +13,18 @@ traefik:
   service:
     enabled: true
     type: LoadBalancer
-<<<<<<< HEAD:yggdrasil/services/networking/ingress.yaml
-    annotations:
-      service.beta.kubernetes.io/azure-load-balancer-resource-group: {{ .Values.ingress.loadbalancerResourceGroup  }}
-    spec:
-      loadBalancerIP: {{ .Values.ingress.loadBalancerIP }}
-      selector:
-        app: azure-load-balancer
-
-  ports:
-    websecure:
-      tls:
-=======
 {{- if .Values.ingress.loadbalancerResourceGroup }}
     annotations:
       service.beta.kubernetes.io/azure-load-balancer-resource-group: {{ .Values.ingress.loadbalancerResourceGroup | quote }}
 {{- end }}
     spec: 
       loadBalancerIP: {{ .Values.ingress.loadBalancerIP }}
+      selector:
+        app: azure-load-balancer
 
   ports:
     websecure:
       tls: 
->>>>>>> a881991c3b922a5e4040cb320e3216c2d13a6fad:yggdrasil/services/networking/ingress/ingress.yaml
         enabled: true  
 
   logs:
