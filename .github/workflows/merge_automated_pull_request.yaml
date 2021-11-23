@@ -1,7 +1,7 @@
 name: Auto Merge Pull Reqeust
 
 env:
-  PR_HEAD_BRANCH_PREFIX: "automated/" # The branch prefix being merged from
+  PR_HEAD_BRANCH_PREFIX: "automated/github_actions/bump-" # The branch prefix being merged from
   PR_BASE_BRANCH: "development" # Branch being merged to
 
 on:
