@@ -3,7 +3,7 @@ eo-base-helm-chart:
     hosts:
       - {{ .Values.ingressDomain }}
     httpMiddelwares:
-      - https-only
+      - default-https-only
     tlsSecretName: elop-cert
     pathExceptions:
       - /api
