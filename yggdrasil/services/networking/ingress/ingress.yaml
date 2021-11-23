@@ -2,14 +2,13 @@ dashboardRoute:
   host: ingress.{{ .Values.ingress.domain }}
 
 traefik:
-  image:
-    {{- if .Values.registry }}
+  {{- if .Values.registry }}
+  image: 
     name: {{ .Values.registry }}/traefik
-    {{- end }}
-    tag: "v2.5.3"
-    pullPolicy: "Always"
+  {{- end }}
   ingressClass:
     fallbackApiVersion: "v1"
+
   service:
     enabled: true
     type: LoadBalancer

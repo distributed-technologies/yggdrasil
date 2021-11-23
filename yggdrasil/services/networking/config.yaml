@@ -8,9 +8,9 @@ description: networking services like ingress, cert-manager.
 apps:
   - name: ingress
     source:
-      repoURL: "https://distributed-technologies.github.io/helm-charts/"
-      targetRevision: 0.2.4
-      chart: traefik
+      repoURL: "https://github.com/distributed-technologies/services-traefik.git"
+      targetRevision: version-bump
+      path: chart
       valuesFile: "ingress.yaml"
   - name: cert-manager
     source:
