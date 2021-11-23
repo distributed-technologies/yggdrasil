@@ -1,6 +1,6 @@
 dashboardRoute:
   host: {{ .Values.ingress.domain }}
-  path: /ingress
+  path: /admin/ingress
 
 traefik:
   {{- if .Values.registry }}

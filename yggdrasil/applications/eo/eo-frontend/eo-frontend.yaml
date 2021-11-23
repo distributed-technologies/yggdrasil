@@ -9,4 +9,3 @@ eo-base-helm-chart:
       - /api
       - /auth
       - /admin
-      - /ingress
