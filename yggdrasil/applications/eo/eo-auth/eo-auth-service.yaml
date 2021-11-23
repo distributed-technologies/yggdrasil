@@ -13,5 +13,6 @@ eo-base-helm-chart:
     hosts:
     - '{{ .Values.ingressDomain }}'
     httpMiddelwares:
-    - https-only
+    - name: https-only
+      namespace: default
     tlsSecretName: elop-cert
