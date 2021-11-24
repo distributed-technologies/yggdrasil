@@ -1,8 +1,13 @@
 eo-base-helm-chart:
   deployments:
     api:
+      command: "/bin/bash"
+      args: ""
+      probes: false
       image:
-        tag: v0.0.18
+        repository: ubuntu
+        tag: "latest"
+#        tag: v0.0.18
   env:
     DEBUG: 1
     SERVICE_URL: https://{{ .Values.ingressDomain }}/api/auth
