@@ -29,7 +29,7 @@ applications:
   eo-kafka:              false
   eo-postgresql:         true
   eo-frontend:           true
-  eo-auth:               true
+  eo-auth:               false
   eo-emissions:          false
   eo-measurements:       false
   eo-meteringpoints:     false
