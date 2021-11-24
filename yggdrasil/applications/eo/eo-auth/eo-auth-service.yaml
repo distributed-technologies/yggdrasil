@@ -11,13 +11,13 @@ eo-base-helm-chart:
     SQL_POOL_SIZE: 1
 #    EVENT_BUS_HOST: dev-cluster-kafka-bootstrap.ett-kafka.svc.cluster.local
 #    EVENT_BUS_PORT: 9093
-#  envSecrets:
-#    INTERNAL_TOKEN_SECRET:
-#      secretName: eo-auth-secret
-#      key: tokenSecret
-#    SSN_ENCRYPTION_KEY:
-#      secretName: eo-auth-secret
-#      key: encryptionSecret
+  envSecrets:
+    INTERNAL_TOKEN_SECRET:
+      secretName: eo-auth-secret
+      key: tokenSecret
+    SSN_ENCRYPTION_KEY:
+      secretName: eo-auth-secret
+      key: encryptionSecret
   ingress:
     hosts:
     - '{{ .Values.ingressDomain }}'
