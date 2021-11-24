@@ -1,7 +1,7 @@
 eo-base-helm-chart:
   deployments:
     api:
-      command: "/bin/bash"
+      command: ""
       args: ""
       probes: false
       image:
