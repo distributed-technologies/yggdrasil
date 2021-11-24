@@ -26,6 +26,3 @@ eo-base-helm-chart:
     - name: https-only
       namespace: default
     tlsSecretName: elop-cert
-
-  service:
-    deployment: api
