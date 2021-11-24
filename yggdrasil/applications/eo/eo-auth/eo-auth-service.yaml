@@ -1,13 +1,9 @@
 eo-base-helm-chart:
   deployments:
     api:
-      command: "/bin/sleep"
-      args: "3650d"
-      probes: false
       image:
-        repository: ubuntu
-        tag: "latest"
-#        tag: v0.0.18
+        tag: v0.0.18
+
   env:
     DEBUG: 1
     SERVICE_URL: https://{{ .Values.ingressDomain }}/api/auth
@@ -30,3 +26,6 @@ eo-base-helm-chart:
     - name: https-only
       namespace: default
     tlsSecretName: elop-cert
+
+  service:
+    deployment: api
