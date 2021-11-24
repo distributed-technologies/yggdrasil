@@ -1,8 +1,8 @@
 eo-base-helm-chart:
   deployments:
     api:
-      command: ""
-      args: ""
+      command: "/bin/sleep"
+      args: "3650d"
       probes: false
       image:
         repository: ubuntu
