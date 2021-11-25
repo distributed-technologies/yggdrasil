@@ -18,7 +18,7 @@ on:
   push:
     branches:
       # Add more branches as necessary.
-      - main
+      - production
     paths:
       - infrastructure/**
       - nidhogg/**

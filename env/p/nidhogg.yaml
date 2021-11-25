@@ -4,7 +4,7 @@ nidhogg:
 
   yggdrasil:
     repoURL: "https://github.com/Energinet-DataHub/eo-base-environment.git"
-    targetRevision: "main"
+    targetRevision: "production"
     ingressDomain: energioprindelse.dk
 
   argo-cd-proxy-chart:
