@@ -6,7 +6,7 @@ eo-base-helm-chart:
   env:
     DEBUG: 1
     SERVICE_URL: https://{{ .Values.ingressDomain }}/api/auth
-    TOKEN_COOKIE_DOMAIN: {{ .Values.ingressDomain }}
+    TOKEN_COOKIE_DOMAIN: '{{ .Values.ingressDomain }}'
     SQL_URI: postgresql://postgres:1234@eo-postgresql.eo-postgresql.svc.cluster.local:5432/auth
     SQL_POOL_SIZE: 1
     {{- with .Values.eo.auth.env }}

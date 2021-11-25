@@ -10,3 +10,5 @@ crash.log
 
 # Ignore subcharts 
 **/*.tgz
+
+.locals/*
