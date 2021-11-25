@@ -15,4 +15,12 @@
 resource "azurerm_resource_group" "main" {
   name     = var.resource_group_name
   location = var.location
+
+  lifecycle {
+    ignore_changes = [
+      # Ignore changes to tags, e.g. because a management agent
+      # updates these based on some ruleset managed elsewhere.
+      tags,
+    ]
+  }
 }

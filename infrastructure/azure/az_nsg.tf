@@ -15,6 +15,7 @@
 module "nsg" {
   depends_on = [
     azurerm_resource_group.main,
+    module.public_ip
   ]
   source = "git::https://github.com/Energinet-DataHub/geh-terraform-modules.git//azure/network-security-group?ref=feature/aks"
 
@@ -23,45 +24,29 @@ module "nsg" {
   environment_instance = var.environment_instance
   resource_group_name  = azurerm_resource_group.main.name
   location             = azurerm_resource_group.main.location
-}
 
-
-resource "azurerm_network_security_rule" "http" {
-  depends_on = [
-    azurerm_resource_group.main,
-    module.nsg,
-    module.public_ip
+  security_rules = [
+    {
+      name                        = "http"
+      priority                    = 100
+      direction                   = "Inbound"
+      access                      = "Allow"
+      protocol                    = "Tcp"
+      source_port_range           = "*"
+      destination_port_range      = "80"
+      source_address_prefix       = "*"
+      destination_address_prefix  = module.public_ip.ip_address
+    },
+    {
+      name                        = "https"
+      priority                    = 101
+      direction                   = "Inbound"
+      access                      = "Allow"
+      protocol                    = "Tcp"
+      source_port_range           = "*"
+      destination_port_range      = "443"
+      source_address_prefix       = "*"
+      destination_address_prefix  = module.public_ip.ip_address
+    }
   ]
-
-  name                        = "http"
-  priority                    = 100
-  direction                   = "Inbound"
-  access                      = "Allow"
-  protocol                    = "Tcp"
-  source_port_range           = "*"
-  destination_port_range      = "80"
-  source_address_prefix       = "*"
-  destination_address_prefix  = module.public_ip.ip_address
-  resource_group_name         = azurerm_resource_group.main.name
-  network_security_group_name = module.nsg.name
-}
-
-resource "azurerm_network_security_rule" "https" {
-  depends_on = [
-    azurerm_resource_group.main,
-    module.nsg,
-    module.public_ip
-  ]
-
-  name                        = "https"
-  priority                    = 101
-  direction                   = "Inbound"
-  access                      = "Allow"
-  protocol                    = "Tcp"
-  source_port_range           = "*"
-  destination_port_range      = "443"
-  source_address_prefix       = "*"
-  destination_address_prefix  = module.public_ip.ip_address
-  resource_group_name         = azurerm_resource_group.main.name
-  network_security_group_name = module.nsg.name
 }
