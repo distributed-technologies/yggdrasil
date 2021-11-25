@@ -7,6 +7,23 @@ nidhogg:
     targetRevision: "production"
     ingressDomain: energioprindelse.dk
 
+    eo:
+      auth:
+        env:
+          OIDC_AUTHORITY_URL: 'placeholder'
+        envSecrets:
+          OIDC_CLIENT_ID:
+            secretName: eo-oidc-secret
+            key: oidc_client_id
+          OIDC_CLIENT_SECRET:
+            secretName: eo-oidc-secret
+            key: oidc_client_secret
+        sealedSecret:
+          eo-oidc-secret:
+            encryptedData:
+              oidc_client_id: "placeholder"
+              oidc_client_secret: "placeholder"
+
   argo-cd-proxy-chart:
     argo-cd: 
       server: 
