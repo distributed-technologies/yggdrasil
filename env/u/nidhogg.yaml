@@ -7,6 +7,23 @@ nidhogg:
     targetRevision: "development"
     ingressDomain: dev.energioprindelse.dk
 
+    eo:
+      auth:
+        env:
+          OIDC_AUTHORITY_URL: 'placeholder'
+        envSecrets:
+          OIDC_CLIENT_ID:
+            secretName: eo-oidc-secret
+            key: oidc_client_id
+          OIDC_CLIENT_SECRET:
+            secretName: eo-oidc-secret
+            key: oidc_client_secret
+        sealedSecret:
+          eo-oidc-secret:
+            encryptedData:
+              oidc_client_id: "AgCqnwAnk8ur+8Qjs/VhwunDWvcCDo962cPV3LqtEE/I8a1ldxAPIU/nMFqij/5B3Bkx9r1+hz84TiSHkWL3IO/fhIIL1gGb35QTrRe/A9KoaL2H//1q2VcOVvdYs8Kyd90qdExTlgNSx9Nu9zJkJILoCy7Yskt9DZTj8s9zG/4mVp+lZfMIwDtUmSEgLtRjSJmPaguGLt7OXO1xrXVTs2a6rJ8uTUCbp82bxsLSUwBv6xOf+wnGOqjvY9RzwFutAoS4gIZY/JvM1tCj2Oj60Z01z/z2XS7gTaRBhHHVLm4u8nTS2sjW0rkra+tbUymV0+D2Ad3lOyGBm6OoV3QgHx2nkwfuDGkmVDBeV587YWU1kCUeFDsjPf5YaGP4dugaMSSxxJo+PplBRyOZQ+e9UZ3lomBalwLuDRChJtYKAwr6+DoHqqAwtPFuQ3NTriarrYt3v4v0J6l/PSvZQu+l2b5UyrgjrDF02LHVY3W5QdVV3oXuJoFKrB23P8uEkVkmN8tt5YS3NhCtPwf7XLDdjdgA2A86+bwOu29DzEI2GBFaRHJHmxvOnD6CioznQC54wQ0wbSwiVwXC2jRVW9wtWYc5ZqNHl/J/yXe+jkZ9B7qSppEZU6i2MfPTPVcEnXDJd7Gf+cmuaa3abwOKZB/VuuEfC2s5oawwIyBEKx+xbpZxZJg9uKCCBrB7FmSjS5GC+mQUNzw="
+              oidc_client_secret: "AgCqnwAnk8ur+8Qjs/VhwunDWvcCDo962cPV3LqtEE/I8a1ldxAPIU/nMFqij/5B3Bkx9r1+hz84TiSHkWL3IO/fhIIL1gGb35QTrRe/A9KoaL2H//1q2VcOVvdYs8Kyd90qdExTlgNSx9Nu9zJkJILoCy7Yskt9DZTj8s9zG/4mVp+lZfMIwDtUmSEgLtRjSJmPaguGLt7OXO1xrXVTs2a6rJ8uTUCbp82bxsLSUwBv6xOf+wnGOqjvY9RzwFutAoS4gIZY/JvM1tCj2Oj60Z01z/z2XS7gTaRBhHHVLm4u8nTS2sjW0rkra+tbUymV0+D2Ad3lOyGBm6OoV3QgHx2nkwfuDGkmVDBeV587YWU1kCUeFDsjPf5YaGP4dugaMSSxxJo+PplBRyOZQ+e9UZ3lomBalwLuDRChJtYKAwr6+DoHqqAwtPFuQ3NTriarrYt3v4v0J6l/PSvZQu+l2b5UyrgjrDF02LHVY3W5QdVV3oXuJoFKrB23P8uEkVkmN8tt5YS3NhCtPwf7XLDdjdgA2A86+bwOu29DzEI2GBFaRHJHmxvOnD6CioznQC54wQ0wbSwiVwXC2jRVW9wtWYc5ZqNHl/J/yXe+jkZ9B7qSppEZU6i2MfPTPVcEnXDJd7Gf+cmuaa3abwOKZB/VuuEfC2s5oawwIyBEKx+xbpZxZJg9uKCCBrB7FmSjS5GC+mQUNzw="
+
 
   argo-cd-proxy-chart:
     argo-cd: 
