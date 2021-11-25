@@ -21,7 +21,7 @@ apps:
   - name: eo-auth
     source:
       repoURL: "https://github.com/energinet-datahub/eo-auth.git"
-      targetRevision: postgress-dependency
+      targetRevision: postgres-dependency
       path: chart
       valuesFile: "eo-auth-service.yaml"
   - name: eo-emissions
