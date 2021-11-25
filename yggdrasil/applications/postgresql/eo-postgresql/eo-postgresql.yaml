@@ -1,4 +1,0 @@
-global:
-  postgresql:
-    postgresqlUsername: postgres
-    postgresqlPassword: 1234

@@ -28,7 +28,6 @@ applications:
   thanos:                 false
   vault:                  false
   eo-kafka:              false
-  eo-postgresql:         true
   eo-frontend:           true
   eo-auth:               true
   eo-emissions:          false
