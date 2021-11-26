@@ -1,0 +1,36 @@
+nidhogg:
+  installCNI: false
+  monitorNidhogg: false
+
+  yggdrasil:
+    repoURL: "https://github.com/Energinet-DataHub/eo-base-environment.git"
+    targetRevision: "-place-holder-"
+    ingressDomain: localhost
+    
+    applications: 
+      loadbalancer: true
+
+    eo:
+      auth:
+        env:
+          OIDC_AUTHORITY_URL: 'https://pp.netseidbroker.dk/op'
+        envSecrets:
+          OIDC_CLIENT_ID:
+            secretName: eo-oidc-secret
+            key: oidc_client_id
+          OIDC_CLIENT_SECRET:
+            secretName: eo-oidc-secret
+            key: oidc_client_secret
+        sealedSecret:
+          eo-oidc-secret:
+            encryptedData:
+              oidc_client_id: "AgB6/2NYrPo8zoz5GNaeJg+ceWI9dc4ku+wxvQQv4LHRwdE4RryZ85dVd3dNGHjytY+2qaq6f8U5N0vteMYpCptK5o1IXPylW4Kd6ZqN7L5SGLFEhWV67m1CmvcG9sH0ytNzDAJLnal5coPcc8/zxSROcp3Bo4IitYVaS37i0ChVqJC/1x5j+jVVu23igBOsPyZ5EyTxwkPNZAaB4M0aEiR84iFHoMMAaNvfojYZhamfjmQv7+ut08kSju+MJJHE1561JVv5BD4MyByE7zAqpV0zTYD2jtdimA87Gro+kGlWNH7UDmIdgVMSdVlJHP2yhP8uFfFHjHzwYDy9oXfrv97u8G2QJvmTRwRzRFFMm0QVnHFj/uWEIe/jy8fCB/svq8EWTaFwHihCBaxPRSPWPyk9DRc2MKE3ieaXZXPV+R9BtdbVKjLs7a9TgpkcUN0PquqBQsSHjOUCKp3TpHpzEZVIJcUguwsHmQax+MsOJsO6vu3XC7uKhdUFuif8n73x1cIkoaODh0Y10mGkjy30aHG9slMfz78YsWbRVmeHLIz1IRphIqbAu5mqftv5YDqhcDV2guVNmqlODs83q/T5Gqjt+E32LdQz2b6Kqsmx5CFkK3yIhQGJ6y1YRiNAPJI35t/Qcd2ijGh32rkvu/6ngfGq8CvVn6rhiA0408qTeFbSdgQBfDM1FzOk65KkSHPaCojPqqQ9tFYoW/uQ30AYeE49oOSd+fcDsFb8hB0rcmLFEPe0Q6E2"
+              oidc_client_secret: "AgAJFWQ11zq2neByPFU88yKY6IACx+o+lwt9I5Cb9IOwtYT1l/igFsteqQe8y0ZQQRnS3QWSTZoWeQy0Cm4jqqxj/grHYrYdAHinzErF1UL+NL6svSKJipvriekNag9gtKd+Z6KhB/WbyzKy36gNkTxSXr9qtM5uARN6oRTd8b9JeBhMLu0Shy08q48nOHcFljnGE9C5qdC8YyYYD5VH6TcxtSfXYWSf2qcoQk/mFquKNMlzi72h7+SqY8cLrI3tyeUlwubU+nja5SUgLxg7e/z8uHJnRYaJQLVdluu7hh4FVYP2KdbV5sXlEA/6y3IQqeXs7oRGKpcKhvsmRP3HxAwcaXF0MCnNTJzoaMaHDERIg1r1JMgwJFbaC5a7nuoS1nL4c0je+OiLFUPElzb5z8sKGbn2KsO2oQ+bUt6Oupw32s6T2rAj9PgNfjPWlob334v9FQGSl83n1OzJN42jX8SMw1RtiuY73x3MHA+d07VoeMxsIYdQ52fXpAeb7NBkUrY/6NKNBoV3Dv7l6LYOFq5zVklhQrPDd1zJEbigI5P3OEM46MxlTQpKHtSATk/HougS9ZcfsemuDYSj7+2yGMtYPfvz6W3GEliO82NHLPNQiKeQ41ybiglFz5EK3xkgE+pHzaDQUeKqHZ4vGFdRnxJ4zR89NRxyI69+gt2q5KSf8R/Dhsm4lyz2tcaSpNRbIDIuI+7H+R1mDXhkesmKRqCiaeGZc030TTryZlNmWFh2H6GIqgWDlrxq0fTo4mh5aE4HvyK78qYrfajGZz6S76jzPVQpdbvrJgnt5fhinIOmAaGXavRPTamG1g=="
+
+  argo-cd-proxy-chart:
+    argo-cd: 
+      server: 
+        extraArgs:
+          - --insecure
+          - --rootpath
+          - /admin/argocd
