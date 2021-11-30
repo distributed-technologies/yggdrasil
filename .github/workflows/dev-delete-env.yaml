@@ -57,9 +57,9 @@ jobs:
       - name: Delete resource-group.
         shell: bash
         run: |
-          az group delete -n "${{ env.AZURE_RG_NAME }} --yes" 
+          az group delete --yes -n "${{ env.AZURE_RG_NAME }}" 
 
       - name: Delete terraform state resource-group.
         shell: bash
         run: |
-          az group delete -n "${{ env.TERRAFORM_STATE_RG_NAME }} --yes" 
+          az group delete --yes -n "${{ env.TERRAFORM_STATE_RG_NAME }}" 
