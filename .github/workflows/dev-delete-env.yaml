@@ -1,0 +1,57 @@
+# Copyright 2020 Energinet DataHub A/S
+#
+# Licensed under the Apache License, Version 2.0 (the "License2");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: Delete env on branch delete.
+
+on:
+  delete:
+    branches:
+      - dev/**
+
+env:
+  PROJECT_NAME: eo
+  ENVIRONMENT_SHORT: u
+  
+jobs:
+  rg_delete:
+    name: Deletes resource groups created for dev env.
+    runs-on: ubuntu-latest
+    environment: development
+      
+    steps:
+      - name: Set Environment Secrets
+        shell: bash
+        run: |
+          echo "TERRAFORM_STATE_RG_NAME=rg-${{ env.PROJECT_NAME }}-tfstate-${{ env.ENVIRONMENT_SHORT }}-${{ steps.extract_branch.outputs.branch }}" >> $GITHUB_ENV
+          echo "AZURE_RG_NAME=rg-${{ env.PROJECT_NAME }}-${{ env.ENVIRONMENT_SHORT }}-${{ steps.extract_branch.outputs.branch }}" >> $GITHUB_ENV
+
+      - name: Azure CLI Install
+        shell: bash
+        run: curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+      - name: Azure CLI Login
+        shell: bash
+        run: |
+          az login --service-principal --username "${{ secrets.AZURE_SPN_ID }}" --password "${{ secrets.AZURE_SPN_SECRET }}" --tenant "${{ secrets.AZURE_TENANT_ID }}"
+          az account set --subscription "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+
+      - name: Delete resource-group.
+        shell: bash
+        run: |
+          az group delete -n "${{ env.AZURE_RG_NAME }}" 
+
+      - name: Delete terraform state resource-group.
+        shell: bash
+        run: |
+          az group delete -n "${{ env.TERRAFORM_STATE_RG_NAME }}" 
