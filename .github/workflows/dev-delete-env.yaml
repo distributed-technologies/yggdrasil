@@ -30,6 +30,11 @@ jobs:
     environment: development
       
     steps:
+      - id: extract_branch
+        name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/dev/})"
+
       - name: Set Environment Secrets
         shell: bash
         run: |
