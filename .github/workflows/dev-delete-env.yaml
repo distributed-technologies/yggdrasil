@@ -34,7 +34,7 @@ jobs:
     steps:
       - name: Extract branch name
         id: extract_branch
-        uses: ricardorames/subtring-branch-name-action@v0.2.3
+        uses: ricardorames/substring-branch-name-action@v0.2.3
         with:
             separator: 'dev/'
 
