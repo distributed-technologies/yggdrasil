@@ -32,11 +32,17 @@ jobs:
     environment: development
       
     steps:
+      - name: Extract branch name
+        id: extract_branch
+        uses: ricardorames/subtring-branch-name-action@v0.2.3
+        with:
+            separator: 'dev/'
+
       - name: Set Environment Secrets
         shell: bash
         run: |
-          echo "TERRAFORM_STATE_RG_NAME=rg-${{ env.PROJECT_NAME }}-tfstate-${{ env.ENVIRONMENT_SHORT }}-${{ github.event.ref }}" >> $GITHUB_ENV
-          echo "AZURE_RG_NAME=rg-${{ env.PROJECT_NAME }}-${{ env.ENVIRONMENT_SHORT }}-${{ github.event.ref }}" >> $GITHUB_ENV
+          echo "TERRAFORM_STATE_RG_NAME=rg-${{ env.PROJECT_NAME }}-tfstate-${{ env.ENVIRONMENT_SHORT }}-${{ steps.extract_branch.outputs.value }}" >> $GITHUB_ENV
+          echo "AZURE_RG_NAME=rg-${{ env.PROJECT_NAME }}-${{ env.ENVIRONMENT_SHORT }}-${{ steps.extract_branch.outputs.value }}" >> $GITHUB_ENV
 
       - name: Azure CLI Install
         shell: bash
