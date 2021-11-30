@@ -26,20 +26,17 @@ env:
 jobs:
   rg_delete:
     name: Deletes resource groups created for dev env.
+    if: github.event.ref_type == 'branch'
+    
     runs-on: ubuntu-latest
     environment: development
       
     steps:
-      - id: extract_branch
-        name: Extract branch name
-        shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/dev/})"
-
       - name: Set Environment Secrets
         shell: bash
         run: |
-          echo "TERRAFORM_STATE_RG_NAME=rg-${{ env.PROJECT_NAME }}-tfstate-${{ env.ENVIRONMENT_SHORT }}-${{ steps.extract_branch.outputs.branch }}" >> $GITHUB_ENV
-          echo "AZURE_RG_NAME=rg-${{ env.PROJECT_NAME }}-${{ env.ENVIRONMENT_SHORT }}-${{ steps.extract_branch.outputs.branch }}" >> $GITHUB_ENV
+          echo "TERRAFORM_STATE_RG_NAME=rg-${{ env.PROJECT_NAME }}-tfstate-${{ env.ENVIRONMENT_SHORT }}-${{ github.event.ref }}" >> $GITHUB_ENV
+          echo "AZURE_RG_NAME=rg-${{ env.PROJECT_NAME }}-${{ env.ENVIRONMENT_SHORT }}-${{ github.event.ref }}" >> $GITHUB_ENV
 
       - name: Azure CLI Install
         shell: bash
