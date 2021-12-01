@@ -46,7 +46,7 @@ jobs:
         uses: ./.github/actions/deploy-cd
         with:
           ENV_FOLDER: development
-          ENV_INSTANCE: 001
+          ENV_INSTANCE: '001'
           AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
           AZURE_SPN_ID: ${{ secrets.AZURE_SPN_ID }}
           AZURE_SPN_SECRET: ${{ secrets.AZURE_SPN_SECRET }}
