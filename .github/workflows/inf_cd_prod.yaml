@@ -15,17 +15,15 @@
 name: Infrastructure CD Production
 
 on:
-  workflow_run:
-    workflows: ["Infrastructure CD PreProd"]
-    branches: [main]
+  push:
+    branches:
+      - main
     paths:
       - infrastructure/**
       - nidhogg/**
       - env/production/**
       - .github/actions/**
       - .github/workflows/inf_cd_prod.yaml
-    types:
-      - completed
  
 jobs:
   infra_deploy_temp_dev:

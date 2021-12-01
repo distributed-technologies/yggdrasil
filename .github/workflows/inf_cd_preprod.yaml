@@ -17,7 +17,7 @@ name: Infrastructure CD PreProd
 on:
   push:
     branches:
-      - main
+      - preprod
     paths:
       - infrastructure/**
       - nidhogg/**
@@ -45,3 +45,8 @@ jobs:
           AZURE_SPN_ID: ${{ secrets.AZURE_SPN_ID }}
           AZURE_SPN_SECRET: ${{ secrets.AZURE_SPN_SECRET }}
           AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        title: Update prod from preprod
+        branch: main
