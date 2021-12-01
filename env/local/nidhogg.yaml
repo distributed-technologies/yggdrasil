@@ -4,8 +4,8 @@ nidhogg:
 
   yggdrasil:
     repoURL: "https://github.com/Energinet-DataHub/eo-base-environment.git"
-    targetRevision: "-place-holder-"
-    ingressDomain: localhost
+    #targetRevision: set from script
+    ingressDomain: local.energioprindelse.dk
     
     applications: 
       loadbalancer: true

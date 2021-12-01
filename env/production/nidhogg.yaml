@@ -4,7 +4,7 @@ nidhogg:
 
   yggdrasil:
     repoURL: "https://github.com/Energinet-DataHub/eo-base-environment.git"
-    targetRevision: "production"
+    # targetRevision: set from terraform
     ingressDomain: energioprindelse.dk
 
     eo:

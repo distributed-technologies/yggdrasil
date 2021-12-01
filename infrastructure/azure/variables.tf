@@ -30,25 +30,14 @@ variable "project_name" {
   description = "Name of the project this infrastructure is a part of."
 }
 
-variable "azure_spn_object_id" {
-  description = "Object ID of the service principal"
-  type        = string
+variable "generate_fqdn" {
+  description = "generates a fqdn on azure"
+  type        = bool
+  default     = false
 }
 
-variable "azure_aks_spn_name" {
-  description = "Name of the managed identity for kubernetes cluster"
-  type        = string
+variable "assign_network_contributor" {
+  description = "Enables assignment of network contributor role to AKS identity"
+  type        = bool
+  default     = false
 }
-
-# variable "azure_spn_id" {
-#   description = "ID of the service principal, if not set then local AZ user is used."
-#   type        = string
-#   default     = null
-# }
-
-# variable "azure_spn_secret" {
-#   description = "Secret for the Azure service principal used, if not set then local AZ user is used."
-#   type        = string
-#   default     = null
-#   sensitive   = true
-# }

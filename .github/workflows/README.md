@@ -31,29 +31,23 @@ These values is inserted in both `resource_group_name` and `storage_account_name
 
 ## Secrets
 
-### `AZURE_RG_NAME`
-The Azure resource group name.
-
-### `AZURE_SPN_ID`
-The id of the used service principal.
-
-### `AZURE_SPN_OBJECT_ID`
-The Azure object id of the used serivce principal.
-
-### `AZURE_SPN_SECRET`
-The password / secret for the service prinipal .
+### `AZURE_TENANT_ID`
+The Azure Tenant id.
 
 ### `AZURE_SUBSCRIPTION_ID`
 The Azure subscription ID.
 
-### `TERRAFORM_STATE_RG_NAME`
-The Azure resource group name, used for storing Terraform states.
+### `AZURE_SPN_ID`
+The id of the used service principal.
 
-### `AZURE_TENANT_ID`
-The Azure Tenant id.
+### `AZURE_SPN_SECRET`
+The password / secret for the service prinipal.
 
-### `ORGANIZATION_NAME`
-Name or abbreviation of the organization.  
+### `SEALED_SECRET_CRT`
+ONLY FOR DEVELOPMENT - sealed-secret base crt.
+
+### `SEALED_SECRET_KEY`
+ONLY FOR DEVELOPMENT - sealed-secret base key.
 
 # Helm Chart Version Check Workflow
 TODO: Write description for workflow

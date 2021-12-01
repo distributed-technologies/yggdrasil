@@ -12,3 +12,7 @@ crash.log
 **/*.tgz
 
 .locals/*
+
+**.key
+**.crt
+
