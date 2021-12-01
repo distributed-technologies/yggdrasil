@@ -12,24 +12,25 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: Infrastructure CD Production
+name: Infrastructure CD PreProd
 
 on:
   push:
     branches:
-      - main
+      - preprod
     paths:
       - infrastructure/**
       - nidhogg/**
-      - env/production/**
+      - env/development/**
       - .github/actions/**
-      - .github/workflows/inf_cd_prod.yaml
+      - .github/workflows/inf_cd_preprod.yaml
+ 
  
 jobs:
   infra_deploy_temp_dev:
-    name: Deploy infrastructure to production environment
+    name: Deploy infrastructure to PreProd environment
     runs-on: ubuntu-latest
-    environment: production
+    environment: preprod
 
     steps:
       - name: Checkout code
@@ -38,9 +39,14 @@ jobs:
       - name: Deploy cd
         uses: ./.github/actions/deploy-cd
         with:
-          ENV_FOLDER: production
+          ENV_FOLDER: preprod
           ENV_INSTANCE: '001'
           AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
           AZURE_SPN_ID: ${{ secrets.AZURE_SPN_ID }}
           AZURE_SPN_SECRET: ${{ secrets.AZURE_SPN_SECRET }}
           AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        title: Update prod from preprod
+        branch: main
