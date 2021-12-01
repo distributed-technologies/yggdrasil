@@ -17,7 +17,6 @@ name: Infrastructure CD Development
 on:
   push:
     branches:
-      - main
       - development
     paths:
       - infrastructure/**
