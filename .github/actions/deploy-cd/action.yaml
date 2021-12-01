@@ -63,18 +63,19 @@ runs:
     - name: Set generated env variables
       shell: bash
       run: |
+        TEMP_TERRAFORM_STORAGE_NAME=tfstate${{ env.PROJECT_NAME }}${{ env.ENVIRONMENT_SHORT }}${{ env.ENVIRONMENT_INSTANCE }}
+        echo "AZURE_TERRAFORM_STORAGE_NAME=${TEMP_TERRAFORM_STORAGE_NAME,,}" >> $GITHUB_ENV
         echo "AZURE_TERRAFORM_STATE_RG_NAME=rg-${{ env.PROJECT_NAME }}-tfstate-${{ env.ENVIRONMENT_SHORT }}-${{ env.ENVIRONMENT_INSTANCE }}" >> $GITHUB_ENV
         echo "AZURE_RG_NAME=rg-${{ env.PROJECT_NAME }}-${{ env.ENVIRONMENT_SHORT }}-${{ env.ENVIRONMENT_INSTANCE }}" >> $GITHUB_ENV
         echo "TF_VAR_target_revision=${{ github.ref_name }}" >> $GITHUB_ENV
         echo "TF_VAR_environment_folder=${{ inputs.ENV_FOLDER }}" >> $GITHUB_ENV
 
     - name: Terraform CD Azure
-      uses: Energinet-DataHub/.github/.github/actions/terraform-apply@8f5b1b08392de65bdff19ec719f8413b5772eb79
+      uses: ./.github/actions/terraform-apply
       with:
         PROJECT_NAME: ${{ env.PROJECT_NAME }}
-        SERVICE_NAME: ${{ env.SERVICE_NAME }}
-        ENVIRONMENT_INSTANCE: ${{ env.ENVIRONMENT_INSTANCE }}
         ENVIRONMENT_SHORT: ${{ env.ENVIRONMENT_SHORT }}
+        ENVIRONMENT_INSTANCE: ${{ env.ENVIRONMENT_INSTANCE }}
         AZURE_TENANT_ID: ${{ inputs.AZURE_TENANT_ID }}
         AZURE_SPN_ID: ${{ inputs.AZURE_SPN_ID }}
         AZURE_SPN_SECRET: ${{ inputs.AZURE_SPN_SECRET }}
@@ -82,17 +83,17 @@ runs:
         AZURE_RG_NAME: ${{ env.AZURE_RG_NAME }}
         TERRAFORM_VERSION: ${{ env.TERRAFORM_VERSION }}
         TERRAFORM_STATE_RG_NAME: ${{ env.AZURE_TERRAFORM_STATE_RG_NAME }}
+        TERRAFORM_STORAGE_NAME: ${{ env.AZURE_TERRAFORM_STORAGE_NAME }}
         # Step specific parameters:
         TERRAFORM_BACKEND_FILE_PATH: ${{ env.TERRAFORM_BACKEND_AZURE_FILE_PATH }}
         TERRAFORM_WORKING_DIR_PATH: ${{ env.TERRAFORM_WORKING_DIR_AZURE_PATH }}
 
     - name: Terraform CD Helm
-      uses: Energinet-DataHub/.github/.github/actions/terraform-apply@8f5b1b08392de65bdff19ec719f8413b5772eb79
+      uses: ./.github/actions/terraform-apply
       with:
         PROJECT_NAME: ${{ env.PROJECT_NAME }}
-        SERVICE_NAME: ${{ env.SERVICE_NAME }}
-        ENVIRONMENT_INSTANCE: ${{ env.ENVIRONMENT_INSTANCE }}
         ENVIRONMENT_SHORT: ${{ env.ENVIRONMENT_SHORT }}
+        ENVIRONMENT_INSTANCE: ${{ env.ENVIRONMENT_INSTANCE }}
         AZURE_TENANT_ID: ${{ inputs.AZURE_TENANT_ID }}
         AZURE_SPN_ID: ${{ inputs.AZURE_SPN_ID }}
         AZURE_SPN_SECRET: ${{ inputs.AZURE_SPN_SECRET }}
@@ -100,6 +101,7 @@ runs:
         AZURE_RG_NAME: ${{ env.AZURE_RG_NAME }}
         TERRAFORM_VERSION: ${{ env.TERRAFORM_VERSION }}
         TERRAFORM_STATE_RG_NAME: ${{ env.AZURE_TERRAFORM_STATE_RG_NAME }}
+        TERRAFORM_STORAGE_NAME: ${{ env.AZURE_TERRAFORM_STORAGE_NAME }}
         # Step specific parameters:
         TERRAFORM_BACKEND_FILE_PATH: ${{ env.TERRAFORM_BACKEND_HELM_FILE_PATH }}
         TERRAFORM_WORKING_DIR_PATH: ${{ env.TERRAFORM_WORKING_DIR_HELM_PATH }}

@@ -22,8 +22,8 @@ on:
       - infrastructure/**
       - nidhogg/**
       - env/production/**
+      - .github/actions/**
       - .github/workflows/inf_cd_prod.yaml
-      - .github/actions/deploy-cd/action.yaml
     types:
       - completed
  

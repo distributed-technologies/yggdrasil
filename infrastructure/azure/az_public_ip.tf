@@ -24,5 +24,5 @@ module "public_ip" {
   resource_group_name  = azurerm_resource_group.main.name
   location             = azurerm_resource_group.main.location
   allocation_method    = "Static"
-  domain_name_label    = var.generate_fqdn != false ? "${var.project_name}-${var.environment_short}-${var.environment_instance}" : null
+  domain_name_label    = var.generate_fqdn != false ? lower("${var.project_name}-${var.environment_short}-${var.environment_instance}") : null
 }

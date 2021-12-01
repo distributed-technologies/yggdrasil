@@ -23,8 +23,8 @@ on:
       - infrastructure/**
       - nidhogg/**
       - env/development/**
+      - .github/actions/**
       - .github/workflows/inf_cd_dev.yaml
-      - .github/actions/deploy-cd/action.yaml
  
 jobs:
   infra_deploy_temp_dev:
