@@ -1,0 +1,6 @@
+cluster:
+  name: dev-cluster
+
+prometheus-kafka-exporter:
+  kafkaServer:
+    - dev-cluster-kafka-bootstrap:9093

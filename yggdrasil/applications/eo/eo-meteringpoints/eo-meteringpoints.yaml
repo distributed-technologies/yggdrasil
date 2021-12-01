@@ -1,0 +1,11 @@
+eo-base-helm-chart:
+  deployments:
+    api:
+      image:
+        tag: "latest"
+    consumer: 
+      image:
+        tag: "latest"
+  ingress:
+    hosts:
+      - '{{ .Values.ingressDomain }}'

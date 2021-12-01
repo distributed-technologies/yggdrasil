@@ -1,0 +1,56 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: argocd-server-https
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`{{ .Values.ingressDomain }}`) && PathPrefix(`/admin/argocd`)
+      services:
+        - name: nidhogg-argocd-server
+          port: 80
+        
+    - kind: Rule
+      match: Host(`{{ .Values.ingressDomain }}`) && PathPrefix(`/admin/argocd`) && Headers(`Content-Type`, `application/grpc`)
+      services:
+        - name: nidhogg-argocd-server
+          port: 80
+          scheme: h2c
+  tls:
+    secretName: elop-cert
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: argocd-server-http
+spec:
+  entryPoints:
+    - web
+  routes:
+    - kind: Rule
+      match: Host(`{{ .Values.ingressDomain }}`) && PathPrefix(`/admin/argocd`)
+      middlewares:
+        - name: https-only
+      services:
+        - name: nidhogg-argocd-server
+          port: 80
+    - kind: Rule
+      match: Host(`{{ .Values.ingressDomain }}`) && PathPrefix(`/admin/argocd`) && Headers(`Content-Type`, `application/grpc`)
+      middlewares:
+        - name: https-only
+      services:
+        - name: nidhogg-argocd-server
+          port: 80
+          scheme: h2c
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: https-only
+spec:
+  redirectScheme:
+    permanent: true
+    scheme: https
+    port: "443"

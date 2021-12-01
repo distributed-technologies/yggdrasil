@@ -1,0 +1,53 @@
+# Copyright 2020 Energinet DataHub A/S
+#
+# Licensed under the Apache License, Version 2.0 (the "License2");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: Infrastructure CD Development
+
+on:
+  push:
+    branches:
+      - main
+      - development
+    paths:
+      - infrastructure/**
+      - nidhogg/**
+      - env/development/**
+      - .github/actions/**
+      - .github/workflows/inf_cd_dev.yaml
+ 
+jobs:
+  infra_deploy_temp_dev:
+    name: Deploy infrastructure to development environment
+    runs-on: ubuntu-latest
+    environment: development
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set dev env variables
+        shell: bash
+        run: |
+          echo "TF_VAR_sealed_secret_crt=${{ secrets.SEALED_SECRET_CRT }}" >> $GITHUB_ENV
+          echo "TF_VAR_sealed_secret_key=${{ secrets.SEALED_SECRET_KEY }}" >> $GITHUB_ENV
+
+      - name: Deploy cd
+        uses: ./.github/actions/deploy-cd
+        with:
+          ENV_FOLDER: development
+          ENV_INSTANCE: '001'
+          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          AZURE_SPN_ID: ${{ secrets.AZURE_SPN_ID }}
+          AZURE_SPN_SECRET: ${{ secrets.AZURE_SPN_SECRET }}
+          AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}

@@ -1,0 +1,133 @@
+# Copyright 2020 Energinet DataHub A/S
+#
+# Licensed under the Apache License, Version 2.0 (the "License2");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: 'Terraform Apply'
+description: 'Terraform Apply'
+inputs:
+  PROJECT_NAME:
+    required: true
+  ENVIRONMENT_SHORT:
+    required: true
+  ENVIRONMENT_INSTANCE:
+    required: true
+  TERRAFORM_STATE_RG_NAME:
+    required: true
+  TERRAFORM_STORAGE_NAME:
+    required: true
+  TERRAFORM_BACKEND_FILE_PATH:
+    required: true
+  TERRAFORM_WORKING_DIR_PATH:
+    required: true
+  AZURE_TENANT_ID:
+    required: true
+  AZURE_SPN_ID:
+    required: true
+  AZURE_SPN_OBJECT_ID:
+    required: true
+  AZURE_SPN_SECRET:
+    required: true
+  AZURE_SUBSCRIPTION_ID:
+    required: true
+  AZURE_RG_NAME:
+    required: true
+  TERRAFORM_VERSION:
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1.2.1
+      with:
+        terraform_wrapper: false
+        terraform_version: ${{ inputs.TERRAFORM_VERSION }}
+
+    - name: Set Environment Secrets
+      shell: bash
+      run: |  
+        echo "ARM_TENANT_ID=${{ inputs.AZURE_TENANT_ID }}" >> $GITHUB_ENV
+        echo "ARM_CLIENT_ID=${{ inputs.AZURE_SPN_ID }}" >> $GITHUB_ENV
+        echo "ARM_CLIENT_OBJECT_ID=${{ inputs.AZURE_SPN_OBJECT_ID }}" >> $GITHUB_ENV
+        echo "ARM_CLIENT_SECRET=${{ inputs.AZURE_SPN_SECRET }}" >> $GITHUB_ENV
+        echo "ARM_SUBSCRIPTION_ID=${{ inputs.AZURE_SUBSCRIPTION_ID }}" >> $GITHUB_ENV
+
+    - name: Azure CLI Install
+      shell: bash
+      run: curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+    - name: Azure CLI Login
+      shell: bash
+      run: |
+        az login --service-principal --username "${{ inputs.AZURE_SPN_ID }}" --password "${{ inputs.AZURE_SPN_SECRET }}" --tenant "${{ inputs.AZURE_TENANT_ID }}"
+        az account set --subscription "${{ inputs.AZURE_SUBSCRIPTION_ID }}"
+
+    - name: Find or create Terraform state resource group
+      shell: bash
+      run: |
+        if [ $(az group exists --name ${{ inputs.TERRAFORM_STATE_RG_NAME }} --subscription "${{ inputs.AZURE_SUBSCRIPTION_ID }}") = false ]; then
+          echo "Resource group does not exist, creating new";
+          az group create --name ${{ inputs.TERRAFORM_STATE_RG_NAME }} --location westeurope --subscription "${{ inputs.AZURE_SUBSCRIPTION_ID }}"
+        fi
+    
+    - name: Find or create Terraform state storage account
+      shell: bash
+      run: |
+        storage_exists=$(az storage account check-name --name ${{ inputs.TERRAFORM_STORAGE_NAME }} | python3 -c "import sys, json; print(not json.load(sys.stdin)['nameAvailable'])")
+        if [ "$storage_exists" = True ]; then
+          echo "Storage exists";
+          exit;
+        fi
+        az storage account create --resource-group ${{ inputs.TERRAFORM_STATE_RG_NAME }} --name ${{ inputs.TERRAFORM_STORAGE_NAME }} --sku Standard_LRS --encryption-services blob --min-tls-version TLS1_2
+        account_key=$(az storage account keys list --resource-group ${{ inputs.TERRAFORM_STATE_RG_NAME }} --account-name ${{ inputs.TERRAFORM_STORAGE_NAME }} --query '[0].value' -o tsv)
+        az storage container create --name tfstate --account-name ${{ inputs.TERRAFORM_STORAGE_NAME }} --account-key $account_key
+
+    # Try not to reference TF_VAR variables in pipeline yml files, only values should be set and they should be read in terraform only
+    # rather create duplicate ENV pipeline vatiable if needed to separate concerns
+    - name: Set TF Vars
+      shell: bash
+      run: |
+        echo "TF_VAR_environment_instance=${{ inputs.ENVIRONMENT_INSTANCE }}" >> $GITHUB_ENV
+        echo "TF_VAR_environment_short=${{ inputs.ENVIRONMENT_SHORT }}" >> $GITHUB_ENV
+        echo "TF_VAR_project_name=${{ inputs.PROJECT_NAME }}" >> $GITHUB_ENV
+        echo "TF_VAR_resource_group_name=${{ inputs.AZURE_RG_NAME }}" >> $GITHUB_ENV
+        echo "TF_VAR_subscription_id=${{ inputs.AZURE_SUBSCRIPTION_ID }}" >> $GITHUB_ENV
+    
+    # Override/overwrite with environment specific infrastructure
+    - name: Configure environment specific infrastructure
+      shell: bash
+      working-directory: ${{ inputs.TERRAFORM_WORKING_DIR_PATH }}
+      run: |
+        cp -fR ../env/${{ inputs.ENVIRONMENT_SHORT }}/* ./ 2>/dev/null || :
+    
+    - name: Configure Terraform Backend
+      shell: bash
+      run: |
+        sed -i 's/@storage_account_name/${{ inputs.TERRAFORM_STORAGE_NAME }}/' ${{ inputs.TERRAFORM_BACKEND_FILE_PATH }}
+        sed -i 's/@resource_group_name/${{ inputs.TERRAFORM_STATE_RG_NAME }}/' ${{ inputs.TERRAFORM_BACKEND_FILE_PATH }}
+
+    - name: Terraform Init
+      shell: bash
+      working-directory: ${{ inputs.TERRAFORM_WORKING_DIR_PATH }}
+      run: terraform init
+
+    - name: Terraform Plan
+      shell: bash
+      working-directory: ${{ inputs.TERRAFORM_WORKING_DIR_PATH }}
+      run: terraform plan
+
+    - name: Terraform Apply
+      shell: bash
+      id: terraform-apply
+      working-directory: ${{ inputs.TERRAFORM_WORKING_DIR_PATH }}
+      run: terraform apply -no-color -auto-approve

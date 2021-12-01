@@ -1,0 +1,12 @@
+eo-base-helm-chart:
+  ingress:
+    hosts:
+      - {{ .Values.ingressDomain }}
+    httpMiddelwares:
+      - name: https-only
+        namespace: default
+    tlsSecretName: elop-cert
+    pathExceptions:
+      - /api
+      - /auth
+      - /admin

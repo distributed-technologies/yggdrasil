@@ -1,60 +1,56 @@
 name: monitoring
 namespace: monitoring
+namespaceLabels:
+  space: service
+space: service
 description: All the monitoring apps, including but not limited to prometheus, grafana, thanos, loki. 
-
-project:
-  name: monitoring
-  server: https://kubernetes.default.svc
-  sourceRepos:
-    - '*'
-  destinations: 
-    - namespace: kube-system
-      server: https://kubernetes.default.svc
-    - namespace: rook-ceph
-      server: https://kubernetes.default.svc
     
 apps:
   - name: prometheus
     source:
-      repoURL: 'https://github.com/distributed-technologies/prometheus.git'
-      targetRevision: v0.1.0
-      path: chart
+      repoURL: 'https://distributed-technologies.github.io/helm-charts/'
+      targetRevision: 0.1.2
+      chart: prometheus
       valuesFile: "prometheus.yaml"
     ingress:
-      - subDomain: prometheus
-        path: /
+      - path: /admin/prometheus
         servicePort: 9090
         serviceName: prometheus-kube-prometheus-prometheus
         annotation:
           traefik.ingress.kubernetes.io/router.entrypoints: web
   - name: thanos
     source:
-      repoURL: 'https://github.com/distributed-technologies/services-thanos.git'
-      targetRevision: v0.1.0 
-      path: chart
+      repoURL: 'https://distributed-technologies.github.io/helm-charts/'
+      targetRevision: 0.1.1
+      chart: thanos
       valuesFile: "thanos.yaml"
   - name: grafana
     source:
-      repoURL: 'https://github.com/distributed-technologies/services-grafana.git'
-      targetRevision: 0.1.2
-      path: chart
+      repoURL: 'https://distributed-technologies.github.io/helm-charts/'
+      targetRevision: 0.1.8
+      chart: grafana
       valuesFile: "grafana.yaml"
     ingress:  
-      - subDomain: grafana
-        path: /
+      - path: /admin/grafana
         servicePort: 80
         serviceName: grafana
         annotation: 
           traefik.ingress.kubernetes.io/router.entrypoints: web
   - name: loki
     source:
-      repoURL: 'https://github.com/distributed-technologies/services-loki.git'
-      targetRevision: 0.1.0 
-      path: chart
+      repoURL: 'https://distributed-technologies.github.io/helm-charts/'
+      targetRevision: 0.1.2
+      chart: loki
       valuesFile: "loki.yaml"
-  - name: jaeger-operator
+  - name: jaeger
     source:
-      repoURL: 'https://github.com/distributed-technologies/services-jaeger.git'
-      targetRevision: v0.1.0
-      path: chart
-      valuesFile: "jaeger-operator.yaml"
+      repoURL: 'https://distributed-technologies.github.io/helm-charts/'
+      targetRevision: 0.1.2
+      chart: jaeger
+      valuesFile: "jaeger.yaml"
+    ingress:
+      - path: /admin/jaeger
+        servicePort: 80
+        serviceName: jaeger-query
+        annotation:
+          traefik.ingress.kubernetes.io/router.entrypoints: web

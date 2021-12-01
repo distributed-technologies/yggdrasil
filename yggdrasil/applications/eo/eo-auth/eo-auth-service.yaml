@@ -1,0 +1,27 @@
+eo-base-helm-chart:
+  deployments:
+    api:
+      image:
+        tag: v0.0.29
+  env:
+    DEBUG: 1
+    SERVICE_URL: https://{{ .Values.ingressDomain }}/api/auth
+    TOKEN_COOKIE_DOMAIN: '{{ .Values.ingressDomain }}'
+    {{- with .Values.eo.auth.env }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  envSecrets:
+    {{- with .Values.eo.auth.envSecrets }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  sealedSecret:
+    {{- with .Values.eo.auth.sealedSecret }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  ingress:
+    hosts:
+    - '{{ .Values.ingressDomain }}'
+    httpMiddelwares:
+    - name: https-only
+      namespace: default
+    tlsSecretName: elop-cert

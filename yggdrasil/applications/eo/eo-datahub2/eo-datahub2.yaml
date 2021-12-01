@@ -1,0 +1,4 @@
+eo-base-helm-chart:
+  ingress:
+    hosts:
+      - {{ .Values.ingressDomain }}

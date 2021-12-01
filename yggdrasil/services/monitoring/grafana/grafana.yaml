@@ -1,0 +1,87 @@
+grafana:
+  {{- if .Values.registry }}
+  image: 
+    repository: {{ .Values.registry }}/grafana/grafana
+  downloadDashboardsImage:
+    repository: {{ .Values.registry }}/curlimages/curl
+  {{- end }}
+  datasources: 
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+        - name: Prometheus
+          type: prometheus
+          url: http://prometheus-kube-prometheus-prometheus:9090
+          access: proxy
+          isDefault: true
+        - name: Loki
+          type: loki
+          url: http://loki:3100
+          access: proxy
+          isDefault: false
+        - name: "InfluxDB - dlr - output"
+          type: influxdb
+          url: http://influxdb.nifi:8086
+          access: proxy
+          isDefault: false
+          database: kafkadlr
+          user: admin
+          password: password
+        - name: "InfluxDB - scada - output"
+          type: influxdb
+          url: http://influxdb.nifi:8086
+          access: proxy
+          isDefault: false
+          database: kafkascada
+          user: admin
+          password: password
+
+  adminUser: admin
+  adminPassword: password
+
+  sidecar:
+  {{- if .Values.registry }}
+    image:
+      repository: {{ .Values.registry }}/kiwigrid/k8s-sidecar
+      tag: 1.12.2
+  {{- end }}
+    imagePullPolicy: IfNotPresent
+    resources: {} 
+    #   limits:
+    #     cpu: 100m
+    #     memory: 100Mi
+    #   requests:
+    #     cpu: 50m
+    #     memory: 50Mi
+    # skipTlsVerify Set to true to skip tls verification for kube api calls
+    # skipTlsVerify: true
+    enableUniqueFilenames: false
+    dashboards:
+      enabled: true
+      SCProvider: true
+      # label that the configmaps with dashboards are marked with
+      label: grafana_dashboard
+      # folder in the pod that should hold the collected dashboards (unless `defaultFolderName` is set)
+      folder: /tmp/dashboards
+      # The default folder name, it will create a subfolder under the `folder` and put dashboards in there instead
+      defaultFolderName: null
+      # If specified, the sidecar will search for dashboard config-maps inside this namespace.
+      # Otherwise the namespace in which the sidecar is running will be used.
+      # It's also possible to specify ALL to search in all namespaces
+      searchNamespace: ALL
+      # provider configuration that lets grafana manage the dashboards
+      provider:
+        # name of the provider, should be unique
+        name: sidecarProvider
+        # orgid as configured in grafana
+        orgid: 1
+        # folder in which the dashboards should be imported in grafana
+        folder: ""
+        # type of the provider
+        type: file
+        # disableDelete to activate a import-only behaviour
+        disableDelete: false
+        # allow updating provisioned dashboards from the UI
+        allowUiUpdates: false
+        # allow Grafana to replicate dashboard structure from filesystem
+        foldersFromFilesStructure: false

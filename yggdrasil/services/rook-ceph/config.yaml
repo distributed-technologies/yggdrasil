@@ -1,24 +1,26 @@
 name: rook-ceph
 namespace: rook-ceph
+namespaceLabels:
+  space: service
+space: service
 description: Rook.
-
-project:
-  name: rook-ceph
-  server: https://kubernetes.default.svc
-  sourceRepos:
-    - '*'
 
 apps:
   - name: rook
     source:
-      repoURL: "https://github.com/distributed-technologies/services-rook.git"
-      targetRevision: 0.1.0
-      path: chart
+      repoURL: "https://distributed-technologies.github.io/helm-charts/"
+      targetRevision: 0.1.3
+      chart: rook
       valuesFile: "rook.yaml"
   - name: ceph
     source:
-      repoURL: "https://github.com/distributed-technologies/services-ceph.git"
-      targetRevision: 0.1.1
-      path: chart
+      repoURL: "https://distributed-technologies.github.io/helm-charts/"
+      targetRevision: 0.1.6
+      chart: rook-ceph-cluster
       valuesFile: "ceph.yaml"
-
+  - name: ntp
+    source:
+      repoURL: "https://distributed-technologies.github.io/helm-charts/"
+      targetRevision: 0.1.2
+      chart: ntp
+      valuesFile: "ntp.yaml"

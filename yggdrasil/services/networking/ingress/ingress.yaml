@@ -1,0 +1,36 @@
+dashboardRoute:
+  host: traefik.{{ .Values.ingressDomain }}
+#  path: /admin/ingress
+
+traefik:
+  {{- if .Values.registry }}
+  image: 
+    name: {{ .Values.registry }}/traefik
+  {{- end }}
+  ingressClass:
+    fallbackApiVersion: "v1"
+
+  service:
+    enabled: true
+    type: LoadBalancer
+{{- if .Values.ingress.loadbalancerResourceGroup }}
+    annotations:
+      service.beta.kubernetes.io/azure-load-balancer-resource-group: {{ .Values.ingress.loadbalancerResourceGroup | quote }}
+{{- end }}
+    spec: 
+      loadBalancerIP: {{ .Values.ingress.loadBalancerIP }}
+      selector:
+        app: azure-load-balancer
+
+  ports:
+    websecure:
+      tls: 
+        enabled: true  
+
+  logs:
+    access:
+      enabled: true
+
+  providers:
+    kubernetesCRD:
+      allowCrossNamespace: true

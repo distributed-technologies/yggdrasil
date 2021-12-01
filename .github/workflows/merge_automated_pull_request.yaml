@@ -1,0 +1,66 @@
+name: Auto Merge Pull Reqeust
+
+env:
+  PR_HEAD_BRANCH_PREFIX: "automated/github_actions/bump-" # The branch prefix being merged from
+  PR_BASE_BRANCH: "development" # Branch being merged to
+
+on:
+  pull_request:
+    branches:
+      - development
+
+jobs:
+  correct_source_branch:
+    name: Check source branch
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check head_ref branch is correct
+        if: ${{ startsWith(github.head_ref, env.PR_HEAD_BRANCH_PREFIX) }}
+        run: echo "Check"
+
+  correct_base_branch:
+    name: Check base branch
+    needs: [correct_source_branch]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check base_ref branch is correct
+        if: github.base_ref == env.PR_BASE_BRANCH
+        run: echo "Check"
+
+  # This wait for the checks to complete
+  # If multiple checks is required copy the following job
+
+  # TODO: Enable when tests are made
+  # wait_for_test_checks:
+  #   name: Wait for test to complete
+  #   needs: [correct_base_branch]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Wait for build to succeed
+  #       uses: fountainhead/action-wait-for-check@v1.0.0
+  #       id: wait-for-build
+  #       with:
+  #         checkName: test # Name of the github workflow job
+  #         token: ${{ secrets.GITHUB_TOKEN }}
+  #         ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+  #     - name: Do something with a passing build
+  #       if: steps.wait-for-build.outputs.conclusion == 'success'
+  #       run: echo "Success"
+
+  #     - name: Do something with a failing build
+  #       if: steps.wait-for-build.outputs.conclusion == 'failure'
+  #       run: exit 1
+
+  merge:
+    name: Merge Pull Request
+    needs: [correct_base_branch]
+    runs-on: ubuntu-latest
+    steps:
+      - name: automerge
+        uses: "pascalgn/automerge-action@v0.14.3"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          MERGE_METHOD: "squash"
+          MERGE_DELETE_BRANCH: true
+          MERGE_LABELS: "automerge" # label indicating the pullrequest can be automerged

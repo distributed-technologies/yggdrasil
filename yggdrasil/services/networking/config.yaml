@@ -1,21 +1,15 @@
 name: networking
 namespace: networking
+namespaceLabels:
+  space: service
+space: service
 description: networking services like ingress, cert-manager.
 
-
-project:
-  name: networking
-  server: https://kubernetes.default.svc
-  sourceRepos:
-    - '*'
-  destinations: 
-    - namespace: kube-system
-      server: https://kubernetes.default.svc
 apps:
   - name: ingress
     source:
-      repoURL: "https://github.com/distributed-technologies/services-ingress.git"
-      targetRevision: v0.2.0
+      repoURL: "https://github.com/distributed-technologies/services-traefik.git"
+      targetRevision: version-bump
       path: chart
       valuesFile: "ingress.yaml"
   - name: cert-manager
