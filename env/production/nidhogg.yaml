@@ -10,7 +10,7 @@ nidhogg:
     eo:
       auth:
         env:
-          OIDC_AUTHORITY_URL: 'placeholder'
+          OIDC_AUTHORITY_URL: 'https://pp.netseidbroker.dk/op'
         envSecrets:
           OIDC_CLIENT_ID:
             secretName: eo-oidc-secret
@@ -21,8 +21,8 @@ nidhogg:
         sealedSecret:
           eo-oidc-secret:
             encryptedData:
-              oidc_client_id: "placeholder"
-              oidc_client_secret: "placeholder"
+              oidc_client_id: "AgCmbXKSu+Xz1pJQ5uTNKXQb8XWsLwhiMuAIikEvAmdgz634yh4lW2Jlu3Da0cE/exXEC8OYoZfLVQoDw1MS+lNwKoUGhu4Of8dMGwajjrBqpgsURwM/k9ByivedDwcI6vEAt4qizlPG0kMOKWJa14Fw6uWQr3MqX+hJsGmNabma9hM7xISA/9voCqA2ncnMOpSlA/4nxeVDPOfmJosILLPbRJ/i3hM4fih7pecTnCNflDA4yIDVaeG/sgt62gUN4nN/44XW3zXSg3Md0/Nmec7rXbEXJu4w60KJZguD/QcwVFVSw2Tb+0OVtK16AVpUFjKFobm808iG6GbRXPU+dGC8MPXsvPPJ1m5AzV4uN4KS/aMCLMq37DHtz77dXsIf1UMOQOhFMX0oiRI75BJQ0PBzpYr7aGIUI3iS2yItrJB86yzUfGOcQoNeL6Wgrffjh0d+hwdOnHlF/eT9NVmyNJ4u12tyR3vtAt445NhLx9KCX24Bc2dPYs0X7V84Cw33H4q/oKKQe9hA7w6ey2nt4ILzJesT71dT44CBXgTheqh0gxZifzz4bRAjU+CzvM+0SSSXFmMOeS6TUewKwpkf9vStjOhYb7bfnm7vkYAsoWOC9CDZOqXbOzTtytLpeHLMNKAT/99Hz5cOotLv3BU42BXZ4lYxWa22J54r0uw7bYTbY22SJ2x1ToFWYTvVSL0Rx9KJ/LGgmMvJngDJQCFZdhuHXvodBnu9kaAiI/OszN7lzxsjXMo="
+              oidc_client_secret: "AgCuexYnwUDL+E8VyDelez+Yy6j5qDNHEPNxHlgupe5BYqxGMTIDzG/vq9XNrcxVmxD6p7lUn91dOwX+03D2mT1i02/rwbSmN55fiGpjCsbkyx1RDOFoJgQo6va2GDBHhNsAa2SkcxBlf8R+LoYXMeGw89MKr78XQkqLUMPUZoAv2FWzo6uHv2u2HylCrMxU79y74RTgy5NeNwoawiC7DvDL7khaUHj1E2bj9ydXCPhwdHrlWguVWyDcbyFV1v+QbHcnnvqw9T7MBTeEZsozEDMKTxC8sbhCyTF/9X9z6nqnak4ebpBF0Kne6WaiqXZ2MSYARQfBst3723bUTMcIby3hp7eLpOKaNwlyd3ny2bhABzFhknVw6Q9UIUee8R/0xAWqgn7ILT7VParcyrQg2qLw0ghYeNA+wvY5sN/Pv8dBcrOXPCG3RpmFsBNKBiwSWJQMWVxjYTS+SRWdBc0ahOln47WeVvwEzHszWHOFIOCmdDqdDksTdSM1yUqr1ItUIsqt1PzZJxFK9anYeSqazM/VCzzaPogMc5jmo36snikj1Z1rwE0G39tbZLZIQFKGgB3q2xASrks3MivwKCGkMqYigaT36WlZ+W1Wy6J9oQbB0HC9zNPUOAmwBsIBroTnUtl1TovQI+qmtu12zSEjqTlrMIIVAritI2sEtwrxchKy5RtHWJz8n3ztBChHx9kE2+zjuYgw5HBlw3etLbHZ8Fjpkk5x7MWqmlxR1ANZ26h5Dxir6k2gzgspXRL8NmfXjwdULeuDQ6EolL3vlEVde7WJlM3mVuY47NwLULq8J+plw4pxWJa7Qin+"
 
   argo-cd-proxy-chart:
     argo-cd: 
