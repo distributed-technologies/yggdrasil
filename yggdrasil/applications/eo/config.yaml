@@ -15,7 +15,7 @@ apps:
   - name: eo-frontend
     source:
       repoURL: "https://github.com/Energinet-DataHub/greenforce-frontend.git"
-      targetRevision: xjakk-nemid-mitid
+      targetRevision: main
       path: infrastructure/eo/chart
       valuesFile: "eo-frontend.yaml"
   - name: eo-auth

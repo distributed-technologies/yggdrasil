@@ -1,4 +1,8 @@
 eo-base-helm-chart:
+  deployments:
+    app:
+      image:
+        tag: 'pr-176'
   ingress:
     hosts:
       - {{ .Values.ingressDomain }}
