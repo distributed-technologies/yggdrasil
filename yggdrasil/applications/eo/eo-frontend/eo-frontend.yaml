@@ -1,4 +1,8 @@
 eo-base-helm-chart:
+  deployments:
+    app:
+      image:
+        tag: 'pr-185'
   ingress:
     hosts:
       - {{ .Values.ingressDomain }}
@@ -7,6 +11,7 @@ eo-base-helm-chart:
         namespace: default
     tlsSecretName: elop-cert
     pathExceptions:
-      - /api
-      - /auth
-      - /admin
+      - /api          # APIs
+      - /auth         # Public Authentication endpoints
+      - /admin        # Administration services
+      - /.well-known  # LetsEncrypt

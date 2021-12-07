@@ -19,7 +19,7 @@ resource "helm_release" "nidhogg" {
   }
 
   dynamic "set" {
-    for_each = data.azurerm_public_ip.ingress_ip.fqdn != null ? [1] : []
+    for_each = data.azurerm_public_ip.ingress_ip.fqdn != "" ? [1] : []
     content {
       name  = "nidhogg.yggdrasil.ingressDomain"
       value = data.azurerm_public_ip.ingress_ip.fqdn
