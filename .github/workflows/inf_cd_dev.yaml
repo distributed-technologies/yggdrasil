@@ -35,11 +35,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set dev env variables
+      - name: Set env variables
         shell: bash
         run: |
-          echo "TF_VAR_sealed_secret_crt=${{ secrets.SEALED_SECRET_CRT }}" >> $GITHUB_ENV
-          echo "TF_VAR_sealed_secret_key=${{ secrets.SEALED_SECRET_KEY }}" >> $GITHUB_ENV
+          echo 'TF_VAR_sealed_secret_master={"crt":"${{ secrets.SEALED_SECRET_CRT }}","key":"${{ secrets.SEALED_SECRET_KEY }}" }' >> $GITHUB_ENV
+          echo 'TF_VAR_sso={"client_id":"${{ secrets.SSO_CLIENT_ID }}","client_secret":"${{ secrets.SSO_CLIENT_SECRET }}"}' >> $GITHUB_ENV
 
       - name: Deploy cd
         uses: ./.github/actions/deploy-cd

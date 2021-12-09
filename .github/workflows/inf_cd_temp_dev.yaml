@@ -42,11 +42,10 @@ jobs:
         run: |
           echo "ENV_INSTANCE=${GITHUB_REF:15}" >> $GITHUB_ENV
 
-      - name: Set dev env variables
+      - name: Set env variables
         shell: bash
         run: |
-          echo "TF_VAR_sealed_secret_crt=${{ secrets.SEALED_SECRET_CRT }}" >> $GITHUB_ENV
-          echo "TF_VAR_sealed_secret_key=${{ secrets.SEALED_SECRET_KEY }}" >> $GITHUB_ENV
+          echo 'TF_VAR_sealed_secret_master={"crt":"${{ secrets.SEALED_SECRET_CRT }}","key":"${{ secrets.SEALED_SECRET_KEY }}" }' >> $GITHUB_ENV
 
       - name: Deploy cd
         uses: ./.github/actions/deploy-cd

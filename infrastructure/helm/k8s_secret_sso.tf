@@ -12,7 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-data "azurerm_kubernetes_cluster" "main" {
-  name                = "ks-${var.project_name}-${var.environment_short}-${var.environment_instance}"
-  resource_group_name = var.resource_group_name
+data "azuread_client_config" "current" {}
+
+resource "kubernetes_secret" "argo_oidc_secret" {
+  count = var.sso != null ? 1 : 0
+
+  metadata {
+    name = "argocd-auth-secret"
+    labels = {
+      "app.kubernetes.io/part-of" = "argocd"
+    }
+  }
+
+  data = {
+    "oidc.azure.issuer"       = "https://login.microsoftonline.com/${data.azuread_client_config.current.tenant_id}/v2.0"
+    "oidc.azure.clientId"     = var.sso.client_id
+    "oidc.azure.clientSecret" = var.sso.client_secret
+  }
+
+  type = "Opaque"
 }

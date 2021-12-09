@@ -19,6 +19,9 @@ spec:
       version: v3
       values: |
         ingressDomain: {{ .Values.ingressDomain }}
+        {{- with index .Values "eo-base" }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
 
   # Destination cluster and namespace to deploy the application
   destination:

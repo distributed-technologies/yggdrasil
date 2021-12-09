@@ -31,3 +31,20 @@ nidhogg:
           - --insecure
           - --rootpath
           - /admin/argocd
+        rbacConfig:
+          policy.csv: |
+            g, "argo.readonly", role:readonly
+            g, "argo.admin", role:admin
+          scopes: '[roles]'
+        config:
+          url: https://energioprindelse.dk/admin/argocd
+          admin.enabled: "false"
+          oidc.config: |
+            name: Azure
+            issuer: "https://login.microsoftonline.com/f7619355-6c67-4100-9a78-1847f30742e2/v2.0"
+            clientID: $argocd-auth-secret:oidc.azure.clientId
+            clientSecret: $argocd-auth-secret:oidc.azure.clientSecret
+            requestedScopes:
+              - openid
+              - profile
+              - email

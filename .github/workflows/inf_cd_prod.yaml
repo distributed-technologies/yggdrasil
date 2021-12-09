@@ -35,6 +35,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set env variables
+        shell: bash
+        run: |
+          echo 'TF_VAR_sso={"client_id":"${{ secrets.SSO_CLIENT_ID }}","client_secret":"${{ secrets.SSO_CLIENT_SECRET }}"}' >> $GITHUB_ENV
+
       - name: Deploy cd
         uses: ./.github/actions/deploy-cd
         with:

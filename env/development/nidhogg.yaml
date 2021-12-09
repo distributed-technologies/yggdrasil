@@ -32,8 +32,20 @@ nidhogg:
           - --rootpath
           - /admin/argocd
 
-      configs:
-        secret:
-          # This is not a secret password. It is okay to be on github
-          argocdServerAdminPassword: $2y$12$m4KC7G9d8NFxInl7GRpQ1OpPPrF43Msa33ZQjj0YmT6f8uwjHW8AO
-          argocdServerAdminPasswordMtime: "2021-01-02T15:04:05Z"
+        rbacConfig:
+          policy.csv: |
+            g, "argo.readonly", role:readonly
+            g, "argo.admin", role:admin
+          scopes: '[roles]'
+        config:
+          url: https://dev.energioprindelse.dk/admin/argocd
+          admin.enabled: "false"
+          oidc.config: |
+            name: Azure
+            issuer: "https://login.microsoftonline.com/f7619355-6c67-4100-9a78-1847f30742e2/v2.0"
+            clientID: $argocd-auth-secret:oidc.azure.clientId
+            clientSecret: $argocd-auth-secret:oidc.azure.clientSecret
+            requestedScopes:
+              - openid
+              - profile
+              - email

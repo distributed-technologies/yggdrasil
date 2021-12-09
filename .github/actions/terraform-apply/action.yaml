@@ -121,11 +121,6 @@ runs:
       working-directory: ${{ inputs.TERRAFORM_WORKING_DIR_PATH }}
       run: terraform init
 
-    - name: Terraform Plan
-      shell: bash
-      working-directory: ${{ inputs.TERRAFORM_WORKING_DIR_PATH }}
-      run: terraform plan
-
     - name: Terraform Apply
       shell: bash
       id: terraform-apply

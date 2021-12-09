@@ -7,10 +7,6 @@ nidhogg:
     # targetRevision: set from terraform
     # ingressDomain: set from terraform
 
-    # sealedSecret:
-    #   devSecret:
-    #     crt: set from terraform
-    #     key: set from terraform
 
     eo:
       auth:
