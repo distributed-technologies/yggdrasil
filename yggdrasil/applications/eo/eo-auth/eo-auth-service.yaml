@@ -2,7 +2,7 @@ eo-base-helm-chart:
   deployments:
     api:
       image:
-        tag: v0.0.33
+        tag: v0.0.34
   env:
     DEBUG: 1
     SERVICE_URL: https://{{ .Values.ingressDomain }}/api/auth
