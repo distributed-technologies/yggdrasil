@@ -1,0 +1,13 @@
+{{- if (.Values.ingress).cors }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: cors-middleware
+spec:
+  headers:
+    accessControlAllowOriginList:
+      - "https://{{ .Values.ingressDomain }}"
+      {{- range .Values.ingress.cors }}
+      - {{ . | quote }}
+      {{- end }}
+{{- end }}

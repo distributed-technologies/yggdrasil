@@ -24,4 +24,13 @@ eo-base-helm-chart:
     httpMiddelwares:
     - name: https-only
       namespace: default
+    # middlewares:    
+    # - name: cors-middleware
+    #   namespace: default
     tlsSecretName: elop-cert
+
+publicIngress:
+  middlewares:
+    - name: auth-stripprefix
+    # - name: cors-middleware
+    #   namespace: default

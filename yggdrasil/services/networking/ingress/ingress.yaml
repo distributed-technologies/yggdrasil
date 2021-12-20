@@ -34,3 +34,8 @@ traefik:
   providers:
     kubernetesCRD:
       allowCrossNamespace: true
+
+{{- if .Values.ingress.cors }}
+  additionalArguments:
+    - "--entrypoints.websecure.http.middlewares=default-cors-middleware@kubernetescrd"
+{{- end }}

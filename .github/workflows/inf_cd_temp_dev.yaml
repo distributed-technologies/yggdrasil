@@ -15,6 +15,7 @@
 name: Infrastructure CD temporary development
 
 on:
+  workflow_dispatch: {}
   push:
     branches:
       - dev/**

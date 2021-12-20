@@ -7,6 +7,9 @@ nidhogg:
     # targetRevision: set from terraform
     # ingressDomain: set from terraform
 
+    ingress:
+      cors:
+        - "http://localhost:4200"
 
     eo:
       auth:

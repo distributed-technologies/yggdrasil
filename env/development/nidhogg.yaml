@@ -7,6 +7,10 @@ nidhogg:
     # targetRevision: set from terraform
     ingressDomain: dev.energioprindelse.dk
 
+    ingress:
+      cors:
+        - "http://localhost:4200"
+
     eo:
       auth:
         env:

@@ -19,6 +19,13 @@ spec:
       version: v3
       values: |
         ingressDomain: {{ .Values.ingressDomain }}
+        {{- if (.Values.ingress).cors }}
+        ingress:
+          cors: 
+          {{- with .Values.ingress.cors }}
+          {{- toYaml . | nindent 10 }}
+          {{- end }}
+        {{- end }}
         {{- with index .Values "eo-base" }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
