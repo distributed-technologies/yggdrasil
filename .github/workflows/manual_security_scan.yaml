@@ -25,16 +25,12 @@ on:
         description: 'Azure AKS name'     
         required: true
         default: 'ks-eo-U-001'
-      ENVIRONMENT:
-        description: 'GitHub environment'     
-        required: true
-        default: 'development'
 
 jobs:
   infra_deploy_temp_dev:
     name: Deploy infrastructure to development environment
     runs-on: ubuntu-latest
-    environment: ${{ inputs.ENVIRONMENT }}
+    environment: development
 
     steps:
       - name: Checkout code
