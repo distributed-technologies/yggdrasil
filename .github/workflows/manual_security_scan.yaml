@@ -25,12 +25,19 @@ on:
         description: 'Azure AKS name'     
         required: true
         default: 'ks-eo-U-001'
+      GITHUB_ENVIRONMENT: 
+        description: Choose a GitHub environment 
+        type: choice
+        options: 
+        - production
+        - development
+
 
 jobs:
   infra_deploy_temp_dev:
     name: Deploy infrastructure to development environment
     runs-on: ubuntu-latest
-    environment: development
+    environment: ${{ github.event.inputs.GITHUB_ENVIRONMENT }}
 
     steps:
       - name: Checkout code
@@ -61,7 +68,7 @@ jobs:
       - name: Get AKS credentials
         shell: bash
         run: |
-          az aks get-credentials --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }} --resource-group ${{ inputs.AZURE_RG_NAME }} --name ${{ inputs.AZURE_AKS_NAME }} --admin
+          az aks get-credentials --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }} --resource-group ${{ github.event.inputs.AZURE_RG_NAME }} --name ${{ github.event.inputs.AZURE_AKS_NAME }} --admin
 
       - name: Configure docker scan
         shell: bash
