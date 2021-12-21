@@ -3,7 +3,7 @@ eo-base-helm-chart:
     app:
       replicaCount: 1
       image:
-        tag: v0.0.1157
+        tag: v0.0.1203
   ingress:
     hosts:
       - {{ .Values.ingressDomain }}
