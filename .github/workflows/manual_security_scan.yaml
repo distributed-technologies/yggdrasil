@@ -1,0 +1,115 @@
+# Copyright 2020 Energinet DataHub A/S
+#
+# Licensed under the Apache License, Version 2.0 (the "License2");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: Manual Security Scan
+
+on:
+  workflow_dispatch:
+    inputs:
+      AZURE_RG_NAME:
+        description: 'Azure resource group'     
+        required: true
+        default: 'rg-eo-U-001'
+      AZURE_AKS_NAME:
+        description: 'Azure AKS name'     
+        required: true
+        default: 'ks-eo-U-001'
+      ENVIRONMENT:
+        description: 'GitHub environment'     
+        required: true
+        default: 'development'
+
+jobs:
+  infra_deploy_temp_dev:
+    name: Deploy infrastructure to development environment
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.ENVIRONMENT }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+
+      - name: Azure CLI Install
+        shell: bash
+        run: curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+      - name: install docker scan
+        shell: bash
+        run: |
+          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+          echo \
+            "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+            $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+          sudo apt update 
+          sudo apt install docker-scan-plugin
+
+      - name: Azure CLI Login
+        shell: bash
+        run: |
+          az login --service-principal --username "${{ secrets.AZURE_SPN_ID }}" --password "${{ secrets.AZURE_SPN_SECRET }}" --tenant "${{ secrets.AZURE_TENANT_ID }}"
+          az account set --subscription "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+
+      - name: Get AKS credentials
+        shell: bash
+        run: |
+          az aks get-credentials --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }} --resource-group ${{ inputs.AZURE_RG_NAME }} --name ${{ inputs.AZURE_AKS_NAME }} --admin
+
+      - name: Configure docker scan
+        shell: bash
+        run: |
+          docker scan --accept-license --login --token ${{ secrets.SNYK_TOKEN }}
+
+      - name: Test kubectl
+        shell: bash
+        run: |
+          kubectl get pods
+
+      - name: Generate report
+        uses: jannekem/run-python-script-action@v1
+        with:
+          script: |
+            import subprocess
+
+            def process_image(image):
+                sp = subprocess.Popen(f"docker scan --severity high {image}", shell=True, stdout=subprocess.PIPE)
+                message = sp.communicate()[0].decode('utf-8')
+                return_code = sp.returncode
+
+                mark = '❌' if return_code else '✅'
+
+                print(f"::group::{mark} Image {image}")
+                print(message)     
+                print("::endgroup::")
+
+                return message.count('Critical severity vulnerability')
+
+            def scan_kubernetes():
+                sp = subprocess.Popen("kubectl get pods --all-namespaces -o jsonpath=\"{.items[*].spec.containers[*].image}\" |tr -s '[[:space:]]' '\n' |sort |uniq", shell=True, stdout=subprocess.PIPE)
+                message = sp.communicate()[0].decode('utf-8')
+                images = list(filter(None, message.split('\n')))
+
+                critical_vulnabilities = 0
+                images_with_critical = 0
+                
+                for image in images:
+                    critical_errors = process_image(image)
+                    critical_vulnabilities += critical_errors
+                    images_with_critical += 1 if critical_errors else 0
+
+                print(f"::group::overview")
+                print(f"Scanned {len(images)} images, {images_with_critical} images has critical vulnabilities with a total of {critical_vulnabilities} critical.")
+
+            scan_kubernetes()
