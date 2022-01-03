@@ -5,6 +5,7 @@ metadata:
   name: cors-middleware
 spec:
   headers:
+    accessControlAllowCredentials: true
     accessControlAllowOriginList:
       - "https://{{ .Values.ingressDomain }}"
       {{- range .Values.ingress.cors }}
