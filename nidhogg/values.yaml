@@ -17,6 +17,7 @@ nidhogg:
       # ipRangeStop: 0.0.0.0
 
   installCNI: true
+  monitorNidhogg: true
 
   argo-cd-proxy-chart:
     argo-cd:
