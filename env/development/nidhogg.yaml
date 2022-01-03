@@ -9,7 +9,7 @@ nidhogg:
 
     ingress:
       cors:
-        - "http://local.dev.energioprindelse.dk:4200"
+        - "https://local.dev.energioprindelse.dk:4200"
 
     eo:
       auth:
