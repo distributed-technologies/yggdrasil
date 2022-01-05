@@ -25,7 +25,8 @@ on:
       - .github/actions/**
       - .github/workflows/inf_cd_preprod.yaml
  
- 
+concurrency: cd-${{ github.ref_name }}
+
 jobs:
   infra_deploy_temp_dev:
     name: Deploy infrastructure to PreProd environment

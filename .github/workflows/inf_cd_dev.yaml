@@ -24,7 +24,9 @@ on:
       - env/development/**
       - .github/actions/**
       - .github/workflows/inf_cd_dev.yaml
- 
+
+concurrency: cd-${{ github.ref_name }}
+
 jobs:
   infra_deploy_temp_dev:
     name: Deploy infrastructure to development environment

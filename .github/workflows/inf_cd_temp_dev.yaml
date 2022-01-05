@@ -15,6 +15,7 @@
 name: Infrastructure CD temporary development
 
 on:
+  create: {}
   workflow_dispatch: {}
   push:
     branches:
@@ -25,7 +26,9 @@ on:
       - env/temp_dev/**
       - .github/actions/**
       - .github/workflows/inf_cd_temp_dev.yaml
- 
+
+concurrency: cd-${{ github.ref_name }}
+
 jobs:
   infra_deploy_temp_dev:
     name: Deploy infrastructure to temporary development environment
