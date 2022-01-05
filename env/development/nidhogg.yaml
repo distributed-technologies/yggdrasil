@@ -12,6 +12,7 @@ nidhogg:
         - "https://localdev.energioprindelse.dk:4200"
         - "https://local.dev.energioprindelse.dk:4200"
         - "https://localhost:4200"
+        - "http://localhost:4200"
 
     eo:
       auth:
