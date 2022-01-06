@@ -9,15 +9,13 @@ nidhogg:
 
     ingress:
       cors:
-        - "https://localdev.energioprindelse.dk:4200"
-        - "https://local.dev.energioprindelse.dk:4200"
-        - "https://localhost:4200"
         - "http://localhost:4200"
 
     eo:
       auth:
         env:
           OIDC_AUTHORITY_URL: "https://pp.netseidbroker.dk/op"
+          TOKEN_COOKIE_HTTP_ONLY: "False"
           TOKEN_COOKIE_SAMESITE: "False"
         envSecrets:
           OIDC_CLIENT_ID:
