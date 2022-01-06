@@ -15,8 +15,9 @@ nidhogg:
       auth:
         env:
           OIDC_AUTHORITY_URL: "https://pp.netseidbroker.dk/op"
+          TOKEN_COOKIE_HTTP_ONLY: "False"
           TOKEN_COOKIE_SAMESITE: "False"
-          TOKEN_COOKIE_SECURE: "False"
+          # TOKEN_COOKIE_SECURE: "False"
         envSecrets:
           OIDC_CLIENT_ID:
             secretName: eo-oidc-secret
