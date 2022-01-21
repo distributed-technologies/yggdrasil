@@ -10,6 +10,6 @@ apps:
     replace: true
     source:
       repoURL: "https://distributed-technologies.github.io/helm-charts/"
-      targetRevision: 0.3.3
+      targetRevision: 0.3.4
       chart: kafka
       valuesFile: "kafka.yaml"
