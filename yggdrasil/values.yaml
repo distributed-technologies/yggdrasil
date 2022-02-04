@@ -12,7 +12,7 @@ applications:
   ceph: true
   cert-manager: false
   example-guestbook: false
-  grafana: false
+  grafana: true
   harbor: false
   influxdb: false
   ingress: false
