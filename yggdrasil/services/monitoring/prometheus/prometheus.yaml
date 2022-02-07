@@ -21,6 +21,10 @@ kube-prometheus-stack:
   prometheus:
     prometheusSpec:
       replicas: 3
+      serviceMonitorSelectorNilUsesHelmValues: false
+      remoteWrite:
+        - url: http://cortex-distributor:8080/api/v1/push
+
   {{- if .Values.registry }}
       image:
         repository: {{ .Values.registry }}/prometheus/prometheus

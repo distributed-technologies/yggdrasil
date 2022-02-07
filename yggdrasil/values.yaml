@@ -22,7 +22,7 @@ applications:
   loki: true
   nifi: false
   ntp: false
-  prometheus: false
+  prometheus: true
   rook: true
   tempo: true
   thanos: false
