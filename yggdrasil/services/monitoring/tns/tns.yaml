@@ -1,0 +1,3 @@
+ENV:
+  - name: JAEGER_AGENT_HOST
+    value: tempo-tempo-distributed-distributor
