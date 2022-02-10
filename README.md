@@ -28,9 +28,10 @@ helm dependency update nidhogg/
 
 Yggdrasil uses a GitOps architecture and therefore needs to have an environment repository to monitor. It is therefore necessary that you configure Yggdrasil to fit your environment and then push it to your own repository.
 
-To set any cluster configurations, you should edit the `nidhogg/values.yaml` file. You should change the `installCNI` flag to `false` and change the `enableCephAKS` to `true`. The value `nidhogg.yggdrasil.repoURL` should be set to the repository URL of your new github repository. You should also configure the `nidhogg.yggdrasil.targetRevision` to be the branch you are using in your repository.
+To set any cluster configurations, you should edit the `nidhogg/values.yaml` file.
+You should change the `installCNI` flag to `false` and change the `enableCephAKS` to `true`. The value `nidhogg.yggdrasil.repoURL` should be set to the repository URL of your new github repository. You should also configure the `nidhogg.yggdrasil.targetRevision` to be the branch you are using in your repository.
 
-For development purposes, the admin password during development for argoCD has been set in the Nidhogg values file. However, since you might expose argoCD with a public IP through a loadbalancer, it is recommended that you remove this value and let argoCD create an admin password and store it in a secret. Delete the value nidhogg.`argo-cd-proxy-chart.argo-cd.configs.secret`. In order to access the argoCD dashboard through a public IP, you need to change the service type value nidhogg.`argo-cd-proxy-chart.argo-cd.server.service.type` to `LoadBalancer`.
+For development purposes, the admin password during development for argoCD has been set in the Nidhogg values file. However, since you might expose argoCD with a public IP through a loadbalancer, it is recommended that you remove this value and let argoCD create an admin password and store it in a secret. Delete the value nidhogg.`argo-cd-proxy-chart.argo-cd.configs.secret`. In order to access the argoCD dashboard through a public IP, you need to change the service type value nidhogg. `argo-cd-proxy-chart.argo-cd.server.service.type` to `LoadBalancer`.
 
 Once you are satisfied with the configurations of the cluster, edit the `yggdrasil/values.yaml` file and enable the services that you would like to enable on the cluster.
 
