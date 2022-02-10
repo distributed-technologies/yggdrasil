@@ -1,0 +1,473 @@
+bucketClaim:
+  # Enableing the bucket claim
+  enabled: true
+  # The name of the bucket claim
+  name: cortex-bucket-claim
+  # Annotations for the bucket claim
+  annotations:
+    # This annotations makes it so ArgoCD will not complain if the CRD's are missing
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+  # Name of the bucket in which to make the claim
+  bucketName: cortex-bucket
+  # Name of the storageClass that contains the bucket provider
+  storageClassName: ceph-bucket
+
+
+# https://github.com/cortexproject/cortex-helm-chart/blob/master/values.yaml
+cortex:
+  config:
+    # -- See https://github.com/cortexproject/cortex/blob/master/docs/configuration/config-file-reference.md#storage_config
+    storage:
+        engine: blocks
+    blocks_storage:
+      backend: s3
+      s3:
+        # Comma separated list of bucket names to evenly distribute chunks over.
+        # Overrides any buckets specified in s3.url flag
+        # CLI flag: -s3.buckets
+        bucket_name: ${BUCKET_NAME}
+
+        # S3 Endpoint to connect to.
+        # CLI flag: -s3.endpoint
+        endpoint: ${BUCKET_HOST}
+
+        # AWS region to use.
+        # CLI flag: -s3.region
+        region: ${BUCKET_REGION}
+
+        # AWS Access Key ID
+        # CLI flag: -s3.access-key-id
+        access_key_id: ${AWS_ACCESS_KEY_ID}
+
+        # AWS Secret Access Key
+        # CLI flag: -s3.secret-access-key
+        secret_access_key: ${AWS_SECRET_ACCESS_KEY}
+
+        # Disable https on s3 connection.
+        # CLI flag: -s3.insecure
+        insecure: true
+    alertmanager_storage:
+      backend: s3
+      s3:
+        # Comma separated list of bucket names to evenly distribute chunks over.
+        # Overrides any buckets specified in s3.url flag
+        # CLI flag: -s3.buckets
+        bucket_name: ${BUCKET_NAME}
+
+        # S3 Endpoint to connect to.
+        # CLI flag: -s3.endpoint
+        endpoint: ${BUCKET_HOST}
+
+        # AWS region to use.
+        # CLI flag: -s3.region
+        region: ${BUCKET_REGION}
+
+        # AWS Access Key ID
+        # CLI flag: -s3.access-key-id
+        access_key_id: ${AWS_ACCESS_KEY_ID}
+
+        # AWS Secret Access Key
+        # CLI flag: -s3.secret-access-key
+        secret_access_key: ${AWS_SECRET_ACCESS_KEY}
+
+        # Disable https on s3 connection.
+        # CLI flag: -s3.insecure
+        insecure: true
+    ruler_storage:
+      backend: s3
+      s3:
+        # Comma separated list of bucket names to evenly distribute chunks over.
+        # Overrides any buckets specified in s3.url flag
+        # CLI flag: -s3.buckets
+        bucket_name: ${BUCKET_NAME}
+
+        # S3 Endpoint to connect to.
+        # CLI flag: -s3.endpoint
+        endpoint: ${BUCKET_HOST}
+
+        # AWS region to use.
+        # CLI flag: -s3.region
+        region: ${BUCKET_REGION}
+
+        # AWS Access Key ID
+        # CLI flag: -s3.access-key-id
+        access_key_id: ${AWS_ACCESS_KEY_ID}
+
+        # AWS Secret Access Key
+        # CLI flag: -s3.secret-access-key
+        secret_access_key: ${AWS_SECRET_ACCESS_KEY}
+
+        # Disable https on s3 connection.
+        # CLI flag: -s3.insecure
+        insecure: true
+
+  alertmanager:
+    enabled: true
+    replicas: 1
+
+    serviceMonitor:
+      enabled: true
+
+    # -- Additional Cortex container arguments, e.g. log level (debug, info, warn, error)
+    extraArgs:
+      config.expand-env: "true"
+
+    # -- Extra env variables to pass to the cortex container
+    env:
+      - name: AWS_ACCESS_KEY_ID
+        valueFrom:
+          secretKeyRef:
+            name: cortex-bucket-claim
+            key: AWS_ACCESS_KEY_ID
+      - name: AWS_SECRET_ACCESS_KEY
+        valueFrom:
+          secretKeyRef:
+            name: cortex-bucket-claim
+            key: AWS_SECRET_ACCESS_KEY
+      - name: BUCKET_HOST
+        valueFrom:
+          configMapKeyRef:
+            name: cortex-bucket-claim
+            key: BUCKET_HOST
+      - name: BUCKET_NAME
+        valueFrom:
+          configMapKeyRef:
+            name: cortex-bucket-claim
+            key: BUCKET_NAME
+      - name: BUCKET_REGION
+        valueFrom:
+          configMapKeyRef:
+            name: cortex-bucket-claim
+            key: BUCKET_REGION
+
+  distributor:
+    replicas: 2
+
+    serviceMonitor:
+      enabled: true
+
+    # -- Additional Cortex container arguments, e.g. log level (debug, info, warn, error)
+    extraArgs:
+      config.expand-env: "true"
+
+    env:
+      - name: AWS_ACCESS_KEY_ID
+        valueFrom:
+          secretKeyRef:
+            name: cortex-bucket-claim
+            key: AWS_ACCESS_KEY_ID
+      - name: AWS_SECRET_ACCESS_KEY
+        valueFrom:
+          secretKeyRef:
+            name: cortex-bucket-claim
+            key: AWS_SECRET_ACCESS_KEY
+      - name: BUCKET_HOST
+        valueFrom:
+          configMapKeyRef:
+            name: cortex-bucket-claim
+            key: BUCKET_HOST
+      - name: BUCKET_NAME
+        valueFrom:
+          configMapKeyRef:
+            name: cortex-bucket-claim
+            key: BUCKET_NAME
+      - name: BUCKET_REGION
+        valueFrom:
+          configMapKeyRef:
+            name: cortex-bucket-claim
+            key: BUCKET_REGION
+
+  ingester:
+    replicas: 3
+
+    statefulSet:
+      # -- If true, use a statefulset instead of a deployment for pod management.
+      # This is useful when using WAL
+      enabled: true
+
+    serviceMonitor:
+      enabled: true
+
+    persistentVolume:
+      # -- If true and ingester.statefulSet.enabled is true,
+      # Ingester will create/use a Persistent Volume Claim
+      # If false, use emptyDir
+      enabled: true
+
+      # -- Ingester data Persistent Volume Storage Class
+      # If defined, storageClassName: <storageClass>
+      # If set to "-", storageClassName: "", which disables dynamic provisioning
+      # If undefined (the default) or set to null, no storageClassName spec is
+      # set, choosing the default provisioner.
+      storageClass: ceph-filesystem
+
+    # -- Additional Cortex container arguments, e.g. log level (debug, info, warn, error)
+    extraArgs:
+      config.expand-env: "true"
+
+    env:
+      - name: AWS_ACCESS_KEY_ID
+        valueFrom:
+          secretKeyRef:
+            name: cortex-bucket-claim
+            key: AWS_ACCESS_KEY_ID
+      - name: AWS_SECRET_ACCESS_KEY
+        valueFrom:
+          secretKeyRef:
+            name: cortex-bucket-claim
+            key: AWS_SECRET_ACCESS_KEY
+      - name: BUCKET_HOST
+        valueFrom:
+          configMapKeyRef:
+            name: cortex-bucket-claim
+            key: BUCKET_HOST
+      - name: BUCKET_NAME
+        valueFrom:
+          configMapKeyRef:
+            name: cortex-bucket-claim
+            key: BUCKET_NAME
+      - name: BUCKET_REGION
+        valueFrom:
+          configMapKeyRef:
+            name: cortex-bucket-claim
+            key: BUCKET_REGION
+
+  ruler:
+    enabled: true
+    replicas: 1
+
+    serviceMonitor:
+      enabled: trur
+
+    # -- Additional Cortex container arguments, e.g. log level (debug, info, warn, error)
+    extraArgs:
+      config.expand-env: "true"
+
+    env:
+      - name: AWS_ACCESS_KEY_ID
+        valueFrom:
+          secretKeyRef:
+            name: cortex-bucket-claim
+            key: AWS_ACCESS_KEY_ID
+      - name: AWS_SECRET_ACCESS_KEY
+        valueFrom:
+          secretKeyRef:
+            name: cortex-bucket-claim
+            key: AWS_SECRET_ACCESS_KEY
+      - name: BUCKET_HOST
+        valueFrom:
+          configMapKeyRef:
+            name: cortex-bucket-claim
+            key: BUCKET_HOST
+      - name: BUCKET_NAME
+        valueFrom:
+          configMapKeyRef:
+            name: cortex-bucket-claim
+            key: BUCKET_NAME
+      - name: BUCKET_REGION
+        valueFrom:
+          configMapKeyRef:
+            name: cortex-bucket-claim
+            key: BUCKET_REGION
+
+  querier:
+    replicas: 2
+
+    serviceMonitor:
+      enabled: true
+
+    # -- Additional Cortex container arguments, e.g. log level (debug, info, warn, error)
+    extraArgs:
+      config.expand-env: "true"
+
+    env:
+      - name: AWS_ACCESS_KEY_ID
+        valueFrom:
+          secretKeyRef:
+            name: cortex-bucket-claim
+            key: AWS_ACCESS_KEY_ID
+      - name: AWS_SECRET_ACCESS_KEY
+        valueFrom:
+          secretKeyRef:
+            name: cortex-bucket-claim
+            key: AWS_SECRET_ACCESS_KEY
+      - name: BUCKET_HOST
+        valueFrom:
+          configMapKeyRef:
+            name: cortex-bucket-claim
+            key: BUCKET_HOST
+      - name: BUCKET_NAME
+        valueFrom:
+          configMapKeyRef:
+            name: cortex-bucket-claim
+            key: BUCKET_NAME
+      - name: BUCKET_REGION
+        valueFrom:
+          configMapKeyRef:
+            name: cortex-bucket-claim
+            key: BUCKET_REGION
+
+  query_frontend:
+    replicas: 2
+
+    serviceMonitor:
+      enabled: true
+
+    env:
+      - name: AWS_ACCESS_KEY_ID
+        valueFrom:
+          secretKeyRef:
+            name: cortex-bucket-claim
+            key: AWS_ACCESS_KEY_ID
+      - name: AWS_SECRET_ACCESS_KEY
+        valueFrom:
+          secretKeyRef:
+            name: cortex-bucket-claim
+            key: AWS_SECRET_ACCESS_KEY
+      - name: BUCKET_HOST
+        valueFrom:
+          configMapKeyRef:
+            name: cortex-bucket-claim
+            key: BUCKET_HOST
+      - name: BUCKET_NAME
+        valueFrom:
+          configMapKeyRef:
+            name: cortex-bucket-claim
+            key: BUCKET_NAME
+      - name: BUCKET_REGION
+        valueFrom:
+          configMapKeyRef:
+            name: cortex-bucket-claim
+            key: BUCKET_REGION
+
+  table_manager:
+    replicas: 1
+
+    serviceMonitor:
+      enabled: true
+
+    env:
+      - name: AWS_ACCESS_KEY_ID
+        valueFrom:
+          secretKeyRef:
+            name: cortex-bucket-claim
+            key: AWS_ACCESS_KEY_ID
+      - name: AWS_SECRET_ACCESS_KEY
+        valueFrom:
+          secretKeyRef:
+            name: cortex-bucket-claim
+            key: AWS_SECRET_ACCESS_KEY
+      - name: BUCKET_HOST
+        valueFrom:
+          configMapKeyRef:
+            name: cortex-bucket-claim
+            key: BUCKET_HOST
+      - name: BUCKET_NAME
+        valueFrom:
+          configMapKeyRef:
+            name: cortex-bucket-claim
+            key: BUCKET_NAME
+      - name: BUCKET_REGION
+        valueFrom:
+          configMapKeyRef:
+            name: cortex-bucket-claim
+            key: BUCKET_REGION
+
+  store_gateway:
+    replicas: 1
+
+    serviceMonitor:
+      enabled: true
+
+    persistentVolume:
+      # -- If true Store-gateway will create/use a Persistent Volume Claim
+      # If false, use emptyDir
+      enabled: true
+
+      # -- Store-gateway data Persistent Volume Storage Class
+      # If defined, storageClassName: <storageClass>
+      # If set to "-", storageClassName: "", which disables dynamic provisioning
+      # If undefined (the default) or set to null, no storageClassName spec is
+      # set, choosing the default provisioner.
+      storageClass: ceph-filesystem
+
+    # -- Additional Cortex container arguments, e.g. log level (debug, info, warn, error)
+    extraArgs:
+      config.expand-env: "true"
+
+    env:
+      - name: AWS_ACCESS_KEY_ID
+        valueFrom:
+          secretKeyRef:
+            name: cortex-bucket-claim
+            key: AWS_ACCESS_KEY_ID
+      - name: AWS_SECRET_ACCESS_KEY
+        valueFrom:
+          secretKeyRef:
+            name: cortex-bucket-claim
+            key: AWS_SECRET_ACCESS_KEY
+      - name: BUCKET_HOST
+        valueFrom:
+          configMapKeyRef:
+            name: cortex-bucket-claim
+            key: BUCKET_HOST
+      - name: BUCKET_NAME
+        valueFrom:
+          configMapKeyRef:
+            name: cortex-bucket-claim
+            key: BUCKET_NAME
+      - name: BUCKET_REGION
+        valueFrom:
+          configMapKeyRef:
+            name: cortex-bucket-claim
+            key: BUCKET_REGION
+
+  compactor:
+    enabled: true
+    replicas: 1
+
+    serviceMonitor:
+      enabled: true
+
+    persistentVolume:
+      # -- If true compactor will create/use a Persistent Volume Claim
+      # If false, use emptyDir
+      enabled: true
+
+      # -- compactor data Persistent Volume Storage Class
+      # If defined, storageClassName: <storageClass>
+      # If set to "-", storageClassName: "", which disables dynamic provisioning
+      # If undefined (the default) or set to null, no storageClassName spec is
+      # set, choosing the default provisioner.
+      storageClass: ceph-filesystem
+
+    # -- Additional Cortex container arguments, e.g. log level (debug, info, warn, error)
+    extraArgs:
+      config.expand-env: "true"
+
+    env:
+      - name: AWS_ACCESS_KEY_ID
+        valueFrom:
+          secretKeyRef:
+            name: cortex-bucket-claim
+            key: AWS_ACCESS_KEY_ID
+      - name: AWS_SECRET_ACCESS_KEY
+        valueFrom:
+          secretKeyRef:
+            name: cortex-bucket-claim
+            key: AWS_SECRET_ACCESS_KEY
+      - name: BUCKET_HOST
+        valueFrom:
+          configMapKeyRef:
+            name: cortex-bucket-claim
+            key: BUCKET_HOST
+      - name: BUCKET_NAME
+        valueFrom:
+          configMapKeyRef:
+            name: cortex-bucket-claim
+            key: BUCKET_NAME
+      - name: BUCKET_REGION
+        valueFrom:
+          configMapKeyRef:
+            name: cortex-bucket-claim
+            key: BUCKET_REGION

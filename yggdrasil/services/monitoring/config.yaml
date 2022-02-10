@@ -64,3 +64,17 @@ apps:
       # chart: tempo-distributed # TODO Comment back in
       path: charts/tempo-distributed/chart
       valuesFile: "tempo.yaml"
+  - name: cortex
+    source:
+      repoURL: 'https://github.com/distributed-technologies/helm-charts' # TODO Change this
+      targetRevision: feature/cortex # TODO Changes this
+      # chart: cortex # TODO Comment back in
+      path: charts/cortex/chart
+      valuesFile: "cortex.yaml"
+  - name: tns
+    source:
+      repoURL: 'https://github.com/distributed-technologies/helm-charts' # TODO Change this
+      targetRevision: feature/tns # TODO Changes this
+      # chart: tempo-distributed # TODO Comment back in
+      path: charts/tns/chart
+      valuesFile: "tns.yaml"
