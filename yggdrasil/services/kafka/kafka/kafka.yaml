@@ -10,43 +10,12 @@ cluster:
     {{- if .Values.storageClass }}
       class: {{ .Values.storageClass }}
     {{- end }}
-    resources:
-      requests:
-        memory: 1Gi
-        cpu: "0m"
-      limits:
-        memory: 2Gi
-        cpu: "500m"
   zookeeper:
     storage:
       size: 5Gi
     {{- if .Values.storageClass }}
       class: {{ .Values.storageClass }}
     {{- end }}
-    resources:
-      requests:
-        memory: 256Mi
-        cpu: "0m"
-      limits:
-        memory: 1Gi
-        cpu: "500m"
-  entityOperator:
-    tlsSidecar:
-      resources:
-        requests:
-          memory: 64Mi
-          cpu: "0m"
-        limits:
-          memory: 128Mi
-          cpu: 200m
-  topicOperator:
-      resources:
-        requests:
-          memory: 256Mi
-          cpu: "0m"
-        limits:
-          memory: 256Mi
-          cpu: "200m"
 
 cp-helm-charts:
   cp-kafka-connect:
@@ -64,13 +33,6 @@ cp-helm-charts:
     prometheus:
       jmx:
         enabled: false
-    resources:
-      limits:
-        cpu: 2000m
-        memory: 4Gi
-      requests:
-        cpu: 0m
-        memory: 1Gi
 
   cp-schema-registry:
     enabled: true
@@ -81,22 +43,6 @@ cp-helm-charts:
     prometheus:
       jmx:
         enabled: false
-    resources:
-      limits:
-        cpu: 600m
-        memory: 1Gi
-      requests:
-        cpu: 0m
-        memory: 256Mi
-
-strimzi-kafka-operator:
-  resources:
-    requests:
-      memory: 200Mi
-      cpu: "0m"
-    limits:
-      memory: 400Mi
-      cpu: "300m"
 
 prometheus-kafka-exporter:
   enabled: false
