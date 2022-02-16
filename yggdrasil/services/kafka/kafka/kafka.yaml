@@ -5,6 +5,13 @@ cluster:
       port: 9092
       type: internal
       tls: false
+    - name: external
+      port: 9093
+      type: loadbalancer
+      tls: false
+      configuration:
+        bootstrap:
+          loadBalancerIP: 192.168.207.140
     storage:
       size: 5Gi
     {{- if .Values.storageClass }}
@@ -29,7 +36,7 @@ cp-helm-charts:
     kafka:
       bootstrapServers: my-cluster-kafka-bootstrap:9092
     external:
-      enabled: false
+      enabled: true
     prometheus:
       jmx:
         enabled: false
