@@ -67,7 +67,7 @@ apps:
     source:
       repoURL: 'https://distributed-technologies.github.io/helm-charts/'
       targetRevision: 0.1.0
-      chart: cortex # TODO Comment back in
+      chart: Cortex
       valuesFile: "cortex.yaml"
   - name: tns
     source:
