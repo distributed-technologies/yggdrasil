@@ -1,5 +1,10 @@
 cluster:
   kafka:
+    replicas: 3
+    offsetTopicReplicationFactor: 3
+    transactionStateLog:
+      replicationFactor: 3
+      minimumInSyncReplicas: 2
     listeners:
     - name: internal
       port: 9092
@@ -18,6 +23,7 @@ cluster:
       class: {{ .Values.storageClass }}
     {{- end }}
   zookeeper:
+    replicas: 3
     storage:
       size: 5Gi
     {{- if .Values.storageClass }}
