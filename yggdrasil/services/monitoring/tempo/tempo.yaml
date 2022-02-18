@@ -1,6 +1,6 @@
 bucketClaim:
   # Enableing the bucket claim
-  enabled: false
+  enabled: true
   # The name of the bucket claim
   name: tempo-bucket-claim
   # Annotations for the bucket claim
