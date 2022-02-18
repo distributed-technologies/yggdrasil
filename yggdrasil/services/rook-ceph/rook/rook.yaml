@@ -1,4 +1,5 @@
 rook-ceph:
+  logLevel: DEBUG
   {{- if .Values.registry }}
   image:
     repository: {{ .Values.registry }}/rook/ceph
