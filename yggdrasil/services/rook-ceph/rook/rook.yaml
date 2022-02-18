@@ -30,3 +30,5 @@ rook-ceph:
         operator: Exists
         effect: NoSchedule
   {{- end }}
+
+  cephCommandsTimeoutSeconds: "60"
