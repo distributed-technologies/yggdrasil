@@ -22,7 +22,7 @@ applications:
   loadbalancer: true
   loki: true
   nifi: false
-  ntp: false
+  ntp: true
   prometheus: true
   rook: true
   tempo: true
