@@ -15,6 +15,8 @@ bucketClaim:
 tempo-distributed:
   # Configuration for the ingester
   ingester:
+    extraArgs:
+      - -config.expand-env=true
     # -- Environment variables to add to the ingester pods
     extraEnv:
       - name: AWS_ACCESS_KEY_ID
@@ -44,6 +46,8 @@ tempo-distributed:
             key: BUCKET_REGION
 
   distributor:
+    extraArgs:
+      - -config.expand-env=true
     # -- Environment variables to add to the distributor pods
     extraEnv:
       - name: AWS_ACCESS_KEY_ID
@@ -73,6 +77,8 @@ tempo-distributed:
             key: BUCKET_REGION
 
   compactor:
+    extraArgs:
+      - -config.expand-env=true
     # -- Environment variables to add to the compactor pods
     extraEnv:
       - name: AWS_ACCESS_KEY_ID
@@ -103,6 +109,8 @@ tempo-distributed:
 
   # Configuration for the querier
   querier:
+    extraArgs:
+      - -config.expand-env=true
     # -- Environment variables to add to the querier pods
     extraEnv:
       - name: AWS_ACCESS_KEY_ID
@@ -161,6 +169,8 @@ tempo-distributed:
           configMapKeyRef:
             name: tempo-bucket-claim
             key: BUCKET_REGION
+    extraArgs:
+      - -config.expand-env=true
     # -- Environment variables to add to the query-frontend pods
     extraEnv:
       - name: AWS_ACCESS_KEY_ID
