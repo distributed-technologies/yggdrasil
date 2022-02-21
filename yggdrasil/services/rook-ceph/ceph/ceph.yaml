@@ -1,4 +1,9 @@
 rook-ceph-cluster:
+
+# Ability to override ceph.conf
+  configOverride: |
+    [client.rgw.ceph.objectstore.a]
+    debug_rgw = 20
   toolbox:
     enabled: true
   cephClusterSpec:
@@ -7,7 +12,7 @@ rook-ceph-cluster:
       image: {{ .Values.registry }}/ceph/ceph:v16.2.5
       {{- end }}
     {{- if .Values.enableCephAKS }}
-    mon: 
+    mon:
       volumeClaimTemplate:
         spec:
           storageClassName: managed-premium
@@ -18,7 +23,7 @@ rook-ceph-cluster:
       storageClassDeviceSets:
       - name: set1
       # This is the number of OSDs that will be created.
-        count: 4 
+        count: 4
         portable: true
         placement:
           tolerations:
