@@ -1,9 +1,13 @@
 apiVersion: v2
 name: yggdrasil
 description: A Helm chart for for deploying an entire repo.
-version: 2.0.18
+version: 2.0.19
 
 dependencies:
   - name: lightvessel
     version: "2.0.3"
     repository: "https://distributed-technologies.github.io/helm-charts/"
+
+annotations:
+  changeLog: |
+    [2.0.19]: Added Cortex and Tempo with configurations.
