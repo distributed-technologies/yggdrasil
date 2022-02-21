@@ -57,17 +57,31 @@ apps:
         serviceName: jaeger-query
         annotation:
           traefik.ingress.kubernetes.io/router.entrypoints: web
+  # - name: tempo
+  #   source:
+  #     repoURL: 'https://distributed-technologies.github.io/helm-charts/'
+  #     targetRevision: 0.1.0
+  #     chart: tempo-distributed
+  #     valuesFile: "tempo.yaml"
   - name: tempo
     source:
-      repoURL: 'https://distributed-technologies.github.io/helm-charts/'
-      targetRevision: 0.1.0
-      chart: tempo-distributed
+      repoURL: 'https://github.com/distributed-technologies/helm-charts' # TODO Change this
+      targetRevision: bug/ceph-bucket-claim # TODO Changes this
+      # chart: tempo-distributed # TODO Comment back in
+      path: charts/tempo-distributed/chart
       valuesFile: "tempo.yaml"
+  # - name: cortex
+  #   source:
+  #     repoURL: 'https://distributed-technologies.github.io/helm-charts/'
+  #     targetRevision: 0.1.0
+  #     chart: Cortex
+  #     valuesFile: "cortex.yaml"
   - name: cortex
     source:
-      repoURL: 'https://distributed-technologies.github.io/helm-charts/'
-      targetRevision: 0.1.0
-      chart: Cortex
+      repoURL: 'https://github.com/distributed-technologies/helm-charts' # TODO Change this
+      targetRevision: bug/ceph-bucket-claim # TODO Changes this
+      # chart: tempo-distributed # TODO Comment back in
+      path: charts/cortex/chart
       valuesFile: "cortex.yaml"
   - name: tns
     source:
