@@ -27,6 +27,21 @@ tempo-distributed:
           secretKeyRef:
             name: tempo-bucket-claim
             key: AWS_SECRET_ACCESS_KEY
+      - name: BUCKET_HOST
+        valueFrom:
+          configMapKeyRef:
+            name: tempo-bucket-claim
+            key: BUCKET_HOST
+      - name: BUCKET_NAME
+        valueFrom:
+          configMapKeyRef:
+            name: tempo-bucket-claim
+            key: BUCKET_NAME
+      - name: BUCKET_REGION
+        valueFrom:
+          configMapKeyRef:
+            name: tempo-bucket-claim
+            key: BUCKET_REGION
 
   distributor:
     # -- Environment variables to add to the distributor pods
@@ -41,6 +56,21 @@ tempo-distributed:
           secretKeyRef:
             name: tempo-bucket-claim
             key: AWS_SECRET_ACCESS_KEY
+      - name: BUCKET_HOST
+        valueFrom:
+          configMapKeyRef:
+            name: tempo-bucket-claim
+            key: BUCKET_HOST
+      - name: BUCKET_NAME
+        valueFrom:
+          configMapKeyRef:
+            name: tempo-bucket-claim
+            key: BUCKET_NAME
+      - name: BUCKET_REGION
+        valueFrom:
+          configMapKeyRef:
+            name: tempo-bucket-claim
+            key: BUCKET_REGION
 
   compactor:
     # -- Environment variables to add to the compactor pods
@@ -55,6 +85,21 @@ tempo-distributed:
           secretKeyRef:
             name: tempo-bucket-claim
             key: AWS_SECRET_ACCESS_KEY
+      - name: BUCKET_HOST
+        valueFrom:
+          configMapKeyRef:
+            name: tempo-bucket-claim
+            key: BUCKET_HOST
+      - name: BUCKET_NAME
+        valueFrom:
+          configMapKeyRef:
+            name: tempo-bucket-claim
+            key: BUCKET_NAME
+      - name: BUCKET_REGION
+        valueFrom:
+          configMapKeyRef:
+            name: tempo-bucket-claim
+            key: BUCKET_REGION
 
   # Configuration for the querier
   querier:
@@ -70,6 +115,21 @@ tempo-distributed:
           secretKeyRef:
             name: tempo-bucket-claim
             key: AWS_SECRET_ACCESS_KEY
+      - name: BUCKET_HOST
+        valueFrom:
+          configMapKeyRef:
+            name: tempo-bucket-claim
+            key: BUCKET_HOST
+      - name: BUCKET_NAME
+        valueFrom:
+          configMapKeyRef:
+            name: tempo-bucket-claim
+            key: BUCKET_NAME
+      - name: BUCKET_REGION
+        valueFrom:
+          configMapKeyRef:
+            name: tempo-bucket-claim
+            key: BUCKET_REGION
 
   # Configuration for the query-frontend
   queryFrontend:
@@ -86,6 +146,21 @@ tempo-distributed:
           secretKeyRef:
             name: tempo-bucket-claim
             key: AWS_SECRET_ACCESS_KEY
+      - name: BUCKET_HOST
+        valueFrom:
+          configMapKeyRef:
+            name: tempo-bucket-claim
+            key: BUCKET_HOST
+      - name: BUCKET_NAME
+        valueFrom:
+          configMapKeyRef:
+            name: tempo-bucket-claim
+            key: BUCKET_NAME
+      - name: BUCKET_REGION
+        valueFrom:
+          configMapKeyRef:
+            name: tempo-bucket-claim
+            key: BUCKET_REGION
     # -- Environment variables to add to the query-frontend pods
     extraEnv:
       - name: AWS_ACCESS_KEY_ID
@@ -98,6 +173,21 @@ tempo-distributed:
           secretKeyRef:
             name: tempo-bucket-claim
             key: AWS_SECRET_ACCESS_KEY
+      - name: BUCKET_HOST
+        valueFrom:
+          configMapKeyRef:
+            name: tempo-bucket-claim
+            key: BUCKET_HOST
+      - name: BUCKET_NAME
+        valueFrom:
+          configMapKeyRef:
+            name: tempo-bucket-claim
+            key: BUCKET_NAME
+      - name: BUCKET_REGION
+        valueFrom:
+          configMapKeyRef:
+            name: tempo-bucket-claim
+            key: BUCKET_REGION
 
   # Set Tempo server configuration
   # Refers to https://grafana.com/docs/tempo/latest/configuration/#server
@@ -119,21 +209,17 @@ tempo-distributed:
         # Bucket name in s3
         # Tempo requires a dedicated bucket since it maintains a top-level object structure and does not support
         # a custom prefix to nest within a shared bucket.
-        bucket: tempo-bucket
+        bucket: ${BUCKET_NAME}
 
         # api endpoint to connect to. use AWS S3 or any S3 compatible object storage endpoint.
         # Example: "endpoint: s3.dualstack.us-east-2.amazonaws.com"
-        endpoint: rook-ceph-rgw-ceph-objectstore.rook-ceph.svc
+        endpoint: ${BUCKET_HOST}
 
         # optional.
         # By default the region is inferred from the endpoint,
         # but is required for some S3-compatible storage engines.
         # Example: "region: us-east-2"
-        region: us-east-1
-
-        # optional.
-        # enable if endpoint is http
-        insecure: true
+        region: ${BUCKET_REGION}
 
         # optional.
         # access key when using static credentials.
@@ -142,6 +228,10 @@ tempo-distributed:
         # optional.
         # secret key when using static credentials.
         secret_key: ${AWS_SECRET_ACCESS_KEY}
+
+        # optional.
+        # enable if endpoint is http
+        insecure: true
 
   search:
     enabled: true
