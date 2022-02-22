@@ -1,6 +1,6 @@
 # By setting the storage class, you enable the hard-coded ceph storageclass in the values files. If not set,
 # the charts will default to the standard storage class
-# storageClass: ceph-filesystem
+storageClass: ceph-filesystem
 
 # If registry is not set, it will pull from the default registries
 # registry: <your-registry-here>
