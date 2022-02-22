@@ -9,20 +9,20 @@ applications:
   argowf: false
   argo-events: false
   cache: false
-  ceph: false
+  ceph: true
   cert-manager: false
-  example-guestbook: false
-  grafana: false
+  cortex: true
+  grafana: true
+  grafana-agent: true
   harbor: false
   influxdb: false
   ingress: false
-  jaeger: false
+  jaeger: true
   kafka: false
   loadbalancer: false
-  loki: false
+  loki: true
   nifi: false
   ntp: false
-  prometheus: false
-  rook: false
-  thanos: false
+  rook: true
+  tempo: true
   vault: false
