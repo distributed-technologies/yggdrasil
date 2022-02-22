@@ -15,6 +15,10 @@ bucketClaim:
 
 # https://github.com/cortexproject/cortex-helm-chart/blob/master/values.yaml
 cortex:
+  runtime_config:
+    file: |
+      ingester_limits:
+      __max_ingestion_rate:_100000
   config:
     # -- See https://github.com/cortexproject/cortex/blob/master/docs/configuration/config-file-reference.md#storage_config
     storage:
