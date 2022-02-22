@@ -9,6 +9,6 @@ apps:
   - name: ingress
     source:
       repoURL: "https://distributed-technologies.github.io/helm-charts/"
-      targetRevision: 0.2.4
+      targetRevision: 0.2.5
       chart: traefik
       valuesFile: "ingress.yaml"
