@@ -4,6 +4,7 @@ loki-stack:
     image:
       repository: {{ .Values.registry }}/grafana/loki
   promtail:
+    enabled: false
     image:
       repository: {{ .Values.registry }}/grafana/promtail
 {{- end }}
