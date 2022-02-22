@@ -14,6 +14,7 @@ applications:
   cortex: true
   example-guestbook: false
   grafana: true
+  grafana-agent: true
   harbor: false
   influxdb: false
   ingress: false
@@ -23,7 +24,6 @@ applications:
   loki: true
   nifi: false
   ntp: true
-  prometheus: true
   rook: true
   tempo: true
   thanos: false

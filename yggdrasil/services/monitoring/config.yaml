@@ -6,25 +6,12 @@ space: service
 description: All the monitoring apps, including but not limited to prometheus, grafana, thanos, loki.
 
 apps:
-  - name: prometheus
-    source:
-      repoURL: 'https://distributed-technologies.github.io/helm-charts/'
-      targetRevision: 0.1.2
-      chart: prometheus
-      valuesFile: "prometheus.yaml"
-    ingress:
-      - subDomain: prometheus
-        path: /
-        servicePort: 9090
-        serviceName: prometheus-kube-prometheus-prometheus
-        annotation:
-          traefik.ingress.kubernetes.io/router.entrypoints: web
-  - name: thanos
+  - name: grafana-agent
     source:
       repoURL: 'https://distributed-technologies.github.io/helm-charts/'
       targetRevision: 0.1.1
-      chart: thanos
-      valuesFile: "thanos.yaml"
+      chart: grafana-agent
+      valuesFile: "grafana-agent.yaml"
   - name: grafana
     source:
       repoURL: 'https://distributed-technologies.github.io/helm-charts/'
@@ -44,25 +31,6 @@ apps:
       targetRevision: 0.1.2
       chart: loki
       valuesFile: "loki.yaml"
-  - name: jaeger
-    source:
-      repoURL: 'https://distributed-technologies.github.io/helm-charts/'
-      targetRevision: 0.1.2
-      chart: jaeger
-      valuesFile: "jaeger.yaml"
-    ingress:
-      - subDomain: jaeger
-        path: /
-        servicePort: 80
-        serviceName: jaeger-query
-        annotation:
-          traefik.ingress.kubernetes.io/router.entrypoints: web
-  # - name: tempo
-  #   source:
-  #     repoURL: 'https://distributed-technologies.github.io/helm-charts/'
-  #     targetRevision: 0.1.0
-  #     chart: tempo-distributed
-  #     valuesFile: "tempo.yaml"
   - name: tempo
     source:
       repoURL: 'https://github.com/distributed-technologies/helm-charts' # TODO Change this
@@ -70,12 +38,6 @@ apps:
       # chart: tempo-distributed # TODO Comment back in
       path: charts/tempo-distributed/chart
       valuesFile: "tempo.yaml"
-  # - name: cortex
-  #   source:
-  #     repoURL: 'https://distributed-technologies.github.io/helm-charts/'
-  #     targetRevision: 0.1.0
-  #     chart: Cortex
-  #     valuesFile: "cortex.yaml"
   - name: cortex
     source:
       repoURL: 'https://github.com/distributed-technologies/helm-charts' # TODO Change this
