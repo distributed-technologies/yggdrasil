@@ -37,3 +37,9 @@ apps:
       targetRevision: 0.1.1
       chart: tempo-distributed
       valuesFile: "tempo.yaml"
+  - name: cortex
+    source:
+      repoURL: 'https://distributed-technologies.github.io/helm-charts/'
+      targetRevision: 0.1.2
+      chart: cortex
+      valuesFile: "cortex.yaml"
