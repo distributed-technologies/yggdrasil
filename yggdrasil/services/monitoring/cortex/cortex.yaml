@@ -15,10 +15,6 @@ bucketClaim:
 
 # https://github.com/cortexproject/cortex-helm-chart/blob/master/values.yaml
 cortex:
-  runtimeconfigmap:
-    runtime_config:
-        ingester_limits:
-        __max_ingestion_rate:_100000
   config:
     # -- See https://github.com/cortexproject/cortex/blob/master/docs/configuration/config-file-reference.md#storage_config
     storage:
@@ -104,7 +100,9 @@ cortex:
         # Disable https on s3 connection.
         # CLI flag: -s3.insecure
         insecure: true
-
+    ingester:
+      instance_limits:
+        max_ingestion_rate: 0
   alertmanager:
     enabled: true
     replicas: 1
