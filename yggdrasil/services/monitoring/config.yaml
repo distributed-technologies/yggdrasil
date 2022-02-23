@@ -8,9 +8,10 @@ description: All the monitoring apps, including but not limited to prometheus, g
 apps:
   - name: cortex
     source:
-      repoURL: 'https://github.com/distributed-technologies/helm-charts'
-      targetRevision: bug/ceph-bucket-claim
-      chart: charts/cortex/chart
+      repoURL: 'https://github.com/distributed-technologies/helm-charts' # TODO Change this
+      targetRevision: bug/ceph-bucket-claim # TODO Changes this
+      # chart: tempo-distributed # TODO Comment back in
+      path: charts/cortex/chart
       valuesFile: "cortex.yaml"
   - name: grafana
     source:
