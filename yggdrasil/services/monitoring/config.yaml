@@ -8,9 +8,10 @@ description: All the monitoring apps, including but not limited to prometheus, g
 apps:
   - name: grafana-agent
     source:
-      repoURL: 'https://distributed-technologies.github.io/helm-charts/'
-      targetRevision: 0.1.1
-      chart: grafana-agent
+      repoURL: 'https://github.com/distributed-technologies/helm-charts' # TODO Change this
+      targetRevision: feature/grafana-agent-integrations # TODO Changes this
+      # chart: tempo-distributed # TODO Comment back in
+      path: charts/grafana-agent/chart
       valuesFile: "grafana-agent.yaml"
   - name: grafana
     source:
