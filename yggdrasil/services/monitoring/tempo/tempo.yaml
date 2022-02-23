@@ -270,3 +270,5 @@ tempo-distributed:
   serviceMonitor:
     # -- If enabled, ServiceMonitor resources for Prometheus Operator are created
     enabled: true
+    labels:
+      instance: primary
