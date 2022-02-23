@@ -37,16 +37,3 @@ apps:
       targetRevision: 0.1.1
       chart: tempo-distributed
       valuesFile: "tempo.yaml"
-  - name: cortex
-    source:
-      repoURL: 'https://distributed-technologies.github.io/helm-charts/'
-      targetRevision: 0.1.2
-      chart: cortex
-      valuesFile: "cortex.yaml"
-  - name: tns
-    source:
-      repoURL: 'https://github.com/distributed-technologies/helm-charts' # TODO Change this
-      targetRevision: feature/tns # TODO Changes this
-      # chart: tempo-distributed # TODO Comment back in
-      path: charts/tns/chart
-      valuesFile: "tns.yaml"
