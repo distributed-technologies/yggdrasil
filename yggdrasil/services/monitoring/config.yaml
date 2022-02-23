@@ -38,9 +38,10 @@ apps:
       targetRevision: 0.1.2
       chart: loki
       valuesFile: "loki.yaml"
-  - name: tempo
+  - name: tns
     source:
-      repoURL: 'https://github.com/distributed-technologies/helm-charts'
-      targetRevision: feature/tns
-      chart: charts/tns/chart
-      valuesFile: "tempo.yaml"
+      repoURL: 'https://github.com/distributed-technologies/helm-charts' # TODO Change this
+      targetRevision: feature/tns # TODO Changes this
+      # chart: tempo-distributed # TODO Comment back in
+      path: charts/tns/chart
+      valuesFile: "tns.yaml"
