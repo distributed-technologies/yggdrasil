@@ -15,10 +15,10 @@ bucketClaim:
 
 # https://github.com/cortexproject/cortex-helm-chart/blob/master/values.yaml
 cortex:
-  runtime_config:
-    file: |
-      ingester_limits:
-      __max_ingestion_rate:_100000
+  runtimeconfigmap:
+    runtime_config: |
+        ingester_limits:
+        __max_ingestion_rate:_100000
   config:
     # -- See https://github.com/cortexproject/cortex/blob/master/docs/configuration/config-file-reference.md#storage_config
     storage:
@@ -111,6 +111,8 @@ cortex:
 
     serviceMonitor:
       enabled: true
+      additionalLabels:
+        instance: primary
 
     # -- Additional Cortex container arguments, e.g. log level (debug, info, warn, error)
     extraArgs:
@@ -149,6 +151,8 @@ cortex:
 
     serviceMonitor:
       enabled: true
+      additionalLabels:
+        instance: primary
 
     # -- Additional Cortex container arguments, e.g. log level (debug, info, warn, error)
     extraArgs:
@@ -191,6 +195,8 @@ cortex:
 
     serviceMonitor:
       enabled: true
+      additionalLabels:
+        instance: primary
 
     persistentVolume:
       # -- If true and ingester.statefulSet.enabled is true,
@@ -279,6 +285,8 @@ cortex:
 
     serviceMonitor:
       enabled: true
+      additionalLabels:
+        instance: primary
 
     # -- Additional Cortex container arguments, e.g. log level (debug, info, warn, error)
     extraArgs:
@@ -316,6 +324,8 @@ cortex:
 
     serviceMonitor:
       enabled: true
+      additionalLabels:
+        instance: primary
 
     env:
       - name: AWS_ACCESS_KEY_ID
@@ -349,6 +359,8 @@ cortex:
 
     serviceMonitor:
       enabled: true
+      additionalLabels:
+        instance: primary
 
     env:
       - name: AWS_ACCESS_KEY_ID
@@ -382,6 +394,8 @@ cortex:
 
     serviceMonitor:
       enabled: true
+      additionalLabels:
+        instance: primary
 
     persistentVolume:
       # -- If true Store-gateway will create/use a Persistent Volume Claim
@@ -432,6 +446,8 @@ cortex:
 
     serviceMonitor:
       enabled: true
+      additionalLabels:
+        instance: primary
 
     persistentVolume:
       # -- If true compactor will create/use a Persistent Volume Claim
