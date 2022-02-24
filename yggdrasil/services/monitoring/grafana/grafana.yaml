@@ -1,8 +1,4 @@
 grafana:
-  service:
-    enabled: true
-    type: NodePort
-    nodePort: 30081
   {{- if .Values.registry }}
   image:
     repository: {{ .Values.registry }}/grafana/grafana
