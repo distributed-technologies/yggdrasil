@@ -113,31 +113,7 @@ cortex:
 
     # -- Extra env variables to pass to the cortex container
     env:
-      - name: AWS_ACCESS_KEY_ID
-        valueFrom:
-          secretKeyRef:
-            name: cortex-bucket-claim
-            key: AWS_ACCESS_KEY_ID
-      - name: AWS_SECRET_ACCESS_KEY
-        valueFrom:
-          secretKeyRef:
-            name: cortex-bucket-claim
-            key: AWS_SECRET_ACCESS_KEY
-      - name: BUCKET_HOST
-        valueFrom:
-          configMapKeyRef:
-            name: cortex-bucket-claim
-            key: BUCKET_HOST
-      - name: BUCKET_NAME
-        valueFrom:
-          configMapKeyRef:
-            name: cortex-bucket-claim
-            key: BUCKET_NAME
-      - name: BUCKET_REGION
-        valueFrom:
-          configMapKeyRef:
-            name: cortex-bucket-claim
-            key: BUCKET_REGION
+      {{- include "bucket-claim.env-var" "cortex-bucket-claim" | indent 6 }}
 
   distributor:
     serviceMonitor:
@@ -151,31 +127,7 @@ cortex:
       config.expand-env: "true"
 
     env:
-      - name: AWS_ACCESS_KEY_ID
-        valueFrom:
-          secretKeyRef:
-            name: cortex-bucket-claim
-            key: AWS_ACCESS_KEY_ID
-      - name: AWS_SECRET_ACCESS_KEY
-        valueFrom:
-          secretKeyRef:
-            name: cortex-bucket-claim
-            key: AWS_SECRET_ACCESS_KEY
-      - name: BUCKET_HOST
-        valueFrom:
-          configMapKeyRef:
-            name: cortex-bucket-claim
-            key: BUCKET_HOST
-      - name: BUCKET_NAME
-        valueFrom:
-          configMapKeyRef:
-            name: cortex-bucket-claim
-            key: BUCKET_NAME
-      - name: BUCKET_REGION
-        valueFrom:
-          configMapKeyRef:
-            name: cortex-bucket-claim
-            key: BUCKET_REGION
+      {{- include "bucket-claim.env-var" "cortex-bucket-claim" | indent 6 }}
 
   ingester:
     statefulSet:
@@ -207,31 +159,7 @@ cortex:
       config.expand-env: "true"
 
     env:
-      - name: AWS_ACCESS_KEY_ID
-        valueFrom:
-          secretKeyRef:
-            name: cortex-bucket-claim
-            key: AWS_ACCESS_KEY_ID
-      - name: AWS_SECRET_ACCESS_KEY
-        valueFrom:
-          secretKeyRef:
-            name: cortex-bucket-claim
-            key: AWS_SECRET_ACCESS_KEY
-      - name: BUCKET_HOST
-        valueFrom:
-          configMapKeyRef:
-            name: cortex-bucket-claim
-            key: BUCKET_HOST
-      - name: BUCKET_NAME
-        valueFrom:
-          configMapKeyRef:
-            name: cortex-bucket-claim
-            key: BUCKET_NAME
-      - name: BUCKET_REGION
-        valueFrom:
-          configMapKeyRef:
-            name: cortex-bucket-claim
-            key: BUCKET_REGION
+      {{- include "bucket-claim.env-var" "cortex-bucket-claim" | indent 6 }}
 
   ruler:
     serviceMonitor:
@@ -245,31 +173,7 @@ cortex:
       config.expand-env: "true"
 
     env:
-      - name: AWS_ACCESS_KEY_ID
-        valueFrom:
-          secretKeyRef:
-            name: cortex-bucket-claim
-            key: AWS_ACCESS_KEY_ID
-      - name: AWS_SECRET_ACCESS_KEY
-        valueFrom:
-          secretKeyRef:
-            name: cortex-bucket-claim
-            key: AWS_SECRET_ACCESS_KEY
-      - name: BUCKET_HOST
-        valueFrom:
-          configMapKeyRef:
-            name: cortex-bucket-claim
-            key: BUCKET_HOST
-      - name: BUCKET_NAME
-        valueFrom:
-          configMapKeyRef:
-            name: cortex-bucket-claim
-            key: BUCKET_NAME
-      - name: BUCKET_REGION
-        valueFrom:
-          configMapKeyRef:
-            name: cortex-bucket-claim
-            key: BUCKET_REGION
+      {{- include "bucket-claim.env-var" "cortex-bucket-claim" | indent 6 }}
 
   querier:
     serviceMonitor:
@@ -283,31 +187,7 @@ cortex:
       config.expand-env: "true"
 
     env:
-      - name: AWS_ACCESS_KEY_ID
-        valueFrom:
-          secretKeyRef:
-            name: cortex-bucket-claim
-            key: AWS_ACCESS_KEY_ID
-      - name: AWS_SECRET_ACCESS_KEY
-        valueFrom:
-          secretKeyRef:
-            name: cortex-bucket-claim
-            key: AWS_SECRET_ACCESS_KEY
-      - name: BUCKET_HOST
-        valueFrom:
-          configMapKeyRef:
-            name: cortex-bucket-claim
-            key: BUCKET_HOST
-      - name: BUCKET_NAME
-        valueFrom:
-          configMapKeyRef:
-            name: cortex-bucket-claim
-            key: BUCKET_NAME
-      - name: BUCKET_REGION
-        valueFrom:
-          configMapKeyRef:
-            name: cortex-bucket-claim
-            key: BUCKET_REGION
+      {{- include "bucket-claim.env-var" "cortex-bucket-claim" | indent 6 }}
 
   query_frontend:
     serviceMonitor:
@@ -316,64 +196,13 @@ cortex:
         instance: primary
 
     env:
-      - name: AWS_ACCESS_KEY_ID
-        valueFrom:
-          secretKeyRef:
-            name: cortex-bucket-claim
-            key: AWS_ACCESS_KEY_ID
-      - name: AWS_SECRET_ACCESS_KEY
-        valueFrom:
-          secretKeyRef:
-            name: cortex-bucket-claim
-            key: AWS_SECRET_ACCESS_KEY
-      - name: BUCKET_HOST
-        valueFrom:
-          configMapKeyRef:
-            name: cortex-bucket-claim
-            key: BUCKET_HOST
-      - name: BUCKET_NAME
-        valueFrom:
-          configMapKeyRef:
-            name: cortex-bucket-claim
-            key: BUCKET_NAME
-      - name: BUCKET_REGION
-        valueFrom:
-          configMapKeyRef:
-            name: cortex-bucket-claim
-            key: BUCKET_REGION
+      {{- include "bucket-claim.env-var" "cortex-bucket-claim" | indent 6 }}
 
   table_manager:
     serviceMonitor:
       enabled: true
       additionalLabels:
         instance: primary
-
-    env:
-      - name: AWS_ACCESS_KEY_ID
-        valueFrom:
-          secretKeyRef:
-            name: cortex-bucket-claim
-            key: AWS_ACCESS_KEY_ID
-      - name: AWS_SECRET_ACCESS_KEY
-        valueFrom:
-          secretKeyRef:
-            name: cortex-bucket-claim
-            key: AWS_SECRET_ACCESS_KEY
-      - name: BUCKET_HOST
-        valueFrom:
-          configMapKeyRef:
-            name: cortex-bucket-claim
-            key: BUCKET_HOST
-      - name: BUCKET_NAME
-        valueFrom:
-          configMapKeyRef:
-            name: cortex-bucket-claim
-            key: BUCKET_NAME
-      - name: BUCKET_REGION
-        valueFrom:
-          configMapKeyRef:
-            name: cortex-bucket-claim
-            key: BUCKET_REGION
 
   store_gateway:
     serviceMonitor:
@@ -399,31 +228,7 @@ cortex:
       config.expand-env: "true"
 
     env:
-      - name: AWS_ACCESS_KEY_ID
-        valueFrom:
-          secretKeyRef:
-            name: cortex-bucket-claim
-            key: AWS_ACCESS_KEY_ID
-      - name: AWS_SECRET_ACCESS_KEY
-        valueFrom:
-          secretKeyRef:
-            name: cortex-bucket-claim
-            key: AWS_SECRET_ACCESS_KEY
-      - name: BUCKET_HOST
-        valueFrom:
-          configMapKeyRef:
-            name: cortex-bucket-claim
-            key: BUCKET_HOST
-      - name: BUCKET_NAME
-        valueFrom:
-          configMapKeyRef:
-            name: cortex-bucket-claim
-            key: BUCKET_NAME
-      - name: BUCKET_REGION
-        valueFrom:
-          configMapKeyRef:
-            name: cortex-bucket-claim
-            key: BUCKET_REGION
+      {{- include "bucket-claim.env-var" "cortex-bucket-claim" | indent 6 }}
 
   compactor:
     serviceMonitor:
@@ -449,28 +254,4 @@ cortex:
       config.expand-env: "true"
 
     env:
-      - name: AWS_ACCESS_KEY_ID
-        valueFrom:
-          secretKeyRef:
-            name: cortex-bucket-claim
-            key: AWS_ACCESS_KEY_ID
-      - name: AWS_SECRET_ACCESS_KEY
-        valueFrom:
-          secretKeyRef:
-            name: cortex-bucket-claim
-            key: AWS_SECRET_ACCESS_KEY
-      - name: BUCKET_HOST
-        valueFrom:
-          configMapKeyRef:
-            name: cortex-bucket-claim
-            key: BUCKET_HOST
-      - name: BUCKET_NAME
-        valueFrom:
-          configMapKeyRef:
-            name: cortex-bucket-claim
-            key: BUCKET_NAME
-      - name: BUCKET_REGION
-        valueFrom:
-          configMapKeyRef:
-            name: cortex-bucket-claim
-            key: BUCKET_REGION
+      {{- include "bucket-claim.env-var" "cortex-bucket-claim" | indent 6 }}
