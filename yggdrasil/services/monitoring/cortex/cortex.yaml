@@ -100,19 +100,14 @@ cortex:
         # Disable https on s3 connection.
         # CLI flag: -s3.insecure
         insecure: true
-    ingester:
-      instance_limits:
-        max_ingestion_rate: 0
   alertmanager:
-    enabled: true
-    replicas: 1
-
     serviceMonitor:
       enabled: true
       additionalLabels:
         instance: primary
 
     # -- Additional Cortex container arguments, e.g. log level (debug, info, warn, error)
+    # `config.expand-env: "true"` Allows the use of env vars in the config
     extraArgs:
       config.expand-env: "true"
 
@@ -145,14 +140,13 @@ cortex:
             key: BUCKET_REGION
 
   distributor:
-    replicas: 2
-
     serviceMonitor:
       enabled: true
       additionalLabels:
         instance: primary
 
     # -- Additional Cortex container arguments, e.g. log level (debug, info, warn, error)
+    # `config.expand-env: "true"` Allows the use of env vars in the config
     extraArgs:
       config.expand-env: "true"
 
@@ -184,8 +178,6 @@ cortex:
             key: BUCKET_REGION
 
   ingester:
-    replicas: 3
-
     statefulSet:
       # -- If true, use a statefulset instead of a deployment for pod management.
       # This is useful when using WAL
@@ -210,6 +202,7 @@ cortex:
       storageClass: ceph-filesystem
 
     # -- Additional Cortex container arguments, e.g. log level (debug, info, warn, error)
+    # `config.expand-env: "true"` Allows the use of env vars in the config
     extraArgs:
       config.expand-env: "true"
 
@@ -241,13 +234,13 @@ cortex:
             key: BUCKET_REGION
 
   ruler:
-    enabled: true
-    replicas: 1
-
     serviceMonitor:
-      enabled: trur
+      enabled: true
+      additionalLabels:
+        instance: primary
 
     # -- Additional Cortex container arguments, e.g. log level (debug, info, warn, error)
+    # `config.expand-env: "true"` Allows the use of env vars in the config
     extraArgs:
       config.expand-env: "true"
 
@@ -279,14 +272,13 @@ cortex:
             key: BUCKET_REGION
 
   querier:
-    replicas: 2
-
     serviceMonitor:
       enabled: true
       additionalLabels:
         instance: primary
 
     # -- Additional Cortex container arguments, e.g. log level (debug, info, warn, error)
+    # `config.expand-env: "true"` Allows the use of env vars in the config
     extraArgs:
       config.expand-env: "true"
 
@@ -318,8 +310,6 @@ cortex:
             key: BUCKET_REGION
 
   query_frontend:
-    replicas: 2
-
     serviceMonitor:
       enabled: true
       additionalLabels:
@@ -353,8 +343,6 @@ cortex:
             key: BUCKET_REGION
 
   table_manager:
-    replicas: 1
-
     serviceMonitor:
       enabled: true
       additionalLabels:
@@ -388,8 +376,6 @@ cortex:
             key: BUCKET_REGION
 
   store_gateway:
-    replicas: 1
-
     serviceMonitor:
       enabled: true
       additionalLabels:
@@ -408,6 +394,7 @@ cortex:
       storageClass: ceph-filesystem
 
     # -- Additional Cortex container arguments, e.g. log level (debug, info, warn, error)
+    # `config.expand-env: "true"` Allows the use of env vars in the config
     extraArgs:
       config.expand-env: "true"
 
@@ -439,9 +426,6 @@ cortex:
             key: BUCKET_REGION
 
   compactor:
-    enabled: true
-    replicas: 1
-
     serviceMonitor:
       enabled: true
       additionalLabels:
@@ -460,6 +444,7 @@ cortex:
       storageClass: ceph-filesystem
 
     # -- Additional Cortex container arguments, e.g. log level (debug, info, warn, error)
+    # `config.expand-env: "true"` Allows the use of env vars in the config
     extraArgs:
       config.expand-env: "true"
 

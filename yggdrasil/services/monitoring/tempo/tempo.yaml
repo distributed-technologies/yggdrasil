@@ -13,10 +13,11 @@ bucketClaim:
   storageClassName: ceph-bucket
 
 tempo-distributed:
-  # Configuration for the ingester
   ingester:
+    # `config.expand-env: "true"` Allows the use of env vars in the config
     extraArgs:
       - -config.expand-env=true
+
     # -- Environment variables to add to the ingester pods
     extraEnv:
       - name: AWS_ACCESS_KEY_ID
@@ -46,8 +47,10 @@ tempo-distributed:
             key: BUCKET_REGION
 
   distributor:
+    # `config.expand-env: "true"` Allows the use of env vars in the config
     extraArgs:
       - -config.expand-env=true
+
     # -- Environment variables to add to the distributor pods
     extraEnv:
       - name: AWS_ACCESS_KEY_ID
@@ -77,8 +80,10 @@ tempo-distributed:
             key: BUCKET_REGION
 
   compactor:
+    # `config.expand-env: "true"` Allows the use of env vars in the config
     extraArgs:
       - -config.expand-env=true
+
     # -- Environment variables to add to the compactor pods
     extraEnv:
       - name: AWS_ACCESS_KEY_ID
@@ -107,10 +112,11 @@ tempo-distributed:
             name: tempo-bucket-claim
             key: BUCKET_REGION
 
-  # Configuration for the querier
   querier:
+    # `config.expand-env: "true"` Allows the use of env vars in the config
     extraArgs:
       - -config.expand-env=true
+
     # -- Environment variables to add to the querier pods
     extraEnv:
       - name: AWS_ACCESS_KEY_ID
@@ -139,38 +145,11 @@ tempo-distributed:
             name: tempo-bucket-claim
             key: BUCKET_REGION
 
-  # Configuration for the query-frontend
   queryFrontend:
-    query:
-      # -- Environment variables to add to the tempo-query pods
-      extraEnv:
-      - name: AWS_ACCESS_KEY_ID
-        valueFrom:
-          secretKeyRef:
-            name: tempo-bucket-claim
-            key: AWS_ACCESS_KEY_ID
-      - name: AWS_SECRET_ACCESS_KEY
-        valueFrom:
-          secretKeyRef:
-            name: tempo-bucket-claim
-            key: AWS_SECRET_ACCESS_KEY
-      - name: BUCKET_HOST
-        valueFrom:
-          configMapKeyRef:
-            name: tempo-bucket-claim
-            key: BUCKET_HOST
-      - name: BUCKET_NAME
-        valueFrom:
-          configMapKeyRef:
-            name: tempo-bucket-claim
-            key: BUCKET_NAME
-      - name: BUCKET_REGION
-        valueFrom:
-          configMapKeyRef:
-            name: tempo-bucket-claim
-            key: BUCKET_REGION
+    # `config.expand-env: "true"` Allows the use of env vars in the config
     extraArgs:
       - -config.expand-env=true
+
     # -- Environment variables to add to the query-frontend pods
     extraEnv:
       - name: AWS_ACCESS_KEY_ID
@@ -199,17 +178,6 @@ tempo-distributed:
             name: tempo-bucket-claim
             key: BUCKET_REGION
 
-  # Set Tempo server configuration
-  # Refers to https://grafana.com/docs/tempo/latest/configuration/#server
-  server:
-  # To configure a different storage backend instead of local storage:
-  # storage:
-  #   trace:
-  #     backend: azure
-  #     azure:
-  #       container-name:
-  #       storage-account-name:
-  #       storage-account-key:
   # -- the supported storage backends are gcs, s3 and azure
   # -- as specified in https://grafana.com/docs/tempo/latest/configuration/#storage
   storage:
@@ -243,8 +211,11 @@ tempo-distributed:
         # enable if endpoint is http
         insecure: true
 
+  # This setting allows the use of the traces search function in grafana (This is currently a beta part and also has to be added in grafana.)
   search:
     enabled: true
+
+  # I have left this in for clarity, since i'm uncertain which type of trace interface we need
   traces:
     jaeger:
       # -- Enable Tempo to ingest Jaeger GRPC traces
@@ -266,7 +237,8 @@ tempo-distributed:
     opencensus: false
     # -- Enable Tempo to ingest traces from Kafka. Reference: https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/kafkareceiver
     kafka: {}
-    # ServiceMonitor configuration
+
+  # ServiceMonitor configuration
   serviceMonitor:
     # -- If enabled, ServiceMonitor resources for Prometheus Operator are created
     enabled: true

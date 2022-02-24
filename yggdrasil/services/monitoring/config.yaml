@@ -6,12 +6,12 @@ space: service
 description: All the monitoring apps, including but not limited to prometheus, grafana, thanos, loki.
 
 apps:
-  - name: grafana-agent
+  - name: cortex
     source:
       repoURL: 'https://distributed-technologies.github.io/helm-charts/'
-      targetRevision: 0.1.1
-      chart: grafana-agent
-      valuesFile: "grafana-agent.yaml"
+      targetRevision: 0.1.2
+      chart: cortex
+      valuesFile: "cortex.yaml"
   - name: grafana
     source:
       repoURL: 'https://distributed-technologies.github.io/helm-charts/'
@@ -25,6 +25,12 @@ apps:
         serviceName: grafana
         annotation:
           traefik.ingress.kubernetes.io/router.entrypoints: web
+  - name: grafana-agent
+    source:
+      repoURL: 'https://distributed-technologies.github.io/helm-charts/'
+      targetRevision: 0.1.1
+      chart: grafana-agent
+      valuesFile: "grafana-agent.yaml"
   - name: loki
     source:
       repoURL: 'https://distributed-technologies.github.io/helm-charts/'
@@ -37,16 +43,3 @@ apps:
       targetRevision: 0.1.1
       chart: tempo-distributed
       valuesFile: "tempo.yaml"
-  - name: cortex
-    source:
-      repoURL: 'https://distributed-technologies.github.io/helm-charts/'
-      targetRevision: 0.1.2
-      chart: cortex
-      valuesFile: "cortex.yaml"
-  - name: tns
-    source:
-      repoURL: 'https://github.com/distributed-technologies/helm-charts' # TODO Change this
-      targetRevision: feature/tns # TODO Changes this
-      # chart: tempo-distributed # TODO Comment back in
-      path: charts/tns/chart
-      valuesFile: "tns.yaml"
