@@ -13,16 +13,34 @@ grafana:
     datasources.yaml:
       apiVersion: 1
       datasources:
-        - name: Prometheus
+        - name: Cortex
           type: prometheus
-          url: http://prometheus-kube-prometheus-prometheus:9090
+          url: http://cortex-query-frontend:8080/prometheus
           access: proxy
           isDefault: true
+        - name: Tempo
+          type: tempo
+          access: proxy
+          orgId: 1
+          url: http://tempo-tempo-distributed-query-frontend:16686
+          basicAuth: false
+          isDefault: false
+          version: 1
+          editable: false
+          apiVersion: 1
+          uid: tempo
         - name: Loki
           type: loki
-          url: http://loki:3100
+          url: http://loki-loki-distributed-query-frontend:3100
           access: proxy
           isDefault: false
+          uid: loki
+          jsonData:
+            derivedFields:
+            - datasourceUid: tempo
+              matcherRegex: ((\d+|[a-z]+)(\d+|[a-z]+)(\d+|[a-z]+)(\d+|[a-z]+)(\d+|[a-z]+)(\d+|[a-z]+)(\d+|[a-z]+)(\d+|[a-z]+)(\d+|[a-z]+)(\d+|[a-z]+)(\d+|[a-z]+))
+              url: '$${__value.raw}'
+              name: TraceID
         - name: "InfluxDB - dlr - output"
           type: influxdb
           url: http://influxdb.nifi:8086
