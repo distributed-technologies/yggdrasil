@@ -1,4 +1,4 @@
-bucketClaim:
+https://github.com/cortexproject/cortex-helm-chart/blob/ad2f5cf3ce961af813fc73b9530be75a585322ac/templates/distributor/distributor-dep.yaml#L93bucketClaim:
   # Enableing the bucket claim
   enabled: true
   # The name of the bucket claim
@@ -20,31 +20,7 @@ tempo-distributed:
 
     # -- Environment variables to add to the ingester pods
     extraEnv:
-      - name: AWS_ACCESS_KEY_ID
-        valueFrom:
-          secretKeyRef:
-            name: tempo-bucket-claim
-            key: AWS_ACCESS_KEY_ID
-      - name: AWS_SECRET_ACCESS_KEY
-        valueFrom:
-          secretKeyRef:
-            name: tempo-bucket-claim
-            key: AWS_SECRET_ACCESS_KEY
-      - name: BUCKET_HOST
-        valueFrom:
-          configMapKeyRef:
-            name: tempo-bucket-claim
-            key: BUCKET_HOST
-      - name: BUCKET_NAME
-        valueFrom:
-          configMapKeyRef:
-            name: tempo-bucket-claim
-            key: BUCKET_NAME
-      - name: BUCKET_REGION
-        valueFrom:
-          configMapKeyRef:
-            name: tempo-bucket-claim
-            key: BUCKET_REGION
+      {{- include "bucket-claim.env-var" "tempo-bucket-claim" | indent 6 }}
 
   distributor:
     # `config.expand-env: "true"` Allows the use of env vars in the config
@@ -53,31 +29,7 @@ tempo-distributed:
 
     # -- Environment variables to add to the distributor pods
     extraEnv:
-      - name: AWS_ACCESS_KEY_ID
-        valueFrom:
-          secretKeyRef:
-            name: tempo-bucket-claim
-            key: AWS_ACCESS_KEY_ID
-      - name: AWS_SECRET_ACCESS_KEY
-        valueFrom:
-          secretKeyRef:
-            name: tempo-bucket-claim
-            key: AWS_SECRET_ACCESS_KEY
-      - name: BUCKET_HOST
-        valueFrom:
-          configMapKeyRef:
-            name: tempo-bucket-claim
-            key: BUCKET_HOST
-      - name: BUCKET_NAME
-        valueFrom:
-          configMapKeyRef:
-            name: tempo-bucket-claim
-            key: BUCKET_NAME
-      - name: BUCKET_REGION
-        valueFrom:
-          configMapKeyRef:
-            name: tempo-bucket-claim
-            key: BUCKET_REGION
+      {{- include "bucket-claim.env-var" "tempo-bucket-claim" | indent 6 }}
 
   compactor:
     # `config.expand-env: "true"` Allows the use of env vars in the config
@@ -86,31 +38,7 @@ tempo-distributed:
 
     # -- Environment variables to add to the compactor pods
     extraEnv:
-      - name: AWS_ACCESS_KEY_ID
-        valueFrom:
-          secretKeyRef:
-            name: tempo-bucket-claim
-            key: AWS_ACCESS_KEY_ID
-      - name: AWS_SECRET_ACCESS_KEY
-        valueFrom:
-          secretKeyRef:
-            name: tempo-bucket-claim
-            key: AWS_SECRET_ACCESS_KEY
-      - name: BUCKET_HOST
-        valueFrom:
-          configMapKeyRef:
-            name: tempo-bucket-claim
-            key: BUCKET_HOST
-      - name: BUCKET_NAME
-        valueFrom:
-          configMapKeyRef:
-            name: tempo-bucket-claim
-            key: BUCKET_NAME
-      - name: BUCKET_REGION
-        valueFrom:
-          configMapKeyRef:
-            name: tempo-bucket-claim
-            key: BUCKET_REGION
+      {{- include "bucket-claim.env-var" "tempo-bucket-claim" | indent 6 }}
 
   querier:
     # `config.expand-env: "true"` Allows the use of env vars in the config
@@ -119,31 +47,7 @@ tempo-distributed:
 
     # -- Environment variables to add to the querier pods
     extraEnv:
-      - name: AWS_ACCESS_KEY_ID
-        valueFrom:
-          secretKeyRef:
-            name: tempo-bucket-claim
-            key: AWS_ACCESS_KEY_ID
-      - name: AWS_SECRET_ACCESS_KEY
-        valueFrom:
-          secretKeyRef:
-            name: tempo-bucket-claim
-            key: AWS_SECRET_ACCESS_KEY
-      - name: BUCKET_HOST
-        valueFrom:
-          configMapKeyRef:
-            name: tempo-bucket-claim
-            key: BUCKET_HOST
-      - name: BUCKET_NAME
-        valueFrom:
-          configMapKeyRef:
-            name: tempo-bucket-claim
-            key: BUCKET_NAME
-      - name: BUCKET_REGION
-        valueFrom:
-          configMapKeyRef:
-            name: tempo-bucket-claim
-            key: BUCKET_REGION
+      {{- include "bucket-claim.env-var" "tempo-bucket-claim" | indent 6 }}
 
   queryFrontend:
     # `config.expand-env: "true"` Allows the use of env vars in the config
@@ -152,31 +56,7 @@ tempo-distributed:
 
     # -- Environment variables to add to the query-frontend pods
     extraEnv:
-      - name: AWS_ACCESS_KEY_ID
-        valueFrom:
-          secretKeyRef:
-            name: tempo-bucket-claim
-            key: AWS_ACCESS_KEY_ID
-      - name: AWS_SECRET_ACCESS_KEY
-        valueFrom:
-          secretKeyRef:
-            name: tempo-bucket-claim
-            key: AWS_SECRET_ACCESS_KEY
-      - name: BUCKET_HOST
-        valueFrom:
-          configMapKeyRef:
-            name: tempo-bucket-claim
-            key: BUCKET_HOST
-      - name: BUCKET_NAME
-        valueFrom:
-          configMapKeyRef:
-            name: tempo-bucket-claim
-            key: BUCKET_NAME
-      - name: BUCKET_REGION
-        valueFrom:
-          configMapKeyRef:
-            name: tempo-bucket-claim
-            key: BUCKET_REGION
+      {{- include "bucket-claim.env-var" "tempo-bucket-claim" | indent 6 }}
 
   # -- the supported storage backends are gcs, s3 and azure
   # -- as specified in https://grafana.com/docs/tempo/latest/configuration/#storage
