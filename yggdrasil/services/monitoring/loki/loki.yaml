@@ -1,9 +1,6 @@
-{{- if .Values.registry -}}
-loki-stack:
-  loki:
-    image:
-      repository: {{ .Values.registry }}/grafana/loki
-  promtail:
-    image:
-      repository: {{ .Values.registry }}/grafana/promtail
-{{- end }}
+# https://github.com/grafana/helm-charts/blob/main/charts/loki-distributed/values.yaml
+loki-distributed:
+  serviceMonitor:
+    enabled: true
+    labels:
+      instance: primary
