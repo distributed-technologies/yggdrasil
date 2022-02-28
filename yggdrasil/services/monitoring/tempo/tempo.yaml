@@ -1,0 +1,91 @@
+# https://github.com/cortexproject/cortex-helm-chart/blob/ad2f5cf3ce961af813fc73b9530be75a585322ac/templates/distributor/distributor-dep.yaml#L93
+bucketClaim:
+  enabled: true
+  name: tempo-bucket-claim
+  annotations:
+    # This annotations makes it so ArgoCD will not complain if the CRD's are missing
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+  bucketName: tempo-bucket
+  storageClassName: ceph-bucket
+
+tempo-distributed:
+  ingester:
+    # `config.expand-env: "true"` Allows the use of env vars in the config
+    extraArgs:
+      - -config.expand-env=true
+
+    # Add the env-vars to the deplyoment so they can be mapped to the config
+    extraEnv:
+      {{- include "bucket-claim.env-var" "tempo-bucket-claim" | nindent 6 }}
+
+  distributor:
+    # `config.expand-env: "true"` Allows the use of env vars in the config
+    extraArgs:
+      - -config.expand-env=true
+
+    # Add the env-vars to the deplyoment so they can be mapped to the config
+    extraEnv:
+      {{- include "bucket-claim.env-var" "tempo-bucket-claim" | nindent 6 }}
+
+  compactor:
+    # `config.expand-env: "true"` Allows the use of env vars in the config
+    extraArgs:
+      - -config.expand-env=true
+
+    # Add the env-vars to the deplyoment so they can be mapped to the config
+    extraEnv:
+      {{- include "bucket-claim.env-var" "tempo-bucket-claim" | nindent 6 }}
+
+  querier:
+    # `config.expand-env: "true"` Allows the use of env vars in the config
+    extraArgs:
+      - -config.expand-env=true
+
+    # Add the env-vars to the deplyoment so they can be mapped to the config
+    extraEnv:
+      {{- include "bucket-claim.env-var" "tempo-bucket-claim" | nindent 6 }}
+
+  queryFrontend:
+    # `config.expand-env: "true"` Allows the use of env vars in the config
+    extraArgs:
+      - -config.expand-env=true
+
+    # Add the env-vars to the deplyoment so they can be mapped to the config
+    extraEnv:
+      {{- include "bucket-claim.env-var" "tempo-bucket-claim" | nindent 6 }}
+
+  storage:
+    trace:
+      backend: s3
+      s3:
+        bucket: ${BUCKET_NAME}
+        endpoint: ${BUCKET_HOST}
+        region: ${BUCKET_REGION}
+        access_key: ${AWS_ACCESS_KEY_ID}
+        secret_key: ${AWS_SECRET_ACCESS_KEY}
+        insecure: true
+
+  # This setting allows the use of the traces search function in grafana (This is currently a beta part and also has to be added in grafana)
+  search:
+    enabled: true
+
+  # I have left this in for clarity, since i'm uncertain which type of trace interface we need
+  traces:
+    jaeger:
+      grpc: false
+      thriftBinary: false
+      thriftCompact: false
+      thriftHttp: false
+    zipkin: false
+    otlp:
+      http: false
+      grpc: false
+    opencensus: false
+    # -- Enable Tempo to ingest traces from Kafka. Reference: https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/kafkareceiver
+    kafka: {}
+
+  # Makes service monitors for all resources created by Tempo
+  serviceMonitor:
+    enabled: true
+    labels:
+      instance: primary

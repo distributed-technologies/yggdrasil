@@ -21,6 +21,6 @@ apps:
   - name: ntp
     source:
       repoURL: "https://distributed-technologies.github.io/helm-charts/"
-      targetRevision: 0.1.5
+      targetRevision: 0.1.6
       chart: ntp
       valuesFile: "ntp.yaml"
