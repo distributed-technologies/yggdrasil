@@ -12,17 +12,17 @@ applications:
   ceph: true
   cert-manager: false
   cortex: true
+  example-guestbook: false
   grafana: true
   grafana-agent: true
   harbor: false
   influxdb: false
   ingress: false
-  jaeger: true
-  kafka: false
-  loadbalancer: false
+  kafka: true
+  loadbalancer: true
   loki: true
   nifi: false
   ntp: false
   rook: true
-  tns: true
+  tempo: true
   vault: false
