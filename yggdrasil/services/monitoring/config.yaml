@@ -6,25 +6,12 @@ space: service
 description: All the monitoring apps, including but not limited to prometheus, grafana, thanos, loki.
 
 apps:
-  - name: prometheus
+  - name: cortex
     source:
       repoURL: 'https://distributed-technologies.github.io/helm-charts/'
       targetRevision: 0.1.2
-      chart: prometheus
-      valuesFile: "prometheus.yaml"
-    ingress:
-      - subDomain: prometheus
-        path: /
-        servicePort: 9090
-        serviceName: prometheus-kube-prometheus-prometheus
-        annotation:
-          traefik.ingress.kubernetes.io/router.entrypoints: web
-  - name: thanos
-    source:
-      repoURL: 'https://distributed-technologies.github.io/helm-charts/'
-      targetRevision: 0.1.1
-      chart: thanos
-      valuesFile: "thanos.yaml"
+      chart: cortex
+      valuesFile: "cortex.yaml"
   - name: grafana
     source:
       repoURL: 'https://distributed-technologies.github.io/helm-charts/'
@@ -38,22 +25,21 @@ apps:
         serviceName: grafana
         annotation:
           traefik.ingress.kubernetes.io/router.entrypoints: web
+  - name: grafana-agent
+    source:
+      repoURL: 'https://distributed-technologies.github.io/helm-charts/'
+      targetRevision: 0.1.1
+      chart: grafana-agent
+      valuesFile: "grafana-agent.yaml"
   - name: loki
     source:
       repoURL: 'https://distributed-technologies.github.io/helm-charts/'
-      targetRevision: 0.1.2
+      targetRevision: 1.0.0
       chart: loki
       valuesFile: "loki.yaml"
-  - name: jaeger
+  - name: tempo
     source:
       repoURL: 'https://distributed-technologies.github.io/helm-charts/'
-      targetRevision: 0.1.2
-      chart: jaeger
-      valuesFile: "jaeger.yaml"
-    ingress:
-      - subDomain: jaeger
-        path: /
-        servicePort: 80
-        serviceName: jaeger-query
-        annotation:
-          traefik.ingress.kubernetes.io/router.entrypoints: web
+      targetRevision: 0.1.1
+      chart: tempo-distributed
+      valuesFile: "tempo.yaml"

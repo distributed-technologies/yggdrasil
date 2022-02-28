@@ -1,0 +1,157 @@
+bucketClaim:
+  enabled: true
+  name: cortex-bucket-claim
+  annotations:
+    # This annotations makes it so ArgoCD will not complain if the CRD's are missing
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+  bucketName: cortex-bucket
+  storageClassName: ceph-bucket
+
+
+# https://github.com/cortexproject/cortex-helm-chart/blob/master/values.yaml
+cortex:
+  config:
+    storage:
+        engine: blocks
+    blocks_storage:
+      backend: s3
+      # Add the env-vars to the deplyoment so they can be mapped to the config
+      s3:
+        {{- include "cortex.s3.config" . | nindent 8 }}
+    alertmanager_storage:
+      backend: s3
+      s3:
+        {{- include "cortex.s3.config" . | nindent 8 }}
+    ruler_storage:
+      backend: s3
+      s3:
+        {{- include "cortex.s3.config" . | nindent 8 }}
+
+  alertmanager:
+    serviceMonitor:
+      enabled: true
+      additionalLabels:
+        instance: primary
+
+    # `config.expand-env: "true"` Allows the use of env vars in the config
+    extraArgs:
+      config.expand-env: "true"
+
+    # Add the env-vars to the deplyoment so they can be mapped to the config
+    env:
+      {{- include "bucket-claim.env-var" "cortex-bucket-claim" | nindent 6 }}
+
+  distributor:
+    serviceMonitor:
+      enabled: true
+      additionalLabels:
+        instance: primary
+
+    # `config.expand-env: "true"` Allows the use of env vars in the config
+    extraArgs:
+      config.expand-env: "true"
+
+    # Add the env-vars to the deplyoment so they can be mapped to the config
+    env:
+      {{- include "bucket-claim.env-var" "cortex-bucket-claim" | nindent 6 }}
+
+  ingester:
+    statefulSet:
+      # Enabled to make use of persistantVolume to ease the memory usage
+      enabled: true
+
+    serviceMonitor:
+      enabled: true
+      additionalLabels:
+        instance: primary
+
+    persistentVolume:
+      # Enabled to ease memory usage
+      enabled: true
+      storageClass: ceph-filesystem
+
+    # `config.expand-env: "true"` Allows the use of env vars in the config
+    extraArgs:
+      config.expand-env: "true"
+
+    # Add the env-vars to the deplyoment so they can be mapped to the config
+    env:
+      {{- include "bucket-claim.env-var" "cortex-bucket-claim" | nindent 6 }}
+
+  ruler:
+    serviceMonitor:
+      enabled: true
+      additionalLabels:
+        instance: primary
+
+    # `config.expand-env: "true"` Allows the use of env vars in the config
+    extraArgs:
+      config.expand-env: "true"
+
+    # Add the env-vars to the deplyoment so they can be mapped to the config
+    env:
+      {{- include "bucket-claim.env-var" "cortex-bucket-claim" | nindent 6 }}
+
+  querier:
+    serviceMonitor:
+      enabled: true
+      additionalLabels:
+        instance: primary
+
+    # `config.expand-env: "true"` Allows the use of env vars in the config
+    extraArgs:
+      config.expand-env: "true"
+
+    # Add the env-vars to the deplyoment so they can be mapped to the config
+    env:
+      {{- include "bucket-claim.env-var" "cortex-bucket-claim" | nindent 6 }}
+
+  query_frontend:
+    serviceMonitor:
+      enabled: true
+      additionalLabels:
+        instance: primary
+
+    # Add the env-vars to the deplyoment so they can be mapped to the config
+    env:
+      {{- include "bucket-claim.env-var" "cortex-bucket-claim" | nindent 6 }}
+
+  table_manager:
+    serviceMonitor:
+      enabled: true
+      additionalLabels:
+        instance: primary
+
+  store_gateway:
+    serviceMonitor:
+      enabled: true
+      additionalLabels:
+        instance: primary
+
+    persistentVolume:
+      storageClass: ceph-filesystem
+
+    # `config.expand-env: "true"` Allows the use of env vars in the config
+    extraArgs:
+      config.expand-env: "true"
+
+    # Add the env-vars to the deplyoment so they can be mapped to the config
+    env:
+      {{- include "bucket-claim.env-var" "cortex-bucket-claim" | nindent 6 }}
+
+  compactor:
+    serviceMonitor:
+      enabled: true
+      additionalLabels:
+        instance: primary
+
+    persistentVolume:
+      storageClass: ceph-filesystem
+
+    # `config.expand-env: "true"` Allows the use of env vars in the config
+    extraArgs:
+      config.expand-env: "true"
+
+    # Add the env-vars to the deplyoment so they can be mapped to the config
+    env:
+      {{- include "bucket-claim.env-var" "cortex-bucket-claim" | nindent 6 }}

@@ -11,18 +11,18 @@ applications:
   cache: false
   ceph: false
   cert-manager: false
+  cortex: false
   example-guestbook: false
   grafana: false
+  grafana-agent: false
   harbor: false
   influxdb: false
   ingress: false
-  jaeger: false
   kafka: false
   loadbalancer: false
   loki: false
   nifi: false
   ntp: false
-  prometheus: false
   rook: false
-  thanos: false
+  tempo: false
   vault: false
