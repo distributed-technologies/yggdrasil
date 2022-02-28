@@ -13,11 +13,6 @@ grafana:
           type: prometheus
           url: http://cortex-query-frontend:8080/prometheus
           access: proxy
-          isDefault: false
-        - name: Cortex
-          type: prometheus
-          url: http://cortex-query-frontend:8080/prometheus
-          access: proxy
           isDefault: true
         - name: Tempo
           type: tempo

@@ -1,4 +1,3 @@
-# This is a values file
 logs:
   remote-write-url: http://loki-loki-distributed-distributor:3100/loki/api/v1/push
 metrics:

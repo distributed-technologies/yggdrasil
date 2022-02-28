@@ -11,10 +11,10 @@ applications:
   cache: false
   ceph: true
   cert-manager: false
-  cortex: true
+  cortex: false
   example-guestbook: false
-  grafana: true
-  grafana-agent: true
+  grafana: false
+  grafana-agent: false
   harbor: false
   influxdb: false
   ingress: false
@@ -22,8 +22,7 @@ applications:
   loadbalancer: true
   loki: true
   nifi: false
-  ntp: true
-  rook: true
-  tempo: true
-  thanos: false
+  ntp: false
+  rook: false
+  tempo: false
   vault: false
