@@ -1,7 +1,7 @@
 grafana:
   service:
     type: NodePort
-    targetPort: 30080
+    nodePort: 30081
   {{- if .Values.registry }}
   image:
     repository: {{ .Values.registry }}/grafana/grafana
