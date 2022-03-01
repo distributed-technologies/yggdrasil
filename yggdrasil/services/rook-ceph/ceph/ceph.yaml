@@ -1,4 +1,7 @@
 rook-ceph-cluster:
+  toolbox:
+    enabled:
+      true
   cephClusterSpec:
     cephVersion:
       {{- if .Values.registry }}
