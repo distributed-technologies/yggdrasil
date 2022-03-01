@@ -19,6 +19,7 @@ applications:
   influxdb: false
   ingress: false
   kafka: false
+  kube-state-metrics: false
   loadbalancer: false
   loki: false
   nifi: false

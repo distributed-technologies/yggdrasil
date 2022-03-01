@@ -1,7 +1,7 @@
 apiVersion: v2
 name: yggdrasil
 description: A Helm chart for for deploying an entire repo.
-version: 2.0.19
+version: 2.0.20
 
 dependencies:
   - name: lightvessel
@@ -10,4 +10,5 @@ dependencies:
 
 annotations:
   changeLog: |
+    [2.0.20]: Added kube-state-metrics.
     [2.0.19]: Added Cortex and Tempo with configurations.

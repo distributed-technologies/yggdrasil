@@ -1,0 +1,5 @@
+kube-state-metrics:
+  prometheus:
+    monitor:
+      additionalLabels:
+        instance: primary

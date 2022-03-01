@@ -43,3 +43,9 @@ apps:
       targetRevision: 0.1.1
       chart: tempo-distributed
       valuesFile: "tempo.yaml"
+  - name: kube-state-metrics
+    source:
+      repoURL: 'https://distributed-technologies.github.io/helm-charts/'
+      targetRevision: 0.1.0
+      chart: kube-state-metrics
+      valuesFile: "kube-state-metrics.yaml"
