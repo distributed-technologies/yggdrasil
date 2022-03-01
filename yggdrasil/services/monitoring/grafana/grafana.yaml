@@ -1,4 +1,7 @@
 grafana:
+  service:
+    enabled: true
+    type: LoadBalancer
   {{- if .Values.registry }}
   image:
     repository: {{ .Values.registry }}/grafana/grafana
