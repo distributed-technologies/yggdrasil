@@ -11,10 +11,10 @@ applications:
   cache: false
   ceph: true
   cert-manager: false
-  cortex: false
+  cortex: true
   example-guestbook: false
   external-dns: false
-  grafana: false
+  grafana: true
   harbor: false
   influxdb: false
   ingress: false
@@ -23,7 +23,7 @@ applications:
   loki: false
   nifi: false
   ntp: true
-  prometheus: false
+  prometheus: true
   promtail: false
   rook: true
   tempo: false
