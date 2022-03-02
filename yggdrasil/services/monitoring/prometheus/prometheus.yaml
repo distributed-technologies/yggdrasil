@@ -6,7 +6,7 @@ kube-prometheus-stack:
       container:
       name: prometheus
       args:
-        - '--config.file=/etc/prometheus/config_out/prometheus.env.yaml',
-          '--storage.agent.path=/prometheus',
-          '--enable-feature=agent',
-          '--web.enable-lifecycle'
+        - --config.file=/etc/prometheus/config_out/prometheus.env.yaml
+        - --storage.agent.path=/prometheus
+        - --enable-feature=agent
+        - --web.enable-lifecycle
