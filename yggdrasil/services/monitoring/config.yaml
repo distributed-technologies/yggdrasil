@@ -25,15 +25,15 @@ apps:
         serviceName: grafana
         annotation:
           traefik.ingress.kubernetes.io/router.entrypoints: web
-  - name: grafana-agent
+  - name: prometheus
     source:
       repoURL: 'https://github.com/distributed-technologies/helm-charts'
-      targetRevision: feature/grafana-agent-logging
-      path: charts/grafana-agent/chart
+      targetRevision: feature/grafana-agent-replacement
+      path: charts/prometheus/chart
       # repoURL: 'https://distributed-technologies.github.io/helm-charts/'
-      # targetRevision: 0.1.1
-      # chart: grafana-agent
-      valuesFile: "grafana-agent.yaml"
+      # targetRevision: 0.1.4
+      # chart: prometheus
+      valuesFile: "prometheus.yaml"
   - name: loki
     source:
       repoURL: 'https://distributed-technologies.github.io/helm-charts/'
