@@ -3,10 +3,3 @@ kube-prometheus-stack:
     prometheusSpec:
       remoteWrite:
       - url: http://cortex-distributor:8080/api/v1/push
-      container:
-      name: prometheus
-      args:
-        - --config.file=/etc/prometheus/config_out/prometheus.env.yaml
-        - --storage.agent.path=/prometheus
-        - --enable-feature=agent
-        - --web.enable-lifecycle
