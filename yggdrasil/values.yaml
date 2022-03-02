@@ -24,6 +24,7 @@ applications:
   nifi: false
   ntp: true
   prometheus: true
+  promtail: true
   rook: true
   tempo: true
   vault: false
