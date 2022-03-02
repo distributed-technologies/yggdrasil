@@ -13,6 +13,7 @@ applications:
   cert-manager: false
   cortex: true
   example-guestbook: false
+  exporters: true
   grafana: true
   harbor: false
   influxdb: false

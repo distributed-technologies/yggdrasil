@@ -34,6 +34,15 @@ apps:
       # targetRevision: 0.1.4
       # chart: prometheus
       valuesFile: "prometheus.yaml"
+  - name: exporters
+    source:
+      repoURL: 'https://github.com/distributed-technologies/helm-charts'
+      targetRevision: feature/add-service-monitors
+      path: charts/exporters/chart
+      # repoURL: 'https://distributed-technologies.github.io/helm-charts/'
+      # targetRevision: 0.1.4
+      # chart: prometheus
+      valuesFile: "exporters.yaml"
   - name: loki
     source:
       repoURL: 'https://distributed-technologies.github.io/helm-charts/'
