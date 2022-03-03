@@ -1,5 +1,2 @@
-kube-prometheus-stack:
-  prometheus:
-    prometheusSpec:
-      remoteWrite:
-      - url: http://cortex-distributor:8080/api/v1/push
+# https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
+# kube-prometheus-stack:
