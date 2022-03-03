@@ -26,7 +26,6 @@ apps:
         annotation:
           traefik.ingress.kubernetes.io/router.entrypoints: web
   - name: prometheus
-    replace: true
     source:
       repoURL: 'https://github.com/distributed-technologies/helm-charts'
       targetRevision: feature/grafana-agent-replacement
