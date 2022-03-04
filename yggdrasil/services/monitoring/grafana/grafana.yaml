@@ -57,6 +57,10 @@ grafana:
   adminUser: admin
   adminPassword: password
 
+  grafana.ini:
+    feature_toggles:
+      enable: tempoSearch tempoBackendSearch
+
   sidecar:
   {{- if .Values.registry }}
     image:
