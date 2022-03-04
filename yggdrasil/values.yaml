@@ -13,6 +13,7 @@ applications:
   cert-manager: false
   cortex: false
   example-guestbook: false
+  external-dns: false
   grafana: false
   grafana-agent: false
   harbor: false

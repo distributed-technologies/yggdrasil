@@ -1,0 +1,10 @@
+external-dns:
+  # Environment variables for the external-dns container, this supports the full EnvVar API including secrets and configmaps.
+  env: {{- (index .Values "external-dns").env | toYaml | nindent 4 }}
+  # How DNS records are synchronized between sources and providers, available values are: sync, upsert-only.
+  policy: {{ (index .Values "external-dns").policy }}
+  # Limit possible target zones by domain suffixes.
+  domainFilters: {{ (index .Values "external-dns").domainFilters }}
+  # DNS provider where the DNS records will be created, for the available providers and how to configure them see the README.
+  # https://github.com/kubernetes-sigs/external-dns#deploying-to-a-cluster
+  provider: {{ (index .Values "external-dns").provider }}
