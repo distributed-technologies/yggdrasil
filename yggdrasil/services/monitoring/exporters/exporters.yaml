@@ -1,0 +1,27 @@
+{{- if .Values.applications.prometheus }}
+kube-state-metrics:
+  enabled: true
+  prometheus:
+    monitor:
+      enabled: true
+      additionalLabels:
+        instance: primary
+
+prometheus-node-exporter:
+  enabled: true
+  prometheus:
+    monitor:
+      enabled: true
+      additionalLabels:
+        instance: primary
+
+  {{- if .Values.applications.kafka }}
+prometheus-kafka-exporter:
+  enabled: true
+  prometheus:
+    enabled: true
+    namespace: ""
+    additionalLabels:
+      instance: primary
+  {{- end }}
+{{- end }}
