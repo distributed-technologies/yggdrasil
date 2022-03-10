@@ -10,6 +10,9 @@ cluster:
     {{- if .Values.storageClass }}
       class: {{ .Values.storageClass }}
     {{- end }}
+    config:
+      logRetentionHours: 48
+      logRollHours: 24
   zookeeper:
     storage:
       size: 5Gi
