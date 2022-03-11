@@ -15,7 +15,6 @@ applications:
   example-guestbook: false
   external-dns: false
   grafana: false
-  grafana-agent: false
   harbor: false
   influxdb: false
   ingress: false
@@ -24,6 +23,8 @@ applications:
   loki: false
   nifi: false
   ntp: false
+  prometheus: false
+  promtail: false
   rook: false
   tempo: false
   vault: false

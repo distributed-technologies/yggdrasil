@@ -9,7 +9,7 @@ apps:
   - name: cortex
     source:
       repoURL: 'https://distributed-technologies.github.io/helm-charts/'
-      targetRevision: 0.1.2
+      targetRevision: 0.1.3
       chart: cortex
       valuesFile: "cortex.yaml"
   - name: grafana
@@ -25,16 +25,22 @@ apps:
         serviceName: grafana
         annotation:
           traefik.ingress.kubernetes.io/router.entrypoints: web
-  - name: grafana-agent
+  - name: prometheus
     source:
       repoURL: 'https://distributed-technologies.github.io/helm-charts/'
-      targetRevision: 0.1.1
-      chart: grafana-agent
-      valuesFile: "grafana-agent.yaml"
+      targetRevision: 0.1.4
+      chart: prometheus
+      valuesFile: "prometheus.yaml"
+  - name: promtail
+    source:
+      repoURL: 'https://distributed-technologies.github.io/helm-charts/'
+      targetRevision: 0.1.0
+      chart: promtail
+      valuesFile: "promtail.yaml"
   - name: loki
     source:
       repoURL: 'https://distributed-technologies.github.io/helm-charts/'
-      targetRevision: 1.0.0
+      targetRevision: 1.0.1
       chart: loki
       valuesFile: "loki.yaml"
   - name: tempo
