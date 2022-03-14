@@ -1,7 +1,7 @@
 apiVersion: v2
 name: yggdrasil
 description: A Helm chart for for deploying an entire repo.
-version: 2.0.22
+version: 2.0.23
 
 dependencies:
   - name: lightvessel
@@ -10,6 +10,7 @@ dependencies:
 
 annotations:
   changeLog: |
+    [2.0.23]: Bump rook to use the chart's image version
     [2.0.22]: Remove Grafana-agents & add prometheus & promtail
     [2.0.20]: Added exporters chart with configurations.
     [2.0.19]: Added Cortex and Tempo with configurations.
