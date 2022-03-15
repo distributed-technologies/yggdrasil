@@ -23,7 +23,7 @@ nidhogg:
     # Whether to install the container network interface on the cluster. Should be false when using a managed Kubernetes solution (ex: Azure's AKS)
     enabled: true
     serviceMonitor:
-      enabled: true
+      enabled: false
   # Whether to enable the circular reference to allow nidhogg to monitor itself
   monitorNidhogg: true
 
