@@ -27,21 +27,15 @@ apps:
           traefik.ingress.kubernetes.io/router.entrypoints: web
   - name: prometheus
     source:
-      repoURL: 'https://github.com/distributed-technologies/helm-charts'
-      targetRevision: feature/grafana-agent-replacement
-      path: charts/prometheus/chart
-      # repoURL: 'https://distributed-technologies.github.io/helm-charts/'
-      # targetRevision: 0.1.4
-      # chart: prometheus
+      repoURL: 'https://distributed-technologies.github.io/helm-charts/'
+      targetRevision: 0.1.4
+      chart: prometheus
       valuesFile: "prometheus.yaml"
   - name: promtail
     source:
-      repoURL: 'https://github.com/distributed-technologies/helm-charts'
-      targetRevision: feature/grafana-agent-replacement
-      path: charts/promtail/chart
-      # repoURL: 'https://distributed-technologies.github.io/helm-charts/'
-      # targetRevision: 0.1.4
-      # chart: prometheus
+      repoURL: 'https://distributed-technologies.github.io/helm-charts/'
+      targetRevision: 0.1.0
+      chart: promtail
       valuesFile: "promtail.yaml"
   - name: exporters
     source:
