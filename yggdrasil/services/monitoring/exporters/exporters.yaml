@@ -1,3 +1,9 @@
+cadvisor:
+  monitor:
+    enabled: true
+    additionalLabels:
+      instance: primary
+
 kube-state-metrics:
   enabled: true
   prometheus:
