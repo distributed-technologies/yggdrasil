@@ -1,24 +1,12 @@
 cadvisor:
   monitor:
-    enabled: true
-    additionalLabels:
-      instance: primary
+    enabled: false
 
 kube-state-metrics:
-  enabled: true
-  prometheus:
-    monitor:
-      enabled: true
-      additionalLabels:
-        instance: primary
+  enabled: false
 
 prometheus-node-exporter:
-  enabled: true
-  prometheus:
-    monitor:
-      enabled: true
-      additionalLabels:
-        instance: primary
+  enabled: false
 
 prometheus-kafka-exporter:
   enabled: false
