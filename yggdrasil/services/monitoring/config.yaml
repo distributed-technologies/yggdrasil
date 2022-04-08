@@ -27,9 +27,13 @@ apps:
           traefik.ingress.kubernetes.io/router.entrypoints: web
   - name: prometheus
     source:
-      repoURL: 'https://distributed-technologies.github.io/helm-charts/'
-      targetRevision: 0.1.4
-      chart: prometheus
+      # repoURL: 'https://distributed-technologies.github.io/helm-charts/'
+      # targetRevision: 0.1.5
+      # chart: prometheus
+      repoURL: 'https://github.com/distributed-technologies/helm-charts/'
+      targetRevision: exporters-fix
+      # chart: prometheus
+      path: charts/prometheus/chart
       valuesFile: "prometheus.yaml"
   - name: promtail
     source:
