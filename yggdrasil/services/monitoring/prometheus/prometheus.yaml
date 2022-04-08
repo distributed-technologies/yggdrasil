@@ -1,2 +1,5 @@
 # https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
-# kube-prometheus-stack:
+kube-prometheus-stack:
+  prometheus:
+    service:
+      type: LoadBalancer
