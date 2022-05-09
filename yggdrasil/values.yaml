@@ -6,25 +6,16 @@
 # registry: <your-registry-here>
 
 applications:
-  argowf: false
-  argo-events: false
-  cache: false
   ceph: false
-  cert-manager: false
   cortex: false
-  example-guestbook: false
   external-dns: false
   grafana: false
-  harbor: false
-  influxdb: false
   ingress: false
   kafka: false
   loadbalancer: false
   loki: false
-  nifi: false
   ntp: false
   prometheus: false
   promtail: false
   rook: false
   tempo: false
-  vault: false
