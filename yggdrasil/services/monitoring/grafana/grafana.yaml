@@ -54,6 +54,9 @@ grafana:
           user: admin
           password: password
 
+  service:
+    type: LoadBalancer
+
   adminUser: admin
   adminPassword: password
 

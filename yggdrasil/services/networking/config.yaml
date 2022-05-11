@@ -14,7 +14,7 @@ apps:
       valuesFile: "ingress.yaml"
   - name: external-dns
     source:
-      repoURL: 'https://distributed-technologies.github.io/helm-charts/'
-      targetRevision: 0.1.0
+      repoURL: 'http://192.168.65.20:8080'
+      targetRevision: 0.1.1
       chart: external-dns
       valuesFile: "external-dns.yaml"
