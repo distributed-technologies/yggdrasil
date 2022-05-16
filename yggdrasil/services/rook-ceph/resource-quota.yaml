@@ -1,5 +1,5 @@
 hard:
-  requests.storage: 10Ti
+  requests.storage: 0Gi
   requests.cpu: "4"
   requests.memory: 16Gi
   limits.cpu: "8"
