@@ -12,8 +12,6 @@ applications:
   ceph: true
   cert-manager: false
   cortex: true
-  example-guestbook: false
-  exporters: false
   grafana: true
   harbor: false
   influxdb: false

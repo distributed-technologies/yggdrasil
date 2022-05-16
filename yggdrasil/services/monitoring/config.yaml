@@ -15,7 +15,7 @@ apps:
   - name: grafana
     source:
       repoURL: 'https://distributed-technologies.github.io/helm-charts/'
-      targetRevision: 0.1.10
+      targetRevision: 0.1.12
       chart: grafana
       valuesFile: "grafana.yaml"
     ingress:
@@ -27,12 +27,9 @@ apps:
           traefik.ingress.kubernetes.io/router.entrypoints: web
   - name: prometheus
     source:
-      # repoURL: 'https://distributed-technologies.github.io/helm-charts/'
-      # targetRevision: 0.1.5
-      # chart: prometheus
-      repoURL: 'https://github.com/distributed-technologies/helm-charts/'
-      targetRevision: exporters-fix
-      # chart: prometheus
+      repoURL: 'https://distributed-technologies.github.io/helm-charts/'
+      targetRevision: 0.1.6
+      chart: prometheus
       path: charts/prometheus/chart
       valuesFile: "prometheus.yaml"
   - name: promtail
@@ -41,12 +38,6 @@ apps:
       targetRevision: 0.1.0
       chart: promtail
       valuesFile: "promtail.yaml"
-  - name: exporters
-    source:
-      repoURL: 'https://distributed-technologies.github.io/helm-charts/'
-      targetRevision: 0.1.3
-      chart: exporters
-      valuesFile: "exporters.yaml"
   - name: loki
     source:
       repoURL: 'https://distributed-technologies.github.io/helm-charts/'
