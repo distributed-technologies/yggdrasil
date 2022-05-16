@@ -1,0 +1,6 @@
+hard:
+  requests.storage: 2Ti
+  requests.cpu: "8"
+  requests.memory: 32Gi
+  limits.cpu: "16"
+  limits.memory: 64Gi
