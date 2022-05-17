@@ -15,7 +15,7 @@ apps:
   - name: grafana
     source:
       repoURL: 'https://distributed-technologies.github.io/helm-charts/'
-      targetRevision: 0.1.10
+      targetRevision: 0.1.13
       chart: grafana
       valuesFile: "grafana.yaml"
     ingress:
@@ -28,7 +28,7 @@ apps:
   - name: prometheus
     source:
       repoURL: 'https://distributed-technologies.github.io/helm-charts/'
-      targetRevision: 0.1.4
+      targetRevision: 0.1.6
       chart: prometheus
       valuesFile: "prometheus.yaml"
   - name: promtail
