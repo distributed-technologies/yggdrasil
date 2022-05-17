@@ -6,23 +6,16 @@ storageClass: ceph-filesystem
 # registry: <your-registry-here>
 
 applications:
-  argowf: false
-  argo-events: false
-  cache: false
-  ceph: true
-  cert-manager: false
-  cortex: true
-  grafana: true
-  harbor: false
-  influxdb: false
+  ceph: false
+  cortex: false
+  external-dns: false
+  grafana: false
   ingress: false
   kafka: false
-  loadbalancer: true
-  loki: true
-  nifi: false
-  ntp: true
-  prometheus: true
-  promtail: true
-  rook: true
-  tempo: true
-  vault: false
+  loadbalancer: false
+  loki: false
+  ntp: false
+  prometheus: false
+  promtail: false
+  rook: false
+  tempo: false
