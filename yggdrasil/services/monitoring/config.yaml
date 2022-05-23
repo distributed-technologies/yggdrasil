@@ -8,13 +8,13 @@ description: All the monitoring apps, including but not limited to prometheus, g
 apps:
   - name: cortex
     source:
-      repoURL: 'https://distributed-technologies.github.io/helm-charts/'
+      repoURL: 'http://192.168.65.20:8080'
       targetRevision: 0.1.4
       chart: cortex
       valuesFile: "cortex.yaml"
   - name: grafana
     source:
-      repoURL: 'https://distributed-technologies.github.io/helm-charts/'
+      repoURL: 'http://192.168.65.20:8080'
       targetRevision: 0.1.14
       chart: grafana
       valuesFile: "grafana.yaml"
@@ -27,7 +27,7 @@ apps:
           traefik.ingress.kubernetes.io/router.entrypoints: web
   - name: prometheus
     source:
-      repoURL: 'https://distributed-technologies.github.io/helm-charts/'
+      repoURL: 'http://192.168.65.20:8080'
       targetRevision: 0.1.7
       chart: prometheus
       valuesFile: "prometheus.yaml"

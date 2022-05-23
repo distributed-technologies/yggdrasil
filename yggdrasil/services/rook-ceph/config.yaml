@@ -8,13 +8,13 @@ description: Rook.
 apps:
   - name: rook
     source:
-      repoURL: "https://distributed-technologies.github.io/helm-charts/"
+      repoURL: "http://192.168.65.20:8080"
       targetRevision: 0.1.6
       chart: rook
       valuesFile: "rook.yaml"
   - name: ceph
     source:
-      repoURL: "https://distributed-technologies.github.io/helm-charts/"
+      repoURL: "http://192.168.65.20:8080"
       targetRevision: 0.1.8
       chart: rook-ceph-cluster
       valuesFile: "ceph.yaml"
