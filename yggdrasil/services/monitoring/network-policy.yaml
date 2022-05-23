@@ -1,0 +1,11 @@
+policyTypes:
+  - Ingress
+  - Egress
+podSelector:
+  matchLable: {}
+ingress:
+  - from:
+    - namespaceSelector: {}
+egress:
+  - to:
+    - namespaceSelector: {}
