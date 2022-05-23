@@ -30,8 +30,6 @@ cortex:
   alertmanager:
     serviceMonitor:
       enabled: true
-      additionalLabels:
-        instance: primary
 
     # `config.expand-env: "true"` Allows the use of env vars in the config
     extraArgs:
@@ -44,8 +42,6 @@ cortex:
   distributor:
     serviceMonitor:
       enabled: true
-      additionalLabels:
-        instance: primary
 
     # `config.expand-env: "true"` Allows the use of env vars in the config
     extraArgs:
@@ -62,8 +58,6 @@ cortex:
 
     serviceMonitor:
       enabled: true
-      additionalLabels:
-        instance: primary
 
     persistentVolume:
       # Enabled to ease memory usage
@@ -81,8 +75,6 @@ cortex:
   ruler:
     serviceMonitor:
       enabled: true
-      additionalLabels:
-        instance: primary
 
     # `config.expand-env: "true"` Allows the use of env vars in the config
     extraArgs:
@@ -95,8 +87,6 @@ cortex:
   querier:
     serviceMonitor:
       enabled: true
-      additionalLabels:
-        instance: primary
 
     # `config.expand-env: "true"` Allows the use of env vars in the config
     extraArgs:
@@ -109,8 +99,6 @@ cortex:
   query_frontend:
     serviceMonitor:
       enabled: true
-      additionalLabels:
-        instance: primary
 
     # Add the env-vars to the deplyoment so they can be mapped to the config
     env:
@@ -119,14 +107,10 @@ cortex:
   table_manager:
     serviceMonitor:
       enabled: true
-      additionalLabels:
-        instance: primary
 
   store_gateway:
     serviceMonitor:
       enabled: true
-      additionalLabels:
-        instance: primary
 
     persistentVolume:
       storageClass: ceph-filesystem
@@ -142,8 +126,6 @@ cortex:
   compactor:
     serviceMonitor:
       enabled: true
-      additionalLabels:
-        instance: primary
 
     persistentVolume:
       storageClass: ceph-filesystem
