@@ -9,7 +9,7 @@ apps:
   - name: kafka
     replace: true
     source:
-      repoURL: "https://distributed-technologies.github.io/helm-charts/"
-      targetRevision: 1.1.2
-      chart: kafka
+      repoURL: "https://github.com/distributed-technologies/confluent-kafka.git"
+      targetRevision: main
+      path: chart
       valuesFile: "kafka.yaml"
