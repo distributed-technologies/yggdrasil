@@ -6,16 +6,16 @@
 # registry: <your-registry-here>
 
 applications:
-  ceph: false
-  cortex: false
-  external-dns: false
-  grafana: false
-  ingress: false
-  kafka: false
-  loadbalancer: false
-  loki: false
-  ntp: false
-  prometheus: false
-  promtail: false
-  rook: false
-  tempo: false
+  ceph: true
+  cortex: true
+  external-dns: true
+  grafana: true
+  ingress: true
+  kafka: true
+  loadbalancer: true
+  loki: true
+  ntp: true
+  prometheus: true
+  promtail: true
+  rook: true
+  tempo: true
