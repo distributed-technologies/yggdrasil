@@ -11,5 +11,5 @@ apps:
     source:
       repoURL: "https://github.com/distributed-technologies/confluent-kafka.git"
       targetRevision: main
-      chart: kafka
+      path: chart
       valuesFile: "kafka.yaml"
