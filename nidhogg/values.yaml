@@ -65,7 +65,7 @@ nidhogg:
                 hs.status = "Healthy"
                 return hs
         service:
-          type: NodePort
+          type: LoadBalancer
 
       configs:
         secret:
