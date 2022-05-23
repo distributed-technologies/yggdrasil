@@ -65,6 +65,9 @@ kubectl get svc -n yggdrasil
 ```
 Here, you should see the service called nidhogg-argocd-server and be able to see a public IP that you can access from your browser and login with the username and password.
 
+# Network-policies
+The current status of the network policies can be found on the [network-policies.md](docs/Network-policies.md)
+
 # Changes in 2.0.0
 In this version we have done the following changes:
 - Removed project definition from config.yaml and put it into its own file. This has been done because we are seeing a need to use all the configurations an argo project gives us, not just the limited subset that we had first configured.
