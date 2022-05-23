@@ -2,5 +2,3 @@
 loki-distributed:
   serviceMonitor:
     enabled: true
-    labels:
-      instance: primary

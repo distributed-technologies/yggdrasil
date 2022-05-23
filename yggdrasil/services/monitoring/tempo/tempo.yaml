@@ -87,5 +87,3 @@ tempo-distributed:
   # Makes service monitors for all resources created by Tempo
   serviceMonitor:
     enabled: true
-    labels:
-      instance: primary
