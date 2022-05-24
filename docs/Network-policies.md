@@ -35,9 +35,7 @@ Rook-ceph currently only needs to allow the provisioners to be accessed from oth
 
 ```mermaid
   flowchart LR
-    p(rook-ceph) -- Egress --> bucketCreator(nothing)
-
-    bucketCreator(Any NS that has an app that wants create a bucketClaim) -- Ingress --> t(Rook-ceph)
+    bucketCreator(Any NS that has an app that wants create a bucketClaim) -- Ingress --> t(rook-ceph)
 ```
 * Rook-ceph should not establish any connections out of its own namespace
 * Other namespaces should have access to rook-ceph to create a bucketClaim
