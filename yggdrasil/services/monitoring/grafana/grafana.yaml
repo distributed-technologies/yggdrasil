@@ -68,13 +68,6 @@ grafana:
       tag: 1.12.2
   {{- end }}
     imagePullPolicy: IfNotPresent
-    resources: {}
-    #   limits:
-    #     cpu: 100m
-    #     memory: 100Mi
-    #   requests:
-    #     cpu: 50m
-    #     memory: 50Mi
     # skipTlsVerify Set to true to skip tls verification for kube api calls
     # skipTlsVerify: true
     enableUniqueFilenames: false
