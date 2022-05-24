@@ -29,3 +29,18 @@ The conclusion is that the monitoring namespaces should **allow ingress from all
 
 The current implimentation of the network policy for the monitoring namespace. <br>
 [monitoring-network-policy.yaml](/yggdrasil/services/monitoring/network-policy.yaml)
+
+## Rook-ceph
+Rook-ceph currently only needs to allow the provisioners to be accessed from other namespaces.
+
+```mermaid
+  flowchart LR
+    bucketCreator(Any NS that has an app that wants create a bucketClaim) -- Ingress --> t(rook-ceph)
+```
+* Rook-ceph should not establish any connections out of its own namespace
+* Other namespaces should have access to rook-ceph to create a bucketClaim
+
+The conclusion is that the rook-ceph namespace should **allow ingress from all namespaces**, and **disallow egress to all namespaces**
+
+The current implimentation of the network policy for the rook-ceph namespace. <br>
+[rook-ceph-network-policy.yaml](/yggdrasil/services/rook-ceph/network-policy.yaml)
