@@ -44,3 +44,17 @@ The conclusion is that the rook-ceph namespace should **allow ingress from all n
 
 The current implimentation of the network policy for the rook-ceph namespace. <br>
 [rook-ceph-network-policy.yaml](/yggdrasil/services/rook-ceph/network-policy.yaml)
+
+## Yggdrasil
+Yggdrasil contains multiple applications, ArogCD and Cilium, Cilium being the app that enforces the network policies, we're only going to worry about ArgoCD for now.
+
+```mermaid
+flowchart LR
+cd(ArgoCD) -- ingress --> app(Serve the frontend)
+cd(ArgoCD) -- egress --> app2(Talk to registries)
+
+```
+* Yggdrasil should be able to connect to external sources.
+* Outside sources should be able to connect to Yggdrasil.
+
+The conclusion is that ArgoCD needs to, currently, **allow ingress connections from external sources** and **Allow egress to external sources**, for serving the frontend and pulling charts and connecting to git repos
