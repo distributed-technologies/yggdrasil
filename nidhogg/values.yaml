@@ -2,9 +2,9 @@ nidhogg:
   # A reference to this repo itself.
   yggdrasil:
     repoURL: "https://github.com/distributed-technologies/yggdrasil.git"
-    targetRevision: "main"
+    targetRevision: "feature/network-policies"
     # Enable the "enableCephAKS" to enable Ceph on AKS cluster. You can edit the number of OSDs in the values file for Ceph found in yggdrasil/services/rook-ceph/ceph/values.yaml
-    enableCephAKS: false
+    enableCephAKS: true
 
     # ingress:
       # Set either a subdomain or a path here
@@ -19,10 +19,17 @@ nidhogg:
       # ipRangeStop: 0.0.0.0
 
   cni:
-    # Whether to install the container network interface on the cluster. Should be false when using a managed Kubernetes solution (ex: Azure's AKS)
-    enabled: true
-    serviceMonitor:
-      enabled: false
+    cilium:
+      # Whether to install the container network interface on the cluster. Should be false when using a managed Kubernetes solution (ex: Azure's AKS)
+      enabled: true
+      serviceMonitor:
+        enabled: true
+      hubble:
+        enabled: true
+        ui:
+          enabled: true
+        relay:
+          enabled: true
   # Whether to enable the circular reference to allow nidhogg to monitor itself
   monitorNidhogg: true
 
@@ -65,7 +72,7 @@ nidhogg:
                 hs.status = "Healthy"
                 return hs
         service:
-          type: NodePort
+          type: LoadBalancer
 
       configs:
         secret:
