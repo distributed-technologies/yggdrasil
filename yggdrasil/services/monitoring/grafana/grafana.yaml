@@ -2,12 +2,6 @@ grafana:
   service:
     enabled: true
     type: LoadBalancer
-  {{- if .Values.registry }}
-  image:
-    repository: {{ .Values.registry }}/grafana/grafana
-  downloadDashboardsImage:
-    repository: {{ .Values.registry }}/curlimages/curl
-  {{- end }}
   datasources:
     datasources.yaml:
       apiVersion: 1
@@ -65,11 +59,6 @@ grafana:
       enable: tempoSearch tempoBackendSearch
 
   sidecar:
-  {{- if .Values.registry }}
-    image:
-      repository: {{ .Values.registry }}/kiwigrid/k8s-sidecar
-      tag: 1.12.2
-  {{- end }}
     imagePullPolicy: IfNotPresent
     # skipTlsVerify Set to true to skip tls verification for kube api calls
     # skipTlsVerify: true
