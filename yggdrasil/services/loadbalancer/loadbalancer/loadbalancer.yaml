@@ -1,11 +1,3 @@
 env: prod
 ipRangeStart: {{ .Values.loadbalancer.ipRangeStart }}
 ipRangeStop: {{ .Values.loadbalancer.ipRangeStop }}
-{{- if .Values.registry }}
-speaker:
-  image:
-    repository: {{ .Values.registry }}/metallb/speaker
-controller:
-  image:
-    repository: {{ .Values.registry }}/metallb/controller
-{{- end }}
