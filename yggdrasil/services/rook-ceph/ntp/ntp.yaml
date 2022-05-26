@@ -1,6 +1,3 @@
 # this is a values file
 image:
-  {{- if .Values.registry }}
-  repository: {{ .Values.registry }}/distributed-technologies/services-ntp
-  {{- end }}
   pullPolicy: IfNotPresent
