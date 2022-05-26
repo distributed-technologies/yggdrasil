@@ -1,0 +1,8 @@
+limits:
+  - default:
+      cpu: 100m
+      memory: 64Mi
+    defaultRequest:
+      cpu: 50m
+      memory: 32Mi
+    type: Container

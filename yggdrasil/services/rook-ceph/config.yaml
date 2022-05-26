@@ -9,13 +9,13 @@ apps:
   - name: rook
     source:
       repoURL: "https://distributed-technologies.github.io/helm-charts/"
-      targetRevision: 0.1.5
+      targetRevision: 0.1.6
       chart: rook
       valuesFile: "rook.yaml"
   - name: ceph
     source:
       repoURL: "https://distributed-technologies.github.io/helm-charts/"
-      targetRevision: 0.1.7
+      targetRevision: 0.1.8
       chart: rook-ceph-cluster
       valuesFile: "ceph.yaml"
   - name: ntp
