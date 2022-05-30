@@ -11,7 +11,7 @@ applications:
   external-dns: false
   grafana: true
   ingress: false
-  kafka: true
+  kafka: false
   loadbalancer: false
   loki: true
   ntp: false
