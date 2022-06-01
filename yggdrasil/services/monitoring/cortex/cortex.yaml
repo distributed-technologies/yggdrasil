@@ -50,6 +50,10 @@ cortex:
     # Add the env-vars to the deplyoment so they can be mapped to the config
     env:
       {{- include "bucket-claim.env-var" "cortex-bucket-claim" | nindent 6 }}
+    resources:
+      limits:
+        cpu: 500m
+        memory: 1Gi
 
   ingester:
     statefulSet:
