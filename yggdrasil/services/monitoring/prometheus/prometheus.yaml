@@ -1,2 +1,8 @@
 # https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
-# kube-prometheus-stack:
+kube-prometheus-stack:
+  prometheus:
+    prometheusSpec:
+      resources:
+        limits:
+          cpu: 1000m
+          memory: 4Gi
