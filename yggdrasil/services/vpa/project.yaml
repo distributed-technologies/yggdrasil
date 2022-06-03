@@ -5,9 +5,11 @@ description: Vertical pod autoscaler Argo Project
 sourceRepos:
 - '*'
 
-# Only permit applications to deploy to the guestbook namespace in the same cluster
+# Only permit applications to deploy to these namespaces
 destinations:
 - namespace: vpa
+  server: https://kubernetes.default.svc
+- namespace: kube-system
   server: https://kubernetes.default.svc
 
 # Deny all cluster-scoped resources from being created, except for Namespace
