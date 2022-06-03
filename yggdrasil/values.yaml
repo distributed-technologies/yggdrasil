@@ -16,3 +16,4 @@ applications:
   promtail: true
   rook: true
   tempo: true
+  metrics-server: true

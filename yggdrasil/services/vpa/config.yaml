@@ -1,0 +1,15 @@
+name: vpa
+namespace: vpa
+namespaceLabels:
+  space: service
+space: service
+description: The vertical pod autoscaler
+
+apps:
+  - name: metrics-server
+    replace: true
+    source:
+      repoURL: "https://kubernetes-sigs.github.io/metrics-server/"
+      targetRevision: 3.8.2
+      chart: metrics-server
+      valuesFile: "metrics-server.yaml"
