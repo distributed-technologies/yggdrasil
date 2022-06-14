@@ -6,7 +6,7 @@
 # registry: <your-registry-here>
 
 applications:
-  ceph: false
+  ceph: true
   cortex: false
   external-dns: false
   grafana: false
@@ -14,8 +14,9 @@ applications:
   kafka: false
   loadbalancer: false
   loki: false
-  ntp: false
+  ntp: true
   prometheus: false
   promtail: false
-  rook: false
+  rook: true
   tempo: false
+  monitoring-stack: true

@@ -18,13 +18,6 @@ apps:
       targetRevision: 0.1.13
       chart: grafana
       valuesFile: "grafana.yaml"
-    ingress:
-      - subDomain: grafana
-        path: /
-        servicePort: 80
-        serviceName: grafana
-        annotation:
-          traefik.ingress.kubernetes.io/router.entrypoints: web
   - name: prometheus
     source:
       repoURL: 'https://distributed-technologies.github.io/helm-charts/'
@@ -49,3 +42,9 @@ apps:
       targetRevision: 0.1.1
       chart: tempo-distributed
       valuesFile: "tempo.yaml"
+  - name: monitoring-stack
+    source:
+      repoURL: 'https://github.com/distributed-technologies/helm-charts'
+      targetRevision: feature/monitoring-stack
+      path: charts/monitoring-stack/chart
+      valuesFile: "monitoring-stack.yaml"
