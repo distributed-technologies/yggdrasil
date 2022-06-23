@@ -42,13 +42,6 @@ rook-ceph-cluster:
                     - rook-ceph-osd
                     - rook-ceph-osd-prepare
                 topologyKey: kubernetes.io/hostname
-        resources:
-          limits:
-            cpu: "500m"
-            memory: "4Gi"
-          requests:
-            cpu: "500m"
-            memory: "2Gi"
         volumeClaimTemplates:
         - metadata:
             name: data
