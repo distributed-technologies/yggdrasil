@@ -1,4 +1,15 @@
 # https://github.com/grafana/helm-charts/blob/main/charts/loki-distributed/values.yaml
-loki-distributed:
-  serviceMonitor:
-    enabled: true
+loki:
+  storage:
+    type: filesystem
+    filesystem:
+      directory: /loki-123
+
+  structuredConfig:
+    limits_config:
+      retention_period: 336h
+    compactor:
+      retention_enabled: true
+
+serviceMonitor:
+  enabled: false

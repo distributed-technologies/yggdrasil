@@ -32,9 +32,9 @@ apps:
       valuesFile: "promtail.yaml"
   - name: loki
     source:
-      repoURL: 'https://distributed-technologies.github.io/helm-charts/'
-      targetRevision: 1.0.1
-      chart: loki
+      repoURL: 'https://grafana.github.io/helm-charts'
+      targetRevision: 1.4.0
+      chart: loki-simple-scalable
       valuesFile: "loki.yaml"
   - name: tempo
     source:
@@ -42,9 +42,3 @@ apps:
       targetRevision: 0.1.1
       chart: tempo-distributed
       valuesFile: "tempo.yaml"
-  - name: monitoring-stack
-    source:
-      repoURL: 'https://github.com/distributed-technologies/helm-charts'
-      targetRevision: feature/monitoring-stack
-      path: charts/monitoring-stack/chart
-      valuesFile: "monitoring-stack.yaml"
